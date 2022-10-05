@@ -5,7 +5,8 @@ import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import edu.uga.miage.m1.polygons.gui.strategy.ImportFile;
 import edu.uga.miage.m1.polygons.gui.strategy.JsonImportStrategy;
 import edu.uga.miage.m1.polygons.gui.strategy.XMLImportStrategy;
-import edu.uga.miage.m1.polygons.gui.utils.FileExtenstion;
+import edu.uga.miage.m1.polygons.gui.utils.FileUtils;
+import lombok.Getter;
 import lombok.extern.java.Log;
 
 import javax.swing.*;
@@ -15,35 +16,26 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
-<span class="nc" id="L18">@Log</span>
-public class Import {
+<span class="nc" id="L19">@Log</span>
+@Getter
+<span class="nc" id="L21">public class Import {</span>
 
-    private Import() {
-    }
+<span class="nc" id="L23">    private final FileUtils fileUtils = new FileUtils();</span>
 
-    public static List&lt;SimpleShape&gt; importShapesFile() {
-<span class="nc" id="L25">        File file = Import.openFile();</span>
-<span class="nc" id="L26">        ImportFile importFile = new ImportFile(file);</span>
+    public List&lt;SimpleShape&gt; importShapesFile() {
+<span class="nc" id="L26">        File file = fileUtils.openFile();</span>
+<span class="nc" id="L27">        ImportFile importFile = new ImportFile(file);</span>
 
-<span class="nc" id="L28">        String fileType = FileExtenstion.get(file);</span>
-<span class="nc bnc" id="L29" title="All 3 branches missed.">        switch (fileType) {</span>
+<span class="nc" id="L29">        String fileType = fileUtils.getExtension(file);</span>
+<span class="nc bnc" id="L30" title="All 3 branches missed.">        switch (fileType) {</span>
             case &quot;xml&quot;:
-<span class="nc" id="L31">                return importFile.createShapesList(new XMLImportStrategy());</span>
+<span class="nc" id="L32">                return importFile.createShapesList(new XMLImportStrategy());</span>
             case &quot;json&quot;:
-<span class="nc" id="L33">                return importFile.createShapesList(new JsonImportStrategy());</span>
+<span class="nc" id="L34">                return importFile.createShapesList(new JsonImportStrategy());</span>
             default:
-<span class="nc" id="L35">                log.log(Level.WARNING, &quot;Type de fichier non pris en charge pour l'import&quot;);</span>
+<span class="nc" id="L36">                log.log(Level.WARNING, &quot;Type de fichier non pris en charge pour l'import&quot;);</span>
         }
-<span class="nc" id="L37">        return Collections.emptyList();</span>
-    }
-
-    private static File openFile() {
-<span class="nc" id="L41">        JFileChooser chooser = new JFileChooser(&quot;./&quot;);</span>
-<span class="nc" id="L42">        FileNameExtensionFilter filter = new FileNameExtensionFilter(</span>
-                &quot;Fichiers xml ou json uniquement&quot;, &quot;xml&quot;, &quot;json&quot;);
-<span class="nc" id="L44">        chooser.setFileFilter(filter);</span>
-<span class="nc" id="L45">        chooser.showOpenDialog(JDrawingFrame.panel);</span>
-<span class="nc" id="L46">        return chooser.getSelectedFile();</span>
+<span class="nc" id="L38">        return Collections.emptyList();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

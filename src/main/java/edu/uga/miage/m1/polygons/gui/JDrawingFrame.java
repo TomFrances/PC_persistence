@@ -58,6 +58,8 @@ public class JDrawingFrame extends JFrame
     private final JToolBar toolbar;
     private Shapes selected;
     public static final JPanel panel = new JPanel();
+    public final transient Import importTool = new Import();
+    public final transient Export exportTool = new Export();
     private final JLabel label;
     private transient List<SimpleShape> shapesList = new ArrayList<>();
     private final transient ActionListener reusableActionListener = new ShapeActionListener();
@@ -74,6 +76,7 @@ public class JDrawingFrame extends JFrame
     public JDrawingFrame(String frameName)
     {
         super(frameName);
+
         // Instantiates components
         toolbar = new JToolBar("Toolbar", SwingConstants.VERTICAL);
         JMenuBar menuBar = createToolsMenu();
@@ -137,7 +140,7 @@ public class JDrawingFrame extends JFrame
         itemJsonExport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Export.jsonExport(shapesList);
+                exportTool.jsonExport(shapesList);
             }
         });
         itemJsonExport.setText("JSON");
@@ -147,7 +150,7 @@ public class JDrawingFrame extends JFrame
         itemXmlExport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Export.xmlExport(shapesList);
+                exportTool.xmlExport(shapesList);
             }
         });
         itemXmlExport.setText("XML");
@@ -156,7 +159,7 @@ public class JDrawingFrame extends JFrame
         JMenuItem importItem = new JMenuItem("Import");
         importItem.setText("Import");
         importItem.addActionListener(e -> {
-            shapesList = Import.importShapesFile();
+            shapesList = importTool.importShapesFile();
             drawALlShapes();
         });
 

@@ -1,7 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
-import edu.uga.miage.m1.polygons.gui.utils.SimpleShapeType;
+import edu.uga.miage.m1.polygons.gui.utils.ShapeUtils;
 
 /**
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
@@ -16,7 +16,7 @@ public class XMLVisitor implements Visitor {
     }
 
     private String createRepresentation(SimpleShape shape) {
-        return String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", SimpleShapeType.get(shape), shape.getX(), shape.getY());
+        return String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", (new ShapeUtils()).getType(shape), shape.getX(), shape.getY());
     }
 
     /**

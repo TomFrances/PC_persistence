@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ImportTest {
 
     @Test
-    void testTaMere(){
+    void testImportShapesFile() {
         int x = 1;
         assertEquals(1, x);
     }

@@ -4,6 +4,7 @@ import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import lombok.extern.java.Log;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -31,7 +32,9 @@ public class JsonImportStrategy implements ImportStrategy {
                 shapes.add(shapeFactory.createSimpleShape(type, x, y));
             });
         } catch (IOException e) {
-            log.log(Level.WARNING, e.getMessage(), file.getPath());
+            log.log(Level.WARNING, String.format("JSON Import error : %s, file %s", e.getMessage(), file.getPath()));
+        } catch (JSONException e) {
+            log.log(Level.WARNING, String.format("JSON Import error : %s", e.getMessage()));
         }
         return shapes;
     }
