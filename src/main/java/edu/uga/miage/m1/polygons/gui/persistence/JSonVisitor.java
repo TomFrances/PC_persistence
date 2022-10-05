@@ -1,7 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
-import edu.uga.miage.m1.polygons.gui.utils.SimpleShapeType;
+import edu.uga.miage.m1.polygons.gui.utils.ShapeUtils;
 
 import javax.json.Json;
 
@@ -19,7 +19,7 @@ public class JSonVisitor implements Visitor {
 
     private String createRepresentation(SimpleShape shape) {
         return Json.createObjectBuilder()
-                .add("type", SimpleShapeType.get(shape))
+                .add("type", (new ShapeUtils()).getType(shape))
                 .add("x",shape.getX())
                 .add("y",shape.getY())
                 .build()

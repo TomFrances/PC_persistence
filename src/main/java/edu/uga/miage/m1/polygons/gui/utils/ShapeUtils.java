@@ -2,11 +2,9 @@ package edu.uga.miage.m1.polygons.gui.utils;
 
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 
-public class SimpleShapeType {
+public class ShapeUtils {
 
-    private SimpleShapeType() {}
-
-    public static String get(SimpleShape shape){
+    public String getType(SimpleShape shape){
         String shapeClass = shape.getClass().toString();
         return shapeClass.substring(shapeClass.lastIndexOf(".") + 1).toLowerCase();
     }

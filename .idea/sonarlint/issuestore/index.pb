@@ -55,3 +55,15 @@ n
 >src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Square.java,6\9\691e97c639ef86eed00359f6e3e9413db372988b
 |
 Lsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/JsonImportStrategy.java,9\4\94911bbc8f547ed4cbaecee85d8dd03da1e9e937
+n
+>src/main/java/edu/uga/miage/m1/polygons/gui/JDrawingFrame.java,b\4\b417ee515febecc876f9a743544b94ff1a6c7dce
+y
+Isrc/test/java/edu/uga/miage/m1/polygons/gui/factory/ShapeFactoryTest.java,b\0\b0ead6cd54750f4ca10d64a054efd29dd7bb1055
+r
+Bsrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/CircleTest.java,7\e\7e94dd76108cde0a8cda24dffeed1fb7de828bb5
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+{
+Ksrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/XMLImportStrategy.java,e\9\e96346afba985a88e01f464f51cc9c45f4e83369
+w
+Gsrc/main/java/edu/uga/miage/m1/polygons/gui/file_management/Export.java,f\c\fc9c428f2bbd3e988af028fc54c6adf7fb5a1a5f

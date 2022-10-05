@@ -13,7 +13,7 @@ class FileExtenstionTest {
         File file = new File("./src/ressources/file1.xml");
         assertNotNull(file);
         assertEquals("file1.xml", file.getName());
-        assertEquals("xml", FileExtenstion.get(file));
+        assertEquals("xml", FileUtils.getExtension(file));
     }
 
     @Test
@@ -21,6 +21,6 @@ class FileExtenstionTest {
         File file = new File("./src/ressources/file1.json");
         assertNotNull(file);
         assertEquals("file1.json", file.getName());
-        assertEquals("json", FileExtenstion.get(file));
+        assertEquals("json", FileUtils.getExtension(file));
     }
 }
