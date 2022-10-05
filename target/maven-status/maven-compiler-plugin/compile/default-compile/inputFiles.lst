@@ -1,4 +1,5 @@
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\file_management\Import.java
+C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\utils\ShapeUtils.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\GUIHelper.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\strategy\XMLImportStrategy.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\shapes\Square.java
@@ -6,9 +7,9 @@ C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\poly
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\file_management\Export.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\persistence\Visitor.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\strategy\ImportFile.java
-C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\utils\SimpleShapeType.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\shapes\Triangle.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\persistence\Visitable.java
+C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\utils\FileUtils.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\factory\SimpleShapeFactory.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\shapes\SimpleShape.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\shapes\Star.java
@@ -19,4 +20,3 @@ C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\poly
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\strategy\ImportStrategy.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\strategy\JsonImportStrategy.java
 C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\persistence\XMLVisitor.java
-C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\src\main\java\edu\uga\miage\m1\polygons\gui\utils\FileExtenstion.java

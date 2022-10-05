@@ -6,3 +6,6 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+/sonarlint/issuestore/
+/git_toolbox_prj.xml
+/sonarlint/issuestore/5/b/5b222a40d5f433cf9f42a719cedb91114cd9ee5a

@@ -12,26 +12,20 @@ import java.util.logging.Logger;
 
 public class Export {
 
-    private static final String JSON_FILE_NAME = "jsonExport.json";
-    private static final String XML_FILE_NAME = "xmlExport.xml";
-
-    private static Visitor visitor;
-
-    private Export() {
-    }
+    private Visitor visitor;
 
     /**
      * Export all the drawn figure to a json format
      */
-    public static void jsonExport(List<SimpleShape> shapesList) {
-        try (FileWriter fileWriter = new FileWriter(JSON_FILE_NAME, false)) {
+    public void jsonExport(List<SimpleShape> shapesList) {
+        try (FileWriter fileWriter = new FileWriter("jsonExport.json", false)) {
             if(!(visitor instanceof JSonVisitor)){
                 visitor = new JSonVisitor();
             }
 
             String res = (shapesList
                     .stream()
-                    .map(Export::createRepresentation)
+                    .map(this::createRepresentation)
                     .reduce("{\"shapes\": [", String::concat)
                     .replace("}{", "},{")
                     .concat("]}"));
@@ -45,15 +39,15 @@ public class Export {
     /**
      * Export all the drawn figure to a json format
      */
-    public static void xmlExport(List<SimpleShape> shapesList) {
-        try (FileWriter fileWriter = new FileWriter(XML_FILE_NAME, false)) {
+    public void xmlExport(List<SimpleShape> shapesList) {
+        try (FileWriter fileWriter = new FileWriter("xmlExport.xml", false)) {
             if(!(visitor instanceof XMLVisitor)){
                 visitor = new XMLVisitor();
             }
 
             String res = (shapesList
                     .stream()
-                    .map(Export::createRepresentation)
+                    .map(this::createRepresentation)
                     .reduce("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>", String::concat)
                     .concat("</shapes></root>"));
 
@@ -63,7 +57,7 @@ public class Export {
         }
     }
 
-    private static String createRepresentation(SimpleShape shape) {
+    private String createRepresentation(SimpleShape shape) {
         shape.accept(visitor);
         return visitor.getRepresentation();
     }
