@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="VisiteurDuMatin_g2_3" />
+        <module name="PC_persistence" />
       </profile>
     </annotationProcessing>
   </component>

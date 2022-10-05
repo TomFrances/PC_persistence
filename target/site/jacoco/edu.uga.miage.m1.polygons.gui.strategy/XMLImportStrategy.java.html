@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XMLImportStrategy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VisiteurDuMatin_g2_3</a> &gt; <a href="index.source.html" class="el_package">edu.uga.miage.m1.polygons.gui.strategy</a> &gt; <span class="el_source">XMLImportStrategy.java</span></div><h1>XMLImportStrategy.java</h1><pre class="source lang-java linenums">package edu.uga.miage.m1.polygons.gui.strategy;
+
+import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
+import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import lombok.extern.java.Log;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.util.*;
+import java.util.logging.Level;
+
+<span class="nc" id="L16">@Log</span>
+<span class="nc" id="L17">public class XMLImportStrategy implements ImportStrategy {</span>
+
+    @Override
+    public List&lt;SimpleShape&gt; importShapes(File file) {
+        try {
+<span class="nc" id="L22">            List&lt;SimpleShape&gt; shapesList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L24">            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L25">            dbf.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, true);</span>
+<span class="nc" id="L26">            DocumentBuilder db = dbf.newDocumentBuilder();</span>
+<span class="nc" id="L27">            Document xmlDocument = db.parse(file.getPath());</span>
+
+<span class="nc" id="L29">            ShapeFactory shapeFactory = new ShapeFactory();</span>
+
+<span class="nc" id="L31">            NodeList shapes = xmlDocument.getElementsByTagName(&quot;shape&quot;);</span>
+<span class="nc" id="L32">            int nbShape = shapes.getLength();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            for (int i = 0; i &lt; nbShape; i++) {</span>
+<span class="nc" id="L34">                Element shapeElement = (Element) shapes.item(i);</span>
+<span class="nc" id="L35">                shapesList.add(createShape(shapeElement, shapeFactory));</span>
+            }
+
+<span class="nc" id="L38">            return shapesList;</span>
+<span class="nc" id="L39">        }catch(Exception e){</span>
+<span class="nc" id="L40">            log.log(Level.WARNING, String.format(&quot;Parsing error : %s&quot;, e.getMessage()));</span>
+        }
+
+<span class="nc" id="L43">        return Collections.emptyList();</span>
+    }
+
+    private SimpleShape createShape(Element shapeElement, ShapeFactory shapeFactory){
+<span class="nc" id="L47">        String type = shapeElement.getElementsByTagName(&quot;type&quot;).item(0).getTextContent();</span>
+<span class="nc" id="L48">        int x = Integer.parseInt(shapeElement.getElementsByTagName(&quot;x&quot;).item(0).getTextContent());</span>
+<span class="nc" id="L49">        int y = Integer.parseInt(shapeElement.getElementsByTagName(&quot;y&quot;).item(0).getTextContent());</span>
+<span class="nc" id="L50">        return shapeFactory.createSimpleShape(type, x, y);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
