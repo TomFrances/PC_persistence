@@ -18,11 +18,9 @@ import java.util.logging.Level;
 @Log
 public class Import {
 
-    private Import() {
-    }
 
-    public static List<SimpleShape> importShapesFile() {
-        File file = Import.openFile();
+    public List<SimpleShape> importShapesFile() {
+        File file = openFile();
         ImportFile importFile = new ImportFile(file);
 
         String fileType = FileExtenstion.get(file);
@@ -37,7 +35,7 @@ public class Import {
         return Collections.emptyList();
     }
 
-    private static File openFile() {
+    private File openFile() {
         JFileChooser chooser = new JFileChooser("./");
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "Fichiers xml ou json uniquement", "xml", "json");
