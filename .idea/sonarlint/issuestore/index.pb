@@ -7,8 +7,6 @@ Hsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/ImportStrategy.java,e\1\e
 xmlExport.xml,3\a\3ac52a07a9831d24274b2f5c296545b16899b451
 t
 Dsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/ImportFile.java,7\5\75812295dcc5e7d198e1944376fbe9abf52cc891
-N
-src/test/ressources/file1.json,c\a\ca83eacbbfe64df68d9103637ed6175da0015753
 M
 src/test/ressources/file1.xml,3\9\3904692e042d539e6879daadc629101560b4716b
 w

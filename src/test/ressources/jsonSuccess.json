@@ -1,1 +1,24 @@
-{"shapes": [{"type":"star","x":65,"y":242},{"type":"circle","x":89,"y":144},{"type":"triangle","x":257,"y":58},{"type":"square","x":202,"y":170}]}
+{
+  "shapes": [
+    {
+      "type": "star",
+      "x": 65,
+      "y": 242
+    },
+    {
+      "type": "circle",
+      "x": 89,
+      "y": 144
+    },
+    {
+      "type": "triangle",
+      "x": 257,
+      "y": 58
+    },
+    {
+      "type": "square",
+      "x": 202,
+      "y": 170
+    }
+  ]
+}
