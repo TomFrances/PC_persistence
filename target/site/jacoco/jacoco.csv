@@ -7,7 +7,7 @@ VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,JDrawingFrame.new AbstractAct
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,App,6,0,0,0,3,0,2,0,2,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,JDrawingFrame.Shapes,27,0,0,0,1,0,1,0,1,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,GUIHelper,18,0,0,0,6,0,1,0,1,0
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.persistence,JSonVisitor,0,39,0,0,0,12,0,5,0,5
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.persistence,JSonVisitor,0,34,0,0,0,11,0,4,0,4
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.persistence,XMLVisitor,40,0,0,0,6,0,4,0,4,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.strategy,XMLImportStrategy,102,0,2,0,21,0,5,0,4,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.strategy,ImportFile,11,0,0,0,4,0,2,0,2,0

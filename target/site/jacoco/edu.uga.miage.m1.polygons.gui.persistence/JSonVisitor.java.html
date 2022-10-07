@@ -2,31 +2,28 @@
 
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import edu.uga.miage.m1.polygons.gui.utils.ShapeUtils;
-import lombok.extern.java.Log;
 
 import javax.json.Json;
-import java.util.logging.Level;
 
 /**
  * @author &lt;a href=&quot;mailto:christophe.saint-marcel@univ-grenoble-alpes.fr&quot;&gt;Christophe&lt;/a&gt;
  */
-<span class="fc" id="L13">@Log</span>
-<span class="fc" id="L14">public class JSonVisitor implements Visitor {</span>
+<span class="fc" id="L11">public class JSonVisitor implements Visitor {</span>
 
-<span class="fc" id="L16">    private String representation = null;</span>
+<span class="fc" id="L13">    private String representation = null;</span>
 
     @Override
     public void visit(SimpleShape shape) {
-<span class="fc" id="L20">        this.representation  = createRepresentation(shape);</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L17">        this.representation  = createRepresentation(shape);</span>
+<span class="fc" id="L18">    }</span>
 
     private String createRepresentation(SimpleShape shape) {
-<span class="fc" id="L24">        return Json.createObjectBuilder()</span>
-<span class="fc" id="L25">                .add(&quot;type&quot;, (new ShapeUtils()).getType(shape))</span>
-<span class="fc" id="L26">                .add(&quot;x&quot;,shape.getX())</span>
-<span class="fc" id="L27">                .add(&quot;y&quot;,shape.getY())</span>
-<span class="fc" id="L28">                .build()</span>
-<span class="fc" id="L29">                .toString();</span>
+<span class="fc" id="L21">        return Json.createObjectBuilder()</span>
+<span class="fc" id="L22">                .add(&quot;type&quot;, (new ShapeUtils()).getType(shape))</span>
+<span class="fc" id="L23">                .add(&quot;x&quot;,shape.getX())</span>
+<span class="fc" id="L24">                .add(&quot;y&quot;,shape.getY())</span>
+<span class="fc" id="L25">                .build()</span>
+<span class="fc" id="L26">                .toString();</span>
     }
 
     /**
@@ -45,7 +42,7 @@ import java.util.logging.Level;
      *         &lt;/pre&gt;
      */
     public String getRepresentation() {
-<span class="fc" id="L48">        return representation;</span>
+<span class="fc" id="L45">        return representation;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

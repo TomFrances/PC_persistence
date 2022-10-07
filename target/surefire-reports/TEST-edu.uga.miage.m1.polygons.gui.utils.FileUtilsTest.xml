@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.uga.miage.m1.polygons.gui.utils.FileUtilsTest" time="1.153" tests="4" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.uga.miage.m1.polygons.gui.utils.FileUtilsTest" time="1.27" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="FR"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-18.0.2.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\tomfr\AppData\Local\Temp\surefire16518650814719314972\surefirebooter11022839620876023218.jar C:\Users\tomfr\AppData\Local\Temp\surefire16518650814719314972 2022-10-07T10-34-45_883-jvmRun1 surefire7371143349448781152tmp surefire_012891145115115916089tmp"/>
+    <property name="sun.java.command" value="C:\Users\tomfr\AppData\Local\Temp\surefire302487449854434483\surefirebooter9530792468442066685.jar C:\Users\tomfr\AppData\Local\Temp\surefire302487449854434483 2022-10-07T10-52-26_090-jvmRun1 surefire2760453168480159898tmp surefire_014518913340084065173tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\target\test-classes;C:\Users\tomfr\M1 MIAGE\PC\Visiteur du matin\target\classes;C:\Users\tomfr\.m2\repository\org\glassfish\javax.json\1.1.4\javax.json-1.1.4.jar;C:\Users\tomfr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.4.0\junit-jupiter-engine-5.4.0.jar;C:\Users\tomfr\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\tomfr\.m2\repository\org\junit\platform\junit-platform-engine\1.4.0\junit-platform-engine-1.4.0.jar;C:\Users\tomfr\.m2\repository\org\opentest4j\opentest4j\1.1.1\opentest4j-1.1.1.jar;C:\Users\tomfr\.m2\repository\org\junit\platform\junit-platform-commons\1.4.0\junit-platform-commons-1.4.0.jar;C:\Users\tomfr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.4.0\junit-jupiter-api-5.4.0.jar;C:\Users\tomfr\.m2\repository\org\json\json\20220924\json-20220924.jar;C:\Users\tomfr\.m2\repository\org\projectlombok\lombok\1.18.24\lombok-1.18.24.jar;C:\Users\tomfr\.m2\repository\org\mockito\mockito-core\4.6.1\mockito-core-4.6.1.jar;C:\Users\tomfr\.m2\repository\net\bytebuddy\byte-buddy\1.12.10\byte-buddy-1.12.10.jar;C:\Users\tomfr\.m2\repository\net\bytebuddy\byte-buddy-agent\1.12.10\byte-buddy-agent-1.12.10.jar;C:\Users\tomfr\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\tomfr\AppData\Local\Temp\surefire16518650814719314972\surefirebooter11022839620876023218.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\tomfr\AppData\Local\Temp\surefire302487449854434483\surefirebooter9530792468442066685.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="18.0.2.1+1-1"/>
@@ -60,7 +60,7 @@
   </properties>
   <testcase name="testGetJsonFileExtension" classname="edu.uga.miage.m1.polygons.gui.utils.FileUtilsTest" time="0.007"/>
   <testcase name="testGetXMLFileExtension" classname="edu.uga.miage.m1.polygons.gui.utils.FileUtilsTest" time="0.001"/>
-  <testcase name="testOpenFile" classname="edu.uga.miage.m1.polygons.gui.utils.FileUtilsTest" time="1.136">
+  <testcase name="testOpenFile" classname="edu.uga.miage.m1.polygons.gui.utils.FileUtilsTest" time="1.259">
     <system-err><![CDATA[java.lang.instrument.IllegalClassFormatException: Error while instrumenting net/bytebuddy/utility/Invoker$Dispatcher.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
@@ -160,7 +160,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 85 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -243,7 +243,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:562)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:548)
-Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S.
+Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -256,7 +256,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 82 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S$auxiliary$PY6X6FCH.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2$auxiliary$m9sxGG2O.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -339,7 +339,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:562)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:548)
-Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S$auxiliary$PY6X6FCH.
+Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2$auxiliary$m9sxGG2O.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -352,7 +352,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 82 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S$auxiliary$XPt8W6cD.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2$auxiliary$HH6XwO80.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -435,7 +435,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:562)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:548)
-Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S$auxiliary$XPt8W6cD.
+Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2$auxiliary$HH6XwO80.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -448,7 +448,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 82 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S$auxiliary$HcJPxwj8.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2$auxiliary$27RvuoEh.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -531,7 +531,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:562)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:548)
-Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S$auxiliary$HcJPxwj8.
+Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2$auxiliary$27RvuoEh.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -544,7 +544,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 82 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S$auxiliary$n5pNpmQw.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2$auxiliary$1GA1VVz8.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -627,7 +627,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting edu/
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:562)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:548)
-Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$JTN6S06S$auxiliary$n5pNpmQw.
+Caused by: java.io.IOException: Error while instrumenting edu/uga/miage/m1/polygons/gui/utils/FileUtils$MockitoMock$LQWL9Xg2$auxiliary$1GA1VVz8.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -642,5 +642,5 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	... 82 more
 ]]></system-err>
   </testcase>
-  <testcase name="testConstructor" classname="edu.uga.miage.m1.polygons.gui.utils.FileUtilsTest" time="0.001"/>
+  <testcase name="testConstructor" classname="edu.uga.miage.m1.polygons.gui.utils.FileUtilsTest" time="0"/>
 </testsuite>

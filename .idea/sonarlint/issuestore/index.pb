@@ -49,7 +49,3 @@ Lsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/JsonImportStrategy.java,9
 Ksrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/XMLImportStrategy.java,e\9\e96346afba985a88e01f464f51cc9c45f4e83369
 w
 Gsrc/main/java/edu/uga/miage/m1/polygons/gui/file_management/Export.java,f\c\fc9c428f2bbd3e988af028fc54c6adf7fb5a1a5f
-w
-Gsrc/main/java/edu/uga/miage/m1/polygons/gui/file_management/Import.java,d\e\dea05f753dbe3b6ddd60613492c7eb08e6d9324f
-w
-Gsrc/main/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitor.java,f\a\fad004d4e84494b61ebb4b97f3a6981aff59cfb5
