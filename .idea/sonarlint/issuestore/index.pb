@@ -43,8 +43,6 @@ w
 G.idea/sonarlint/issuestore/2/8/28e4a2e57ea1412e35cd955351520c20c1e52c43,a\2\a208f717011adff673b991d4940a36251b05a724
 n
 >src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Square.java,6\9\691e97c639ef86eed00359f6e3e9413db372988b
-|
-Lsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/JsonImportStrategy.java,9\4\94911bbc8f547ed4cbaecee85d8dd03da1e9e937
 {
 Ksrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/XMLImportStrategy.java,e\9\e96346afba985a88e01f464f51cc9c45f4e83369
 w
