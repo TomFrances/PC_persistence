@@ -3,8 +3,8 @@
 
 ** Liste des tests restants a réaliser **
 
-[] Import.java
-[] Export.java
-[] XMLVisitor.java
-[] XMLImportStrategy.java
-[] ImportFile.java
+- [ ] Import.java
+- [ ] Export.java
+- [ ] XMLVisitor.java
+- [ ] XMLImportStrategy.java
+- [ ] ImportFile.java
