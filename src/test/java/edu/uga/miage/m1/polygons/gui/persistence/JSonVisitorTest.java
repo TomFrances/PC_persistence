@@ -3,16 +3,12 @@ package edu.uga.miage.m1.polygons.gui.persistence;
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import edu.uga.miage.m1.polygons.gui.shapes.Star;
-import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-@Log
 class JSonVisitorTest {
 
     @Test

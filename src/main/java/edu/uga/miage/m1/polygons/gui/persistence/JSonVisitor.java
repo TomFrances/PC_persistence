@@ -2,7 +2,6 @@ package edu.uga.miage.m1.polygons.gui.persistence;
 
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import edu.uga.miage.m1.polygons.gui.utils.ShapeUtils;
-import lombok.extern.java.Log;
 
 import javax.json.Json;
 
