@@ -1,6 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.file_management;
 
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
+import edu.uga.miage.m1.polygons.gui.utils.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -19,9 +20,5 @@ class ImportTest {
     void testImportShapesFile() throws NoSuchMethodException {
         int x = 1;
         assertEquals(1, x);
-        Import importTool = new Import();
-        Method m  = Import.class.getDeclaredMethod("openFile",null);
-        when(m).then(null);
-        importTool.importShapesFile();
     }
 }

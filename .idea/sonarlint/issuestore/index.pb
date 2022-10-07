@@ -5,16 +5,8 @@ x
 Hsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/ImportStrategy.java,e\1\e1af551abc0c4567c1359c0a7e6566f461f8e948
 =
 xmlExport.xml,3\a\3ac52a07a9831d24274b2f5c296545b16899b451
-?
-jsonExport.json,5\1\51311424ec8050dbc89fbf79b6967bfd615cb85d
 t
 Dsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/ImportFile.java,7\5\75812295dcc5e7d198e1944376fbe9abf52cc891
-d
-4src/main/java/edu/uga/miage/m1/polygons/gui/App.java,7\a\7ae6e7f4eb3971619796ade23d0b1b3d805d6ce5
-u
-Esrc/main/java/edu/uga/miage/m1/polygons/gui/utils/FileExtenstion.java,6\d\6d42986b6c3cd8adadea05b51d2a0473651ce550
-u
-Esrc/main/java/edu/uga/miage/m1/polygons/gui/factory/ShapeFactory.java,a\e\aef6072ac91a3e6bf63fa929d8ef266041f6da25
 N
 src/test/ressources/file1.json,c\a\ca83eacbbfe64df68d9103637ed6175da0015753
 M
@@ -42,8 +34,6 @@ G.idea/sonarlint/issuestore/a/0/a09d9862228535c50aab6abcd96dda3932bd461c,7\4\74
 w
 G.idea/sonarlint/issuestore/c/0/c0171726e6a1842d7a7b339b7a021e7dbaba2ba5,2\2\2260e1f807136b236bbc1507202384a3591a44d9
 w
-G.idea/sonarlint/issuestore/f/a/fad004d4e84494b61ebb4b97f3a6981aff59cfb5,3\6\360c55354c4022798f79437bf52d05fe9974011b
-w
 G.idea/sonarlint/issuestore/f/f/ff906d7bcf6060f564c559ff376b10b9f8789af7,7\6\7622e247871d3be146bb6ba5f01d4e8779f295c1
 w
 G.idea/sonarlint/issuestore/f/8/f8b41ce76d7b80d2b47e91b5f92c15f00eccf187,f\9\f9bae920af1b1050d72aea5dd8e5318becb0c90a
@@ -55,15 +45,11 @@ n
 >src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Square.java,6\9\691e97c639ef86eed00359f6e3e9413db372988b
 |
 Lsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/JsonImportStrategy.java,9\4\94911bbc8f547ed4cbaecee85d8dd03da1e9e937
-n
->src/main/java/edu/uga/miage/m1/polygons/gui/JDrawingFrame.java,b\4\b417ee515febecc876f9a743544b94ff1a6c7dce
-y
-Isrc/test/java/edu/uga/miage/m1/polygons/gui/factory/ShapeFactoryTest.java,b\0\b0ead6cd54750f4ca10d64a054efd29dd7bb1055
-r
-Bsrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/CircleTest.java,7\e\7e94dd76108cde0a8cda24dffeed1fb7de828bb5
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 {
 Ksrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/XMLImportStrategy.java,e\9\e96346afba985a88e01f464f51cc9c45f4e83369
 w
 Gsrc/main/java/edu/uga/miage/m1/polygons/gui/file_management/Export.java,f\c\fc9c428f2bbd3e988af028fc54c6adf7fb5a1a5f
+w
+Gsrc/main/java/edu/uga/miage/m1/polygons/gui/file_management/Import.java,d\e\dea05f753dbe3b6ddd60613492c7eb08e6d9324f
+w
+Gsrc/main/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitor.java,f\a\fad004d4e84494b61ebb4b97f3a6981aff59cfb5
