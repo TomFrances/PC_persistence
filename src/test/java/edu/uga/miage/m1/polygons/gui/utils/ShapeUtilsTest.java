@@ -8,29 +8,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ShapeUtilsTest {
 
-    @Test
-    void testConstructor(){
-        ShapeUtils shapeUtils = new ShapeUtils();
-        assertNotNull(shapeUtils);
-    }
 
     @Test
     void testGetTypeTriangle(){
-        ShapeUtils shapeUtils = new ShapeUtils();
-        assertNotNull(shapeUtils);
         Triangle triangle = new Triangle(3,67);
         assertNotNull(triangle);
-        String type = shapeUtils.getType(triangle);
+        String type = ShapeUtils.getType(triangle);
         assertEquals("triangle", type);
     }
 
     @Test
     void testGetTypeCircle(){
-        ShapeUtils shapeUtils = new ShapeUtils();
-        assertNotNull(shapeUtils);
         Circle circle = new Circle(3,67);
         assertNotNull(circle);
-        String type = shapeUtils.getType(circle);
+        String type = ShapeUtils.getType(circle);
         assertEquals("circle", type);
     }
 

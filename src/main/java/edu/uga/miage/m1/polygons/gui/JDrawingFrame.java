@@ -39,31 +39,29 @@ import edu.uga.miage.m1.polygons.gui.file_management.Import;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import lombok.extern.java.Log;
 
+import static java.lang.Thread.sleep;
+
 /**
  * This class represents the main application class, which is a JFrame subclass
  * that manages a toolbar of shapes and a drawing canvas.
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
- *
  */
 @Log
 public class JDrawingFrame extends JFrame
-    implements MouseListener, MouseMotionListener
-{
+        implements MouseListener, MouseMotionListener {
 
-	private enum Shapes {SQUARE, TRIANGLE, CIRCLE, STAR}
+    private enum Shapes {SQUARE, TRIANGLE, CIRCLE, STAR}
 
     @Serial
     private static final long serialVersionUID = 1L;
     private final JToolBar toolbar;
     private Shapes selected;
-    public static final JPanel panel = new JPanel();
-    public final transient Import importTool = new Import();
-    public final transient Export exportTool = new Export();
+    public static JPanel panel = new JPanel();
     private final JLabel label;
     private transient List<SimpleShape> shapesList = new ArrayList<>();
     private final transient ActionListener reusableActionListener = new ShapeActionListener();
-    
+
     /**
      * Tracks buttons to manage the background.
      */
@@ -71,10 +69,10 @@ public class JDrawingFrame extends JFrame
 
     /**
      * Default constructor that populates the main window.
+     *
      * @param frameName the frame
-    **/
-    public JDrawingFrame(String frameName)
-    {
+     **/
+    public JDrawingFrame(String frameName) {
         super(frameName);
 
         // Instantiates components
@@ -86,7 +84,7 @@ public class JDrawingFrame extends JFrame
         panel.addMouseListener(this);
         panel.addMouseMotionListener(this);
         label = new JLabel(" ", SwingConstants.LEFT);
-        
+
         // Add shapes in the menu
         addShape(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/square.png"))));
         addShape(Shapes.TRIANGLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/triangle.png"))));
@@ -105,21 +103,20 @@ public class JDrawingFrame extends JFrame
     }
 
 
-	/**
+    /**
      * Injects an available <tt>SimpleShape</tt> into the drawing frame.
+     *
      * @param shape The name of the injected <tt>SimpleShape</tt>.
-     * @param icon The icon associated with the injected <tt>SimpleShape</tt>.
-    **/
-    private void addShape(Shapes shape, ImageIcon icon)
-    {
+     * @param icon  The icon associated with the injected <tt>SimpleShape</tt>.
+     **/
+    private void addShape(Shapes shape, ImageIcon icon) {
         JButton button = new JButton(icon);
-		button.setBorderPainted(false);
+        button.setBorderPainted(false);
         buttons.put(shape, button);
         button.setActionCommand(shape.toString());
         button.addActionListener(reusableActionListener);
 
-        if (selected == null)
-        {
+        if (selected == null) {
             button.doClick();
         }
 
@@ -128,7 +125,7 @@ public class JDrawingFrame extends JFrame
         repaint();
     }
 
-    private JMenuBar createToolsMenu(){
+    private JMenuBar createToolsMenu() {
         JMenuBar menu = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
 
@@ -140,7 +137,7 @@ public class JDrawingFrame extends JFrame
         itemJsonExport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exportTool.jsonExport(shapesList);
+                Export.jsonExport(shapesList);
             }
         });
         itemJsonExport.setText("JSON");
@@ -150,7 +147,7 @@ public class JDrawingFrame extends JFrame
         itemXmlExport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exportTool.xmlExport(shapesList);
+                Export.xmlExport(shapesList);
             }
         });
         itemXmlExport.setText("XML");
@@ -159,7 +156,7 @@ public class JDrawingFrame extends JFrame
         JMenuItem importItem = new JMenuItem("Import");
         importItem.setText("Import");
         importItem.addActionListener(e -> {
-            shapesList = importTool.importShapesFile();
+            shapesList = Import.importShapesFile();
             drawALlShapes();
         });
 
@@ -167,17 +164,17 @@ public class JDrawingFrame extends JFrame
 
         return menu;
     }
+
     /**
      * Implements method for the <tt>MouseListener</tt> interface to
      * draw the selected shape into the drawing canvas.
+     *
      * @param evt The associated mouse event.
-    **/
-    public void mouseClicked(MouseEvent evt)
-    {
+     **/
+    public void mouseClicked(MouseEvent evt) {
 
-        if (panel.contains(evt.getX(), evt.getY()))
-        {
-        	Graphics2D g2 = (Graphics2D) panel.getGraphics();
+        if (panel.contains(evt.getX(), evt.getY())) {
+            Graphics2D g2 = (Graphics2D) panel.getGraphics();
             switch (selected) {
                 case CIRCLE -> {
                     Circle circle = new Circle(evt.getX(), evt.getY());
@@ -206,76 +203,74 @@ public class JDrawingFrame extends JFrame
 
     /**
      * Implements an empty method for the <tt>MouseListener</tt> interface.
+     *
      * @param evt The associated mouse event.
-    **/
-    public void mouseEntered(MouseEvent evt)
-    {
-    	/* Unused */
+     **/
+    public void mouseEntered(MouseEvent evt) {
+        /* Unused */
     }
 
     /**
      * Implements an empty method for the <tt>MouseListener</tt> interface.
+     *
      * @param evt The associated mouse event.
-    **/
-    public void mouseExited(MouseEvent evt)
-    {
-    	label.setText(" ");
-    	label.repaint();
+     **/
+    public void mouseExited(MouseEvent evt) {
+        label.setText(" ");
+        label.repaint();
     }
 
     /**
      * Implements method for the <tt>MouseListener</tt> interface to initiate
      * shape dragging.
+     *
      * @param evt The associated mouse event.
-    **/
-    public void mousePressed(MouseEvent evt)
-    {
+     **/
+    public void mousePressed(MouseEvent evt) {
         /* Unused */
     }
 
     /**
      * Implements method for the <tt>MouseListener</tt> interface to complete
      * shape dragging.
+     *
      * @param evt The associated mouse event.
-    **/
-    public void mouseReleased(MouseEvent evt)
-    {
+     **/
+    public void mouseReleased(MouseEvent evt) {
         /* Unused */
     }
 
     /**
      * Implements method for the <tt>MouseMotionListener</tt> interface to
      * move a dragged shape.
+     *
      * @param evt The associated mouse event.
-    **/
-    public void mouseDragged(MouseEvent evt)
-    {
+     **/
+    public void mouseDragged(MouseEvent evt) {
         /* Unused */
     }
 
     /**
      * Implements an empty method for the <tt>MouseMotionListener</tt>
      * interface.
+     *
      * @param evt The associated mouse event.
-    **/
-    public void mouseMoved(MouseEvent evt)
-    {
-    	modifyLabel(evt);
+     **/
+    public void mouseMoved(MouseEvent evt) {
+        modifyLabel(evt);
     }
-    
+
     private void modifyLabel(MouseEvent evt) {
-    	label.setText("(" + evt.getX() + "," + evt.getY() + ")");    	
+        label.setText("(" + evt.getX() + "," + evt.getY() + ")");
     }
 
     /**
      * Simple action listener for shape tool bar buttons that sets
      * the drawing frame's currently selected shape when receiving
      * an action event.
-    **/
-    private class ShapeActionListener implements ActionListener
-    {
-        public void actionPerformed(ActionEvent evt)
-        {
+     **/
+    private class ShapeActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
             for (Map.Entry<Shapes, JButton> entry : buttons.entrySet()) {
                 JButton btn = entry.getValue();
                 Shapes shape = entry.getKey();
@@ -290,9 +285,11 @@ public class JDrawingFrame extends JFrame
         }
     }
 
-    private void drawALlShapes(){
-        panel.removeAll();
-        Graphics2D g2 = (Graphics2D) panel.getGraphics();
-        shapesList.forEach(shape -> shape.draw(g2));
+    private void drawALlShapes() {
+        panel.repaint();
+        SwingUtilities.invokeLater(() -> {
+            Graphics2D g2 = (Graphics2D) panel.getGraphics();
+            shapesList.forEach(shape -> shape.draw(g2));
+        });
     }
 }

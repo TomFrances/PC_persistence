@@ -16,7 +16,7 @@ public class XMLVisitor implements Visitor {
     }
 
     private String createRepresentation(SimpleShape shape) {
-        return String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", (new ShapeUtils()).getType(shape), shape.getX(), shape.getY());
+        return String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", ShapeUtils.getType(shape), shape.getX(), shape.getY());
     }
 
     /**

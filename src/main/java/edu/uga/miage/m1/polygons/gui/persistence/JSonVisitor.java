@@ -19,7 +19,7 @@ public class JSonVisitor implements Visitor {
 
     private String createRepresentation(SimpleShape shape) {
         return Json.createObjectBuilder()
-                .add("type", (new ShapeUtils()).getType(shape))
+                .add("type", ShapeUtils.getType(shape))
                 .add("x",shape.getX())
                 .add("y",shape.getY())
                 .build()

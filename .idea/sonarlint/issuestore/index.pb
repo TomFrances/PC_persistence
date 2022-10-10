@@ -3,8 +3,6 @@ n
 >src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Circle.java,6\b\6badc8f5d296a07f3f5095c7aba928ee42903901
 x
 Hsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/ImportStrategy.java,e\1\e1af551abc0c4567c1359c0a7e6566f461f8e948
-=
-xmlExport.xml,3\a\3ac52a07a9831d24274b2f5c296545b16899b451
 M
 src/test/ressources/file1.xml,3\9\3904692e042d539e6879daadc629101560b4716b
 w
@@ -37,19 +35,21 @@ w
 G.idea/sonarlint/issuestore/2/8/28e4a2e57ea1412e35cd955351520c20c1e52c43,a\2\a208f717011adff673b991d4940a36251b05a724
 n
 >src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Square.java,6\9\691e97c639ef86eed00359f6e3e9413db372988b
-{
-Ksrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/XMLImportStrategy.java,e\9\e96346afba985a88e01f464f51cc9c45f4e83369
-w
-Gsrc/main/java/edu/uga/miage/m1/polygons/gui/file_management/Export.java,f\c\fc9c428f2bbd3e988af028fc54c6adf7fb5a1a5f
-n
->src/main/java/edu/uga/miage/m1/polygons/gui/JDrawingFrame.java,b\4\b417ee515febecc876f9a743544b94ff1a6c7dce
-?
-jsonExport.json,5\1\51311424ec8050dbc89fbf79b6967bfd615cb85d
 N
 src/test/ressources/file1.json,c\a\ca83eacbbfe64df68d9103637ed6175da0015753
-p
-@src/main/java/edu/uga/miage/m1/polygons/gui/utils/FileUtils.java,2\f\2f8e03265c3e02fb8c558bc73c33c749fb94246c
-q
-Asrc/main/java/edu/uga/miage/m1/polygons/gui/utils/ShapeUtils.java,5\b\5b222a40d5f433cf9f42a719cedb91114cd9ee5a
-w
-Gsrc/main/java/edu/uga/miage/m1/polygons/gui/file_management/Import.java,d\e\dea05f753dbe3b6ddd60613492c7eb08e6d9324f
+y
+Isrc/test/java/edu/uga/miage/m1/polygons/gui/factory/ShapeFactoryTest.java,b\0\b0ead6cd54750f4ca10d64a054efd29dd7bb1055
+|
+Lsrc/test/java/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitorTest.java,9\7\9722e3a8c54acef5a29620b46e42be1e50327f35
+{
+Ksrc/test/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.java,f\3\f335c413ea336461ef642e43eb566df70cda5d65
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+j
+:src/main/java/edu/uga/miage/m1/polygons/gui/GUIHelper.java,a\0\a09d9862228535c50aab6abcd96dda3932bd461c
+n
+>src/main/java/edu/uga/miage/m1/polygons/gui/JDrawingFrame.java,b\4\b417ee515febecc876f9a743544b94ff1a6c7dce
+d
+4src/main/java/edu/uga/miage/m1/polygons/gui/App.java,7\a\7ae6e7f4eb3971619796ade23d0b1b3d805d6ce5
+t
+Dsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/ImportFile.java,7\5\75812295dcc5e7d198e1944376fbe9abf52cc891

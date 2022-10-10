@@ -12,12 +12,13 @@ import java.util.logging.Logger;
 
 public class Export {
 
-    private Visitor visitor;
+    private static Visitor visitor;
 
+    private Export(){}
     /**
      * Export all the drawn figure to a json format
      */
-    public void jsonExport(List<SimpleShape> shapesList) {
+    public static void jsonExport(List<SimpleShape> shapesList) {
         try (FileWriter fileWriter = new FileWriter("jsonExport.json", false)) {
             if(!(visitor instanceof JSonVisitor)){
                 visitor = new JSonVisitor();
@@ -25,7 +26,7 @@ public class Export {
 
             String res = (shapesList
                     .stream()
-                    .map(this::createRepresentation)
+                    .map(Export::createRepresentation)
                     .reduce("{\"shapes\": [", String::concat)
                     .replace("}{", "},{")
                     .concat("]}"));
@@ -39,7 +40,7 @@ public class Export {
     /**
      * Export all the drawn figure to a json format
      */
-    public void xmlExport(List<SimpleShape> shapesList) {
+    public static void xmlExport(List<SimpleShape> shapesList) {
         try (FileWriter fileWriter = new FileWriter("xmlExport.xml", false)) {
             if(!(visitor instanceof XMLVisitor)){
                 visitor = new XMLVisitor();
@@ -47,7 +48,7 @@ public class Export {
 
             String res = (shapesList
                     .stream()
-                    .map(this::createRepresentation)
+                    .map(Export::createRepresentation)
                     .reduce("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>", String::concat)
                     .concat("</shapes></root>"));
 
@@ -57,7 +58,7 @@ public class Export {
         }
     }
 
-    private String createRepresentation(SimpleShape shape) {
+    private static String createRepresentation(SimpleShape shape) {
         shape.accept(visitor);
         return visitor.getRepresentation();
     }

@@ -1,6 +1,5 @@
 edu\uga\miage\m1\polygons\gui\utils\ShapeUtilsTest.class
 edu\uga\miage\m1\polygons\gui\shapes\CircleTest.class
-edu\uga\miage\m1\polygons\gui\strategy\JsonImportStrategyTest.class
 edu\uga\miage\m1\polygons\gui\file_management\ImportTest.class
 edu\uga\miage\m1\polygons\gui\utils\FileUtilsTest.class
 edu\uga\miage\m1\polygons\gui\shapes\SquareTest.class
