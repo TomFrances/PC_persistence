@@ -6,17 +6,17 @@ import edu.uga.miage.m1.polygons.gui.utils.ShapeUtils;
 /**
  * @author &lt;a href=&quot;mailto:christophe.saint-marcel@univ-grenoble-alpes.fr&quot;&gt;Christophe&lt;/a&gt;
  */
-<span class="nc" id="L9">public class XMLVisitor implements Visitor {</span>
+<span class="fc" id="L9">public class XMLVisitor implements Visitor {</span>
 
-<span class="nc" id="L11">    private String representation = null;</span>
+<span class="fc" id="L11">    private String representation = null;</span>
 
     @Override
     public void visit(SimpleShape shape) {
-<span class="nc" id="L15">        this.representation = createRepresentation(shape);</span>
-<span class="nc" id="L16">    }</span>
+<span class="fc" id="L15">        this.representation = createRepresentation(shape);</span>
+<span class="fc" id="L16">    }</span>
 
     private String createRepresentation(SimpleShape shape) {
-<span class="nc" id="L19">        return String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, ShapeUtils.getType(shape), shape.getX(), shape.getY());</span>
+<span class="fc" id="L19">        return String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, ShapeUtils.getType(shape), shape.getX(), shape.getY());</span>
     }
 
     /**
@@ -33,7 +33,7 @@ import edu.uga.miage.m1.polygons.gui.utils.ShapeUtils;
      * &lt;/pre&gt;
      */
     public String getRepresentation() {
-<span class="nc" id="L36">        return representation;</span>
+<span class="fc" id="L36">        return representation;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

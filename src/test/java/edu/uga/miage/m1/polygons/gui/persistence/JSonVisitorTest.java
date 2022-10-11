@@ -2,6 +2,7 @@ package edu.uga.miage.m1.polygons.gui.persistence;
 
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Square;
 import edu.uga.miage.m1.polygons.gui.shapes.Star;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,6 @@ class JSonVisitorTest {
 
     @Test
     void testVisit() {
-        assertTrue(true);
         JSonVisitor visitor = new JSonVisitor();
         assertNotNull(visitor);
         Star star = new Star(98, 45);
@@ -24,17 +24,16 @@ class JSonVisitorTest {
         assertEquals(expectedRepresentation, representation);
     }
 
+
     @Test
-    void testGetRepresentation() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Circle circle = new Circle(43, 12);
-        assertNotNull(circle);
-        String expectedRepresentation = "{\"type\":\"circle\",\"x\":43,\"y\":12}";
+    void testGetRepresentation(){
+        Square square = new Square(22, 90);
+        assertNotNull(square);
+        String expectedRepresentation = "{\"type\":\"square\",\"x\":22,\"y\":90}";
         JSonVisitor visitor = new JSonVisitor();
         assertNotNull(visitor);
-        Method createRepresentationMethod = JSonVisitor.class.getDeclaredMethod("createRepresentation", SimpleShape.class);
-        createRepresentationMethod.setAccessible(true);
-        String representation = (String) createRepresentationMethod.invoke(visitor, circle);
-        assertEquals(expectedRepresentation, representation);
+        visitor.visit(square);
+        assertEquals(expectedRepresentation, visitor.getRepresentation());
     }
 
 }
