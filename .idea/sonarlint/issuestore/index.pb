@@ -45,8 +45,6 @@ Gsrc/main/java/edu/uga/miage/m1/polygons/gui/file_management/Export.java,f\c\fc
 jsonExport.json,5\1\51311424ec8050dbc89fbf79b6967bfd615cb85d
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
-x
-Hsrc/main/java/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitor.java,6\6\66a8a27b816bf50c2cda7d568f25f222add3a95d
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 u
