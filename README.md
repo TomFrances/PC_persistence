@@ -5,7 +5,7 @@
 
 - [ ] Import.java
 - [ ] Export.java
-- [ ] XMLVisitor.java
-- [ ] XMLImportStrategy.java
+- [x] XMLVisitor.java
+- [x] XMLImportStrategy.java
 - [ ] ImportFile.java
 - [ ] JDrawingFrame.java (nouvelles méthodes)
