@@ -10,7 +10,7 @@ class FileUtilsTest {
 
     @Test
     void testGetXMLFileExtension() {
-        File file = new File("./src/ressources/file1.xml");
+        File file = new File("./src/test/ressources/file1.xml");
         assertNotNull(file);
         assertEquals("file1.xml", file.getName());
         assertEquals("xml", FileUtils.getExtension(file));
@@ -18,11 +18,10 @@ class FileUtilsTest {
 
     @Test
     void testGetJsonFileExtension() {
-        File file = new File("./src/ressources/file1.json");
+        File file = new File("./src/test/ressources/file1.json");
         assertNotNull(file);
         assertEquals("file1.json", file.getName());
         assertEquals("json", FileUtils.getExtension(file));
-        mockStatic(FileUtils.class);
     }
 
 }

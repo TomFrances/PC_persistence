@@ -11,7 +11,4 @@ class XMLVisitorTest {
         assertTrue(true);
     }
 
-    @Test
-    void getRepresentation() {
-    }
 }
