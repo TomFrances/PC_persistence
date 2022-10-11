@@ -8,3 +8,4 @@
 - [ ] XMLVisitor.java
 - [ ] XMLImportStrategy.java
 - [ ] ImportFile.java
+- [ ] JDrawingFrame.java (nouvelles méthodes)
