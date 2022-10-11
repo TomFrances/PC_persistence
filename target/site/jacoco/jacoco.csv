@@ -10,14 +10,14 @@ VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,GUIHelper,18,0,0,0,6,0,1,0,1,
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.persistence,JSonVisitor,0,31,0,0,0,11,0,4,0,4
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.persistence,XMLVisitor,0,37,0,0,0,6,0,4,0,4
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.strategy,XMLImportStrategy,0,96,0,2,0,21,0,5,0,4
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.strategy,ImportFile,11,0,0,0,4,0,2,0,2,0
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.strategy,ImportFile,0,11,0,0,0,4,0,2,0,2
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.strategy,JsonImportStrategy,0,96,0,0,0,20,0,4,0,4
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Star,139,15,6,0,30,6,7,3,4,3
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Triangle,135,15,2,0,19,6,4,3,3,3
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Square,80,15,0,0,12,6,3,3,3,3
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Circle,90,15,0,0,12,6,3,3,3,3
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.file_management,Export,77,0,4,0,29,0,5,0,3,0
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.file_management,Import,69,0,3,0,13,0,4,0,2,0
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.file_management,Import,0,41,0,3,0,9,0,4,0,2
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.utils,ShapeUtils,0,13,0,0,0,2,0,1,0,1
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.utils,FileUtils,0,12,0,0,0,2,0,1,0,1
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.utils,FileUtils,30,14,0,0,5,3,1,1,1,1
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.factory,ShapeFactory,0,42,0,5,0,8,0,7,0,3

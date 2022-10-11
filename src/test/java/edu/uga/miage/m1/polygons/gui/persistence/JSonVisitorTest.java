@@ -1,9 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
-import edu.uga.miage.m1.polygons.gui.shapes.Star;
+import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -24,7 +21,6 @@ class JSonVisitorTest {
         assertEquals(expectedRepresentation, representation);
     }
 
-
     @Test
     void testGetRepresentation(){
         Square square = new Square(22, 90);
@@ -35,5 +31,4 @@ class JSonVisitorTest {
         visitor.visit(square);
         assertEquals(expectedRepresentation, visitor.getRepresentation());
     }
-
 }
