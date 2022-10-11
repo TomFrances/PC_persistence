@@ -6,10 +6,13 @@ import lombok.extern.java.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -36,8 +39,8 @@ public class XMLImportStrategy implements ImportStrategy {
             }
 
             return shapesList;
-        }catch(Exception e){
-            log.log(Level.WARNING, String.format("Parsing error : %s", e.getMessage()));
+        } catch (ParserConfigurationException | IOException | SAXException e) {
+            log.log(Level.WARNING, "Parsing error: " + e.getMessage());
         }
 
         return Collections.emptyList();

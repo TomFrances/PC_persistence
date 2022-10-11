@@ -39,7 +39,6 @@ import edu.uga.miage.m1.polygons.gui.file_management.Import;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import lombok.extern.java.Log;
 
-import static java.lang.Thread.sleep;
 
 /**
  * This class represents the main application class, which is a JFrame subclass
@@ -57,7 +56,7 @@ public class JDrawingFrame extends JFrame
     private static final long serialVersionUID = 1L;
     private final JToolBar toolbar;
     private Shapes selected;
-    public static JPanel panel = new JPanel();
+    public static final JPanel panel = new JPanel();
     private final JLabel label;
     private transient List<SimpleShape> shapesList = new ArrayList<>();
     private final transient ActionListener reusableActionListener = new ShapeActionListener();

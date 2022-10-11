@@ -16,7 +16,7 @@ import edu.uga.miage.m1.polygons.gui.utils.ShapeUtils;
 <span class="nc" id="L16">    }</span>
 
     private String createRepresentation(SimpleShape shape) {
-<span class="nc" id="L19">        return String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, (new ShapeUtils()).getType(shape), shape.getX(), shape.getY());</span>
+<span class="nc" id="L19">        return String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, ShapeUtils.getType(shape), shape.getX(), shape.getY());</span>
     }
 
     /**

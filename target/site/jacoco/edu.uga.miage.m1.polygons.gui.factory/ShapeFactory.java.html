@@ -4,26 +4,19 @@
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import lombok.extern.java.Log;
 
-import java.util.logging.Level;
 
-<span class="fc" id="L9">@Log</span>
-<span class="fc" id="L10">public class ShapeFactory implements SimpleShapeFactory {</span>
+<span class="fc" id="L8">@Log</span>
+<span class="fc" id="L9">public class ShapeFactory implements SimpleShapeFactory {</span>
     @Override
     public SimpleShape createSimpleShape(String type, int x, int y) {
 
-<span class="fc bfc" id="L14" title="All 5 branches covered.">        switch (type) {</span>
-            case &quot;triangle&quot;:
-<span class="fc" id="L16">                return new Triangle(x, y);</span>
-            case &quot;circle&quot;:
-<span class="fc" id="L18">                return new Circle(x, y);</span>
-            case &quot;square&quot;:
-<span class="fc" id="L20">                return new Square(x, y);</span>
-            case &quot;star&quot;:
-<span class="fc" id="L22">                return new Star(x, y);</span>
-            default:
-<span class="fc" id="L24">                log.log(Level.WARNING, &quot;Incorrect shape found&quot;);</span>
-<span class="fc" id="L25">                return null;</span>
-        }
+<span class="fc bfc" id="L13" title="All 5 branches covered.">        return switch (type) {</span>
+<span class="fc" id="L14">            case &quot;triangle&quot; -&gt; new Triangle(x, y);</span>
+<span class="fc" id="L15">            case &quot;circle&quot; -&gt; new Circle(x, y);</span>
+<span class="fc" id="L16">            case &quot;square&quot; -&gt; new Square(x, y);</span>
+<span class="fc" id="L17">            case &quot;star&quot; -&gt; new Star(x, y);</span>
+<span class="fc" id="L18">            default -&gt; null;</span>
+        };
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

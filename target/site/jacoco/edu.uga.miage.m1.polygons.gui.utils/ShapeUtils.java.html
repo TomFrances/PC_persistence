@@ -2,13 +2,14 @@
 
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 
-<span class="fc" id="L5">public class ShapeUtils {</span>
+public class ShapeUtils {
 
-    public String getType(SimpleShape shape){
-<span class="fc" id="L8">        String shapeClass = shape.getClass().toString();</span>
-<span class="fc" id="L9">        return shapeClass.substring(shapeClass.lastIndexOf(&quot;.&quot;) + 1).toLowerCase();</span>
+    private ShapeUtils(){}
+
+    public static String getType(SimpleShape shape){
+<span class="fc" id="L10">        String shapeClass = shape.getClass().toString();</span>
+<span class="fc" id="L11">        return shapeClass.substring(shapeClass.lastIndexOf(&quot;.&quot;) + 1).toLowerCase();</span>
     }
-
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

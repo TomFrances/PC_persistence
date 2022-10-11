@@ -19,7 +19,7 @@ import javax.json.Json;
 
     private String createRepresentation(SimpleShape shape) {
 <span class="fc" id="L21">        return Json.createObjectBuilder()</span>
-<span class="fc" id="L22">                .add(&quot;type&quot;, (new ShapeUtils()).getType(shape))</span>
+<span class="fc" id="L22">                .add(&quot;type&quot;, ShapeUtils.getType(shape))</span>
 <span class="fc" id="L23">                .add(&quot;x&quot;,shape.getX())</span>
 <span class="fc" id="L24">                .add(&quot;y&quot;,shape.getY())</span>
 <span class="fc" id="L25">                .build()</span>

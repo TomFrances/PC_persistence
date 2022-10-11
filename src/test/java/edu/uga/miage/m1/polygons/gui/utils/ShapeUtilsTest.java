@@ -5,6 +5,8 @@ import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 class ShapeUtilsTest {
 
