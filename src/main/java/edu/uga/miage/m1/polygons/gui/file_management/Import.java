@@ -24,15 +24,8 @@ public class Import {
     }
 
     public static List<SimpleShape> importShapesFile() {
-        JFileChooser chooser = new JFileChooser("./");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Fichiers xml ou json uniquement", "xml", "json");
-        chooser.setFileFilter(filter);
-        chooser.showOpenDialog(JDrawingFrame.panel);
-        File file = chooser.getSelectedFile();
-
+        File file = FileUtils.chooseFile();
         ImportFile importFile = new ImportFile(file);
-
         String fileType = FileUtils.getExtension(file);
         switch (fileType) {
             case "xml":

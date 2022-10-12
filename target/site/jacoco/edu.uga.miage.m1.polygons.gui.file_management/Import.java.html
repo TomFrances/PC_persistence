@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
-<span class="nc" id="L19">@Log</span>
+<span class="fc" id="L19">@Log</span>
 @Getter
 public class Import {
 
@@ -24,25 +24,18 @@ public class Import {
     }
 
     public static List&lt;SimpleShape&gt; importShapesFile() {
-<span class="nc" id="L27">        JFileChooser chooser = new JFileChooser(&quot;./&quot;);</span>
-<span class="nc" id="L28">        FileNameExtensionFilter filter = new FileNameExtensionFilter(</span>
-                &quot;Fichiers xml ou json uniquement&quot;, &quot;xml&quot;, &quot;json&quot;);
-<span class="nc" id="L30">        chooser.setFileFilter(filter);</span>
-<span class="nc" id="L31">        chooser.showOpenDialog(JDrawingFrame.panel);</span>
-<span class="nc" id="L32">        File file = chooser.getSelectedFile();</span>
-
-<span class="nc" id="L34">        ImportFile importFile = new ImportFile(file);</span>
-
-<span class="nc" id="L36">        String fileType = FileUtils.getExtension(file);</span>
-<span class="nc bnc" id="L37" title="All 3 branches missed.">        switch (fileType) {</span>
+<span class="fc" id="L27">        File file = FileUtils.chooseFile();</span>
+<span class="fc" id="L28">        ImportFile importFile = new ImportFile(file);</span>
+<span class="fc" id="L29">        String fileType = FileUtils.getExtension(file);</span>
+<span class="fc bfc" id="L30" title="All 3 branches covered.">        switch (fileType) {</span>
             case &quot;xml&quot;:
-<span class="nc" id="L39">                return importFile.createShapesList(new XMLImportStrategy());</span>
+<span class="fc" id="L32">                return importFile.createShapesList(new XMLImportStrategy());</span>
             case &quot;json&quot;:
-<span class="nc" id="L41">                return importFile.createShapesList(new JsonImportStrategy());</span>
+<span class="fc" id="L34">                return importFile.createShapesList(new JsonImportStrategy());</span>
             default:
-<span class="nc" id="L43">                log.log(Level.WARNING, &quot;Type de fichier non pris en charge pour l'import&quot;);</span>
+<span class="fc" id="L36">                log.log(Level.WARNING, &quot;Type de fichier non pris en charge pour l'import&quot;);</span>
         }
-<span class="nc" id="L45">        return Collections.emptyList();</span>
+<span class="fc" id="L38">        return Collections.emptyList();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
