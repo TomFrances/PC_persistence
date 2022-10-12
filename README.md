@@ -9,4 +9,4 @@
 - [x] XMLImportStrategy.java
 - [ ] ImportFile.java
 - [x] JDrawingFrame.java (nouvelles méthodes)
-- [ ] Star.java
+- [x] Star.java
