@@ -19,38 +19,38 @@ public class Star implements SimpleShape {
 <span class="nc" id="L19">    public Star(){}</span>
     private static Shape createStar(double centerX, double centerY)
     {
-<span class="nc" id="L22">        Path2D path = new Path2D.Double();</span>
-<span class="nc" id="L23">        double deltaAngleRad = Math.PI / 5;</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">        for (int i = 0; i &lt; 5 * 2; i++)</span>
+<span class="fc" id="L22">        Path2D path = new Path2D.Double();</span>
+<span class="fc" id="L23">        double deltaAngleRad = Math.PI / 5;</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        for (int i = 0; i &lt; 5 * 2; i++)</span>
         {
-<span class="nc" id="L26">            double angleRad = Math.toRadians(-18) + i * deltaAngleRad;</span>
-<span class="nc" id="L27">            double ca = Math.cos(angleRad);</span>
-<span class="nc" id="L28">            double sa = Math.sin(angleRad);</span>
-<span class="nc" id="L29">            double relX = ca;</span>
-<span class="nc" id="L30">            double relY = sa;</span>
-<span class="nc bnc" id="L31" title="All 2 branches missed.">            if ((i &amp; 1) == 0)</span>
+<span class="fc" id="L26">            double angleRad = Math.toRadians(-18) + i * deltaAngleRad;</span>
+<span class="fc" id="L27">            double ca = Math.cos(angleRad);</span>
+<span class="fc" id="L28">            double sa = Math.sin(angleRad);</span>
+<span class="fc" id="L29">            double relX = ca;</span>
+<span class="fc" id="L30">            double relY = sa;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">            if ((i &amp; 1) == 0)</span>
             {
                 //outter radius
-<span class="nc" id="L34">                relX *= 25;</span>
-<span class="nc" id="L35">                relY *= 25;</span>
+<span class="fc" id="L34">                relX *= 25;</span>
+<span class="fc" id="L35">                relY *= 25;</span>
             }
             else
             {
                 //inner radius
-<span class="nc" id="L40">                relX *= 10;</span>
-<span class="nc" id="L41">                relY *= 10;</span>
+<span class="fc" id="L40">                relX *= 10;</span>
+<span class="fc" id="L41">                relY *= 10;</span>
             }
-<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (i == 0)</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">            if (i == 0)</span>
             {
-<span class="nc" id="L45">                path.moveTo(centerX + relX, centerY + relY);</span>
+<span class="fc" id="L45">                path.moveTo(centerX + relX, centerY + relY);</span>
             }
             else
             {
-<span class="nc" id="L49">                path.lineTo(centerX + relX, centerY + relY);</span>
+<span class="fc" id="L49">                path.lineTo(centerX + relX, centerY + relY);</span>
             }
         }
-<span class="nc" id="L52">        path.closePath();</span>
-<span class="nc" id="L53">        return path;</span>
+<span class="fc" id="L52">        path.closePath();</span>
+<span class="fc" id="L53">        return path;</span>
     }
 
     @Override

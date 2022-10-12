@@ -37,5 +37,3 @@ Ksrc/test/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.java,f\
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 j
 :src/main/java/edu/uga/miage/m1/polygons/gui/GUIHelper.java,a\0\a09d9862228535c50aab6abcd96dda3932bd461c
-n
->src/main/java/edu/uga/miage/m1/polygons/gui/JDrawingFrame.java,b\4\b417ee515febecc876f9a743544b94ff1a6c7dce

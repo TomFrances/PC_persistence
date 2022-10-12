@@ -23,7 +23,6 @@ class JDrawingFrameTest {
         assertEquals(2, menuBar.getMenu(0).getItemCount());
         assertEquals("Export", menuBar.getMenu(0).getItem(0).getText());
         assertEquals("Import", menuBar.getMenu(0).getItem(1).getText());
-
     }
 
 
