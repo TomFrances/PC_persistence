@@ -8,5 +8,5 @@
 - [x] XMLVisitor.java
 - [x] XMLImportStrategy.java
 - [ ] ImportFile.java
-- [ ] JDrawingFrame.java (nouvelles méthodes)
+- [x] JDrawingFrame.java (nouvelles méthodes)
 - [ ] Star.java
