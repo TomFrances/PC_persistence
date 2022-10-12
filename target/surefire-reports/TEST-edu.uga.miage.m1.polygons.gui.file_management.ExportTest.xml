@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.uga.miage.m1.polygons.gui.factory.ShapeFactoryTest" time="0.121" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.uga.miage.m1.polygons.gui.file_management.ExportTest" time="0.125" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,9 +58,6 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="62.0"/>
   </properties>
-  <testcase name="testCreateSimpleShapeSquare" classname="edu.uga.miage.m1.polygons.gui.factory.ShapeFactoryTest" time="0.087"/>
-  <testcase name="testCreateSimpleShapeDefault" classname="edu.uga.miage.m1.polygons.gui.factory.ShapeFactoryTest" time="0.003"/>
-  <testcase name="testCreateSimpleShapeStar" classname="edu.uga.miage.m1.polygons.gui.factory.ShapeFactoryTest" time="0.002"/>
-  <testcase name="testCreateSimpleShapeTriangle" classname="edu.uga.miage.m1.polygons.gui.factory.ShapeFactoryTest" time="0"/>
-  <testcase name="testConstructor" classname="edu.uga.miage.m1.polygons.gui.factory.ShapeFactoryTest" time="0"/>
+  <testcase name="xmlExport" classname="edu.uga.miage.m1.polygons.gui.file_management.ExportTest" time="0.085"/>
+  <testcase name="jsonExport" classname="edu.uga.miage.m1.polygons.gui.file_management.ExportTest" time="0.034"/>
 </testsuite>

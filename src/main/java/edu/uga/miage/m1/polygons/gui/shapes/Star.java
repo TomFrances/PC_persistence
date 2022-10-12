@@ -16,7 +16,6 @@ public class Star implements SimpleShape {
         this.y = y;
     }
 
-    public Star(){}
     private static Shape createStar(double centerX, double centerY)
     {
         Path2D path = new Path2D.Double();
