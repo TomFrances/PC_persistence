@@ -16,12 +16,12 @@ public class FileUtils {
 <span class="fc" id="L16">        return fileName;</span>
     }
     public static File chooseFile(){
-<span class="nc" id="L19">        JFileChooser chooser = new JFileChooser(&quot;./&quot;);</span>
-<span class="nc" id="L20">        FileNameExtensionFilter filter = new FileNameExtensionFilter(</span>
+<span class="fc" id="L19">        JFileChooser chooser = new JFileChooser(&quot;./&quot;);</span>
+<span class="fc" id="L20">        FileNameExtensionFilter filter = new FileNameExtensionFilter(</span>
                 &quot;Fichiers xml ou json uniquement&quot;, &quot;xml&quot;, &quot;json&quot;);
-<span class="nc" id="L22">        chooser.setFileFilter(filter);</span>
-<span class="nc" id="L23">        chooser.showOpenDialog(JDrawingFrame.panel);</span>
-<span class="nc" id="L24">        return chooser.getSelectedFile();</span>
+<span class="fc" id="L22">        chooser.setFileFilter(filter);</span>
+<span class="fc" id="L23">        chooser.showOpenDialog(JDrawingFrame.panel);</span>
+<span class="fc" id="L24">        return chooser.getSelectedFile();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

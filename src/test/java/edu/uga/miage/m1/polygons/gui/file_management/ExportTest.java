@@ -1,6 +1,5 @@
 package edu.uga.miage.m1.polygons.gui.file_management;
 
-import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
@@ -30,7 +29,20 @@ class ExportTest {
         shapesList.add(new Triangle(34, 229));
         Export.jsonExport(shapesList);
         Export.jsonExport(shapesList);
+        File file = new File("./jsonExport.json");
+        String fileContent = Files.readString(Path.of(file.getPath()));
+        String expectedContent = "{\"shapes\": [{\"type\":\"triangle\",\"x\":55,\"y\":89},{\"type\":\"star\",\"x\":34,\"y\":1},{\"type\":\"triangle\",\"x\":34,\"y\":229}]}";
+        assertEquals(expectedContent, fileContent);
+    }
 
+    @Test
+    void jsonExportFail() throws IOException {
+        List<SimpleShape> shapesList = new ArrayList<>();
+        shapesList.add(new Triangle(55, 89));
+        shapesList.add(new Star(34, 1));
+        shapesList.add(new Triangle(34, 229));
+        Export.jsonExport(shapesList);
+        Export.jsonExport(shapesList);
         File file = new File("./jsonExport.json");
         String fileContent = Files.readString(Path.of(file.getPath()));
         String expectedContent = "{\"shapes\": [{\"type\":\"triangle\",\"x\":55,\"y\":89},{\"type\":\"star\",\"x\":34,\"y\":1},{\"type\":\"triangle\",\"x\":34,\"y\":229}]}";

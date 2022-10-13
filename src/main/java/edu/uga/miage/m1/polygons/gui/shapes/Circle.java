@@ -32,8 +32,6 @@ public class Circle implements SimpleShape {
 
     int y;
 
-    public Circle(){}
-
     public Circle(int x, int y) {
         this.x = x;
         this.y = y;

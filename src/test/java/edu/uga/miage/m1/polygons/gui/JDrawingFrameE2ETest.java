@@ -1,19 +1,28 @@
 package edu.uga.miage.m1.polygons.gui;
 
-import org.assertj.swing.core.Robot;
+import edu.uga.miage.m1.polygons.gui.shapes.Circle;
+import edu.uga.miage.m1.polygons.gui.shapes.Square;
+import edu.uga.miage.m1.polygons.gui.shapes.Star;
+import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import org.assertj.swing.core.MouseButton;
 import org.assertj.swing.edt.FailOnThreadViolationRepaintManager;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
-import org.assertj.swing.fixture.JMenuItemFixture;
+import org.assertj.swing.fixture.JFileChooserFixture;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import java.awt.*;
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class JDrawingFrameE2ETest {
     private FrameFixture window;
+    private JDrawingFrame frame;
 
     @BeforeClass
     public static void setUpOnce() {
@@ -22,35 +31,95 @@ class JDrawingFrameE2ETest {
 
     @BeforeEach
     public void setUp() {
-        JDrawingFrame frame = GuiActionRunner.execute(() -> new JDrawingFrame("UITesting"));
+        frame = GuiActionRunner.execute(() -> new JDrawingFrame("UITesting"));
         window = new FrameFixture(frame);
-        window.show();
+        window.show().maximize();
     }
 
     @Test
-    void testE2EJDrawingFrame() throws InterruptedException {
-        window.moveTo(new Point(200, 150)).click();
-        Thread.sleep(500);
+    void testE2EJDrawingFrame2() throws InterruptedException {
+        int x;
+        int y;
+        Point point;
+        int xVariation = 69;
+        int yVariation = 46;
 
         window.button("CIRCLE").click();
-        Thread.sleep(500);
 
-        window.moveTo(new Point(150, 150)).click();
-        Thread.sleep(500);
+        x = 50;
+        y = 75;
+        point = new Point(x + xVariation, y + yVariation);
+        window.panel("drawingPanel").robot().moveMouse(point);
+        window.panel("drawingPanel").robot().pressMouse(MouseButton.LEFT_BUTTON);
+        window.panel("drawingPanel").robot().releaseMouse(MouseButton.LEFT_BUTTON);
+
+        assertEquals(1, frame.getShapesList().size());
+        assertTrue(frame.getShapesList().get(0) instanceof Circle);
+        assertEquals(x, frame.getShapesList().get(0).getX());
+        assertEquals(y, frame.getShapesList().get(0).getY());
 
         window.button("TRIANGLE").click();
-        Thread.sleep(500);
 
-        window.moveTo(new Point(250, 250)).click();
-        Thread.sleep(500);
+        x = 189;
+        y = 110;
+        point = new Point(x + xVariation, y + yVariation);
+        window.panel("drawingPanel").robot().moveMouse(point);
+        window.panel("drawingPanel").robot().pressMouse(MouseButton.LEFT_BUTTON);
+        window.panel("drawingPanel").robot().releaseMouse(MouseButton.LEFT_BUTTON);
+
+        assertEquals(2, frame.getShapesList().size());
+        assertTrue(frame.getShapesList().get(1) instanceof Triangle);
+        assertEquals(x, frame.getShapesList().get(1).getX());
+        assertEquals(y, frame.getShapesList().get(1).getY());
 
         window.button("STAR").click();
 
-        window.moveTo(new Point(150, 200)).click();
-        Thread.sleep(500);
+        x = 469;
+        y = 99;
+        point = new Point(x + xVariation, y + yVariation);
+        window.panel("drawingPanel").robot().moveMouse(point);
+        window.panel("drawingPanel").robot().pressMouse(MouseButton.LEFT_BUTTON);
+        window.panel("drawingPanel").robot().releaseMouse(MouseButton.LEFT_BUTTON);
 
-        window.menuItemWithPath("File", "Export", "JSON").click();
-        Thread.sleep(2000);
+        assertEquals(3, frame.getShapesList().size());
+        assertTrue(frame.getShapesList().get(2) instanceof Star);
+        assertEquals(x, frame.getShapesList().get(2).getX());
+        assertEquals(y, frame.getShapesList().get(2).getY());
+
+        window.button("SQUARE").click();
+
+        x = 455;
+        y = 234;
+        point = new Point(x + xVariation, y + yVariation);
+        window.panel("drawingPanel").robot().moveMouse(point);
+        window.panel("drawingPanel").robot().pressMouse(MouseButton.LEFT_BUTTON);
+        window.panel("drawingPanel").robot().releaseMouse(MouseButton.LEFT_BUTTON);
+
+        assertEquals(4, frame.getShapesList().size());
+        assertTrue(frame.getShapesList().get(3) instanceof Square);
+        assertEquals(x, frame.getShapesList().get(3).getX());
+        assertEquals(y, frame.getShapesList().get(3).getY());
+    }
+
+    @Test
+    void testE2EJDrawingFrameSuccess() throws InterruptedException {
+        window.menuItemWithPath("File", "Import").click();
+        JFileChooserFixture fileChoose = window.dialog().fileChooser().setCurrentDirectory(new File("./src/test/ressources/"));
+        fileChoose.fileNameTextBox().setText("jsonSuccess.json");
+        fileChoose.approve();
+        assertEquals(4,frame.getShapesList().size());
+        assertSame(frame.getShapesList().get(0).getClass(), Star.class);
+        assertSame(frame.getShapesList().get(1).getClass(), Circle.class);
+        assertSame(frame.getShapesList().get(2).getClass(), Triangle.class);
+        assertSame(frame.getShapesList().get(3).getClass(), Square.class);
+    }
+    @Test
+    void testE2EJDrawingFrameFail() throws InterruptedException {
+        window.menuItemWithPath("File", "Import").click();
+        JFileChooserFixture fileChoose = window.dialog().fileChooser().setCurrentDirectory(new File("./src/test/ressources/"));
+        fileChoose.fileNameTextBox().setText("jsonFail.json");
+        fileChoose.approve();
+        assertEquals(0,frame.getShapesList().size());
     }
 
     @AfterEach

@@ -38,7 +38,6 @@ public class Square implements SimpleShape {
 
     int y;
 
-    public Square(){}
     public Square(int x, int y) {
         this.x = x;
         this.y = y;

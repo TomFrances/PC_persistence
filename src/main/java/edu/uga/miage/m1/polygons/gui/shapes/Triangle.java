@@ -40,7 +40,6 @@ public class Triangle implements SimpleShape {
 
     int y;
 
-    public Triangle(){}
     public Triangle(int x, int y) {
         this.x = x;
         this.y = y;

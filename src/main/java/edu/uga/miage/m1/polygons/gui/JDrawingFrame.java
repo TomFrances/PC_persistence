@@ -78,6 +78,7 @@ public class JDrawingFrame extends JFrame
         toolbar = new JToolBar("Toolbar", SwingConstants.VERTICAL);
         JMenuBar menuBar = createToolsMenu();
         panel.setBackground(Color.WHITE);
+        panel.setName("drawingPanel");
         panel.setLayout(null);
         panel.setMinimumSize(new Dimension(400, 400));
         panel.addMouseListener(this);
@@ -99,6 +100,10 @@ public class JDrawingFrame extends JFrame
         add(label, BorderLayout.SOUTH);
 
         setPreferredSize(new Dimension(400, 400));
+    }
+
+    public List<SimpleShape> getShapesList(){
+        return this.shapesList;
     }
 
 
@@ -276,7 +281,6 @@ public class JDrawingFrame extends JFrame
                 if (evt.getActionCommand().equals(shape.toString())) {
                     btn.setBorderPainted(true);
                     selected = shape;
-                    System.out.println(btn.getName());
                 } else {
                     btn.setBorderPainted(false);
                 }
