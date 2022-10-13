@@ -1,6 +1,9 @@
 package edu.uga.miage.m1.polygons.gui;
 
 import lombok.extern.java.Log;
+import org.assertj.swing.edt.GuiActionRunner;
+import org.assertj.swing.fixture.FrameFixture;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -10,7 +13,6 @@ import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JDrawingFrameTest {
-
     @Test
     void testCreateToolsMenu() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         JDrawingFrame jDrawingFrame = new JDrawingFrame("test");

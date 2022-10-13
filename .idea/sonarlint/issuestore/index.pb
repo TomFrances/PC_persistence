@@ -12,15 +12,11 @@ G.idea/sonarlint/issuestore/8/5/85aef4dd7ac54949c4d8a1fc9fb5fbe3e5867303,6\2\62
 w
 G.idea/sonarlint/issuestore/2/b/2bf2f9159858e5c8321afdfc76aee7ac569ec5d1,d\8\d82bd489643c2b69eba898e04a851fd091db3d4f
 w
-G.idea/sonarlint/issuestore/7/a/7a6cbb31e3ea3b39d70f0c8d48d7d350953541f1,8\8\88230600fd1846df8fa63cd96549f36c755af919
-w
 G.idea/sonarlint/issuestore/9/6/961a9c57ac644ac99ebfbdf5bd742f7f90829046,5\8\585f59642a193b00a603a7c77a67ef51a020aa93
 w
 G.idea/sonarlint/issuestore/9/6/96a72e42d2aa3d64b69dc1dad5feaa5f38a1feba,4\b\4b0164ea146bcc809682c104685131b6db160426
 w
 G.idea/sonarlint/issuestore/a/a/aae6f372181523c15c92b9fc6014b9b069dbd15b,0\6\06a716513f966d0e3e0b3b797b2172e716fb2653
-w
-G.idea/sonarlint/issuestore/c/0/c0171726e6a1842d7a7b339b7a021e7dbaba2ba5,2\2\2260e1f807136b236bbc1507202384a3591a44d9
 w
 G.idea/sonarlint/issuestore/f/f/ff906d7bcf6060f564c559ff376b10b9f8789af7,7\6\7622e247871d3be146bb6ba5f01d4e8779f295c1
 w
@@ -33,7 +29,9 @@ n
 >src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Square.java,6\9\691e97c639ef86eed00359f6e3e9413db372988b
 {
 Ksrc/test/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.java,f\3\f335c413ea336461ef642e43eb566df70cda5d65
-9
-	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 j
 :src/main/java/edu/uga/miage/m1/polygons/gui/GUIHelper.java,a\0\a09d9862228535c50aab6abcd96dda3932bd461c
+d
+4src/main/java/edu/uga/miage/m1/polygons/gui/App.java,7\a\7ae6e7f4eb3971619796ade23d0b1b3d805d6ce5
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d

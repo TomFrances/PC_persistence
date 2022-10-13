@@ -110,6 +110,7 @@ public class JDrawingFrame extends JFrame
      **/
     private void addShape(Shapes shape, ImageIcon icon) {
         JButton button = new JButton(icon);
+        button.setName(shape.name());
         button.setBorderPainted(false);
         buttons.put(shape, button);
         button.setActionCommand(shape.toString());
@@ -127,7 +128,6 @@ public class JDrawingFrame extends JFrame
     private JMenuBar createToolsMenu() {
         JMenuBar menu = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
-
         menu.add(fileMenu);
         JMenu exportMenu = new JMenu("Export");
 
@@ -276,6 +276,7 @@ public class JDrawingFrame extends JFrame
                 if (evt.getActionCommand().equals(shape.toString())) {
                     btn.setBorderPainted(true);
                     selected = shape;
+                    System.out.println(btn.getName());
                 } else {
                     btn.setBorderPainted(false);
                 }
