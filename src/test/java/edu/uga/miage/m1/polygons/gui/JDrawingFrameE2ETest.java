@@ -17,6 +17,9 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -102,7 +105,7 @@ class JDrawingFrameE2ETest {
     }
 
     @Test
-    void testE2EJDrawingFrameSuccess() throws InterruptedException {
+    void testE2EJDrawingFrameSuccess(){
         window.menuItemWithPath("File", "Import").click();
         JFileChooserFixture fileChoose = window.dialog().fileChooser().setCurrentDirectory(new File("./src/test/ressources/"));
         fileChoose.fileNameTextBox().setText("jsonSuccess.json");
@@ -114,12 +117,35 @@ class JDrawingFrameE2ETest {
         assertSame(frame.getShapesList().get(3).getClass(), Square.class);
     }
     @Test
-    void testE2EJDrawingFrameFail() throws InterruptedException {
+    void testE2EJDrawingFrameFail() {
         window.menuItemWithPath("File", "Import").click();
         JFileChooserFixture fileChoose = window.dialog().fileChooser().setCurrentDirectory(new File("./src/test/ressources/"));
         fileChoose.fileNameTextBox().setText("jsonFail.json");
         fileChoose.approve();
         assertEquals(0,frame.getShapesList().size());
+    }
+
+    @Test
+    void testE2EJDrawingFrameExport() throws IOException {
+        int x = 50;
+        int y = 223;
+        Point point;
+        int xVariation = 69;
+        int yVariation = 46;
+
+        point = new Point(x + xVariation, y + yVariation);
+        window.panel("drawingPanel").robot().moveMouse(point);
+        window.panel("drawingPanel").robot().pressMouse(MouseButton.LEFT_BUTTON);
+        window.panel("drawingPanel").robot().releaseMouse(MouseButton.LEFT_BUTTON);
+
+        window.menuItemWithPath("File", "Export","JSON").click();
+        String fileContent = Files.readString(Path.of(new File("./jsonExport.json").getPath()));
+        String expectedContent = "{\"shapes\": [{\"type\":\"square\",\"x\":50,\"y\":223}]}";
+        assertEquals(fileContent,expectedContent);
+        window.menuItemWithPath("File", "Export","XML").click();
+        fileContent = Files.readString(Path.of(new File("./xmlExport.xml").getPath()));
+        expectedContent = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes><shape><type>square</type><x>50</x><y>223</y></shape></shapes></root>";
+        assertEquals(fileContent,expectedContent);
     }
 
     @AfterEach
