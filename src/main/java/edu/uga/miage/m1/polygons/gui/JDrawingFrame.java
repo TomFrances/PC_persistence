@@ -30,7 +30,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.Serial;
 import java.util.*;
-import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -200,7 +199,6 @@ public class JDrawingFrame extends JFrame
                     shapesList.add(star);
                     star.draw(g2);
                 }
-                default -> Logger.getLogger("No shape named " + selected);
             }
         }
     }
