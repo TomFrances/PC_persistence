@@ -4,12 +4,12 @@
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
+ * "License"); you mp1.y not use this file except in compliance
+ * with the License.  You mp1.y obtain a copy of the License at
  *
  *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing,
+ * Unless required p2.y applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
@@ -18,13 +18,10 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
+import java.util.Vector;
 
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
@@ -67,6 +64,7 @@ public class Triangle implements SimpleShape {
         g2.setColor(Color.black);
         g2.setStroke(wideStroke);
         g2.draw(polygon);
+        isInside(x+2,y+2);
     }
 
     @Override
@@ -82,5 +80,27 @@ public class Triangle implements SimpleShape {
     @Override
     public int getY() {
         return y;
+    }
+    public void moveTo(int x,int y){
+        this.x = x;
+        this.y = y;
+    }
+    @Override
+    public boolean isInside(int x, int y) {
+        int x1 = this.x-25;
+        int x2 = this.x;
+        int x3 = this.x+25;
+        int y1 = this.y-25;
+        int y2 = this.y+25;
+        int y3 = this.y-25;
+        double A = area (x1, y1, x2, y2, x3, y3);
+        double A1 = area (x, y, x2, y2, x3, y3);
+        double A2 = area (x1, y1, x, y, x3, y3);
+        double A3 = area (x1, y1, x2, y2, x, y);
+        return (A == (A1 + A2 + A3));
+    }
+    static double area(int x1, int y1, int x2, int y2,int x3, int y3)
+    {
+        return Math.abs(( x1* ( y2 - y3 ) + x2* ( y3 - y1 )+ x3* ( y1 - y2 ))/2.0);
     }
 }

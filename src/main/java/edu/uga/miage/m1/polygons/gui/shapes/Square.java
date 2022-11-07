@@ -4,12 +4,12 @@
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
+ * "License"); you mp1.y not use this file except in compliance
+ * with the License.  You mp1.y obtain a copy of the License at
  *
  *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing,
+ * Unless required p2.y applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
@@ -18,11 +18,7 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
@@ -72,5 +68,15 @@ public class Square implements SimpleShape {
     @Override
     public int getY() {
         return y;
+    }
+
+    @Override
+    public boolean isInside(int x, int y) {
+        return x <= this.x+25 && x>= this.x-25 && y <= this.y+25 && y>= this.y-25;
+    }
+
+    public void moveTo(int x,int y){
+        this.x = x;
+        this.y = y;
     }
 }

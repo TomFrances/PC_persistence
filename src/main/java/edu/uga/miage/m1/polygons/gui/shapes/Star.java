@@ -78,4 +78,13 @@ public class Star implements SimpleShape {
     public int getY() {
         return y;
     }
+
+    @Override
+    public boolean isInside(int x, int y) {
+        return false;
+    }
+    public void moveTo(int x,int y){
+        this.x = x;
+        this.y = y;
+    }
 }

@@ -25,4 +25,7 @@ public interface SimpleShape
     int getX();
     
     int getY();
+    boolean isInside(int x,int y);
+
+    void moveTo(int x,int y);
 }

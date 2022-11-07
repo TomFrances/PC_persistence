@@ -25,11 +25,7 @@ w
 G.idea/sonarlint/issuestore/2/8/28e4a2e57ea1412e35cd955351520c20c1e52c43,a\2\a208f717011adff673b991d4940a36251b05a724
 {
 Ksrc/test/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.java,f\3\f335c413ea336461ef642e43eb566df70cda5d65
-j
-:src/main/java/edu/uga/miage/m1/polygons/gui/GUIHelper.java,a\0\a09d9862228535c50aab6abcd96dda3932bd461c
 d
 4src/main/java/edu/uga/miage/m1/polygons/gui/App.java,7\a\7ae6e7f4eb3971619796ade23d0b1b3d805d6ce5
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-p
-@src/main/java/edu/uga/miage/m1/polygons/gui/utils/FileUtils.java,2\f\2f8e03265c3e02fb8c558bc73c33c749fb94246c

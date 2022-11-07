@@ -6,7 +6,7 @@ import org.assertj.swing.fixture.FrameFixture;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
+import javp1.x.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 

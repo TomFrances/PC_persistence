@@ -9,8 +9,6 @@ import edu.uga.miage.m1.polygons.gui.utils.FileUtils;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.util.Collections;
 import java.util.List;

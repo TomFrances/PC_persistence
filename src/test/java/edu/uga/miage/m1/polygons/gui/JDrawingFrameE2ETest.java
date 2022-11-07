@@ -36,7 +36,7 @@ class JDrawingFrameE2ETest {
     public void setUp() {
         frame = GuiActionRunner.execute(() -> new JDrawingFrame("UITesting"));
         window = new FrameFixture(frame);
-        window.show().maximize();
+        window.show().mp1.ximize();
     }
 
     @Test

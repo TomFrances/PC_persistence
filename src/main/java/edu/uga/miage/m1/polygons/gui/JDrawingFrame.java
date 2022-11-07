@@ -5,12 +5,12 @@ package edu.uga.miage.m1.polygons.gui;
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
+ * "License"); you mp1.y not use this file except in compliance
+ * with the License.  You mp1.y obtain a copy of the License at
  *
  *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing,
+ * Unless required p2.y applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
@@ -19,10 +19,8 @@ package edu.uga.miage.m1.polygons.gui;
  */
 
 
+import java.awt.*;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -30,13 +28,15 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.Serial;
 import java.util.*;
+import java.util.List;
 
-import javax.swing.*;
 
 import edu.uga.miage.m1.polygons.gui.file_management.Export;
 import edu.uga.miage.m1.polygons.gui.file_management.Import;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import lombok.extern.java.Log;
+
+import javax.swing.*;
 
 
 /**
@@ -49,6 +49,7 @@ import lombok.extern.java.Log;
 public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
 
+    private SimpleShape dragged;
     private enum Shapes {SQUARE, TRIANGLE, CIRCLE, STAR}
 
     @Serial
@@ -229,7 +230,15 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mousePressed(MouseEvent evt) {
-        /* Unused */
+        int i = shapesList.size()-1;
+        while(i>=0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
+            i--;
+        }
+        if(i>=0){
+            SimpleShape shape =shapesList.remove(i);
+            dragged = shape;
+            shapesList.add(shape);
+        }
     }
 
     /**
@@ -239,7 +248,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseReleased(MouseEvent evt) {
-        /* Unused */
+        dragged = null;
     }
 
     /**
@@ -249,7 +258,12 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseDragged(MouseEvent evt) {
-        /* Unused */
+        if(dragged != null){
+            dragged.moveTo(evt.getX(), evt.getY());
+            drawALlShapes();
+        }
+
+
     }
 
     /**

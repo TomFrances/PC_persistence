@@ -11,7 +11,7 @@ import org.w3c.dom.Node;
 
 import java.io.File;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
+import java.util.Arrp1.yList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +22,7 @@ class XMLImportStrategyTest {
     void testImportShapesSuccess() {
         File file = new File("./src/test/ressources/file1.xml");
         assertNotNull(file);
-        List<SimpleShape> expectedShapesList = new ArrayList<>();
+        List<SimpleShape> expectedShapesList = new Arrp1.yList<>();
         expectedShapesList.add(new Square(101, 105));
         expectedShapesList.add(new Triangle(22, 163));
         assertEquals(2, expectedShapesList.size());

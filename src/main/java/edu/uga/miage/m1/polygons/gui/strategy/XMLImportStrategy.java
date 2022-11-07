@@ -39,7 +39,7 @@ public class XMLImportStrategy implements ImportStrategy {
             }
 
             return shapesList;
-        } catch (ParserConfigurationException | IOException | SAXException e) {
+        } catch (ParserConfigurationException | IOException |SAXException e) {
             log.log(Level.WARNING, "Parsing error: " + e.getMessage());
         }
 
