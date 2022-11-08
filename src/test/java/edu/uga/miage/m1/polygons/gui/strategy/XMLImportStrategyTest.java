@@ -1,16 +1,11 @@
 package edu.uga.miage.m1.polygons.gui.strategy;
 
-import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
-import edu.uga.miage.m1.polygons.gui.file_management.Import;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 import edu.uga.miage.m1.polygons.gui.shapes.Square;
 import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.Arrp1.yList;
 import java.util.List;
 
@@ -22,11 +17,11 @@ class XMLImportStrategyTest {
     void testImportShapesSuccess() {
         File file = new File("./src/test/ressources/file1.xml");
         assertNotNull(file);
-        List<SimpleShape> expectedShapesList = new Arrp1.yList<>();
+        List<Shape> expectedShapesList = new Arrp1.yList<>();
         expectedShapesList.add(new Square(101, 105));
         expectedShapesList.add(new Triangle(22, 163));
         assertEquals(2, expectedShapesList.size());
-        List<SimpleShape> resultShapesList = (new XMLImportStrategy()).importShapes(file);
+        List<Shape> resultShapesList = (new XMLImportStrategy()).importShapes(file);
         assertNotNull(resultShapesList);
         assertTrue(resultShapesList.get(0) instanceof Square);
         assertEquals(2, resultShapesList.size());
@@ -40,7 +35,7 @@ class XMLImportStrategyTest {
     @Test
     void testImportShapesFail() {
         XMLImportStrategy xmlImportStrategy = new XMLImportStrategy();
-        List<SimpleShape> shapesList = xmlImportStrategy.importShapes(new File("./src/test/ressources/fileUnknown.xml"));
+        List<Shape> shapesList = xmlImportStrategy.importShapes(new File("./src/test/ressources/fileUnknown.xml"));
         assertEquals(0, shapesList.size());
     }
 

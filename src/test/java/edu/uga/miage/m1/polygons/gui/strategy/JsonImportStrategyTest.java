@@ -1,6 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.strategy;
 
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,7 +19,7 @@ class JsonImportStrategyTest {
     void importShapesFail(String args) {
         File file = new File(args);
         JsonImportStrategy importStrategy = new JsonImportStrategy();
-        List<SimpleShape> shapes = importStrategy.importShapes(file);
+        List<Shape> shapes = importStrategy.importShapes(file);
         assertEquals(0, shapes.size());
     }
 
@@ -27,7 +27,7 @@ class JsonImportStrategyTest {
     void importShapesSuccess() {
         File file = new File("./src/test/ressources/jsonSuccess.json");
         JsonImportStrategy importStrategy = new JsonImportStrategy();
-        List<SimpleShape> shapes = importStrategy.importShapes(file);
+        List<Shape> shapes = importStrategy.importShapes(file);
         assertEquals(4, shapes.size());
     }
 }

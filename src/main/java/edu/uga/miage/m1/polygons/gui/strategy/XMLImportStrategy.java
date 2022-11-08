@@ -1,7 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.strategy;
 
 import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 import lombok.extern.java.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,9 +20,9 @@ import java.util.logging.Level;
 public class XMLImportStrategy implements ImportStrategy {
 
     @Override
-    public List<SimpleShape> importShapes(File file) {
+    public List<Shape> importShapes(File file) {
         try {
-            List<SimpleShape> shapesList = new ArrayList<>();
+            List<Shape> shapesList = new ArrayList<>();
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -46,7 +46,7 @@ public class XMLImportStrategy implements ImportStrategy {
         return Collections.emptyList();
     }
 
-    private SimpleShape createShape(Element shapeElement, ShapeFactory shapeFactory){
+    private Shape createShape(Element shapeElement, ShapeFactory shapeFactory){
         String type = shapeElement.getElementsByTagName("type").item(0).getTextContent();
         int x = Integer.parseInt(shapeElement.getElementsByTagName("x").item(0).getTextContent());
         int y = Integer.parseInt(shapeElement.getElementsByTagName("y").item(0).getTextContent());

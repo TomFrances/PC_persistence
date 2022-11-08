@@ -3,7 +3,7 @@ package edu.uga.miage.m1.polygons.gui.file_management;
 import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,12 +18,11 @@ public class Export {
     /**
      * Export all the drawn figure to a json format
      */
-    public static void jsonExport(List<SimpleShape> shapesList) {
+    public static void jsonExport(List<Shape> shapesList) {
         try (FileWriter fileWriter = new FileWriter("jsonExport.json", false)) {
             if(!(visitor instanceof JSonVisitor)){
                 visitor = new JSonVisitor();
             }
-
             String res = (shapesList
                     .stream()
                     .map(Export::createRepresentation)
@@ -40,12 +39,11 @@ public class Export {
     /**
      * Export all the drawn figure to a json format
      */
-    public static void xmlExport(List<SimpleShape> shapesList) {
+    public static void xmlExport(List<Shape> shapesList) {
         try (FileWriter fileWriter = new FileWriter("xmlExport.xml", false)) {
             if(!(visitor instanceof XMLVisitor)){
                 visitor = new XMLVisitor();
             }
-
             String res = (shapesList
                     .stream()
                     .map(Export::createRepresentation)
@@ -58,7 +56,7 @@ public class Export {
         }
     }
 
-    private static String createRepresentation(SimpleShape shape) {
+    private static String createRepresentation(Shape shape) {
         shape.accept(visitor);
         return visitor.getRepresentation();
     }

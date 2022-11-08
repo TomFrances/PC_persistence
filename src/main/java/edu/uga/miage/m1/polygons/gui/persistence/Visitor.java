@@ -1,6 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 
 /**
  * You must define a method for each type of Visitable.
@@ -8,6 +8,6 @@ import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
  *
  */
 public interface Visitor {
-	public void visit(SimpleShape shape);
+	public void visit(Shape shape);
 	String getRepresentation();
 }

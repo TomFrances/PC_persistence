@@ -1,6 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.file_management;
 
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 import edu.uga.miage.m1.polygons.gui.shapes.Square;
 import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 import edu.uga.miage.m1.polygons.gui.utils.FileUtils;
@@ -12,7 +12,6 @@ import java.io.File;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 
 class ImportTest {
@@ -24,7 +23,7 @@ class ImportTest {
         MockedStatic<FileUtils> mocked = Mockito.mockStatic(FileUtils.class);
         mocked.when(FileUtils::chooseFile).thenReturn(file);
         mocked.when(() -> FileUtils.getExtension(file)).thenReturn("json");
-        List<SimpleShape> shapesList = Import.importShapesFile();
+        List<Shape> shapesList = Import.importShapesFile();
         assertEquals(4, shapesList.size());
         Triangle triangle = new Triangle(257, 58);
         assertEquals(triangle.getClass(), shapesList.get(2).getClass());
@@ -39,7 +38,7 @@ class ImportTest {
         File file = new File("./src/test/ressources/file1.xml");
         mocked.when(FileUtils::chooseFile).thenReturn(file);
         mocked.when(() -> FileUtils.getExtension(file)).thenReturn("xml");
-        List<SimpleShape> shapesList = Import.importShapesFile();
+        List<Shape> shapesList = Import.importShapesFile();
         assertEquals(2, shapesList.size());
         Square square = new Square(101, 105);
         assertEquals(square.getClass(), shapesList.get(0).getClass());
@@ -54,7 +53,7 @@ class ImportTest {
         MockedStatic<FileUtils> mocked = Mockito.mockStatic(FileUtils.class);
         mocked.when(FileUtils::chooseFile).thenReturn(file);
         mocked.when(() -> FileUtils.getExtension(file)).thenReturn("yaml");
-        List<SimpleShape> shapesList = Import.importShapesFile();
+        List<Shape> shapesList = Import.importShapesFile();
         assertEquals(0, shapesList.size());
         mocked.close();
     }

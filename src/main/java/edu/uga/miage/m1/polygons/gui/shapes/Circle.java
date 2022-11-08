@@ -18,15 +18,11 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
-public class Circle implements SimpleShape{
+public class Circle implements Shape {
 
     int x;
 
@@ -43,12 +39,15 @@ public class Circle implements SimpleShape{
      * @param g2 The graphics object used for painting.
      */
     public void draw(Graphics2D g2) {
+        this.draw(g2,Color.BLACK);
+    }
+    public void draw(Graphics2D g2,Color color) {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint gradient = new GradientPaint(x - 25f, y - 25f, Color.RED, x + 25f, y - 25f, Color.WHITE);
         g2.setPaint(gradient);
         g2.fill(new Ellipse2D.Double(x - 25f, y - 25f, 50, 50));
-        BasicStroke wideStroke = new BasicStroke(2.0f);
-        g2.setColor(Color.black);
+        BasicStroke wideStroke = new BasicStroke(3.0f);
+        g2.setColor(color);
         g2.setStroke(wideStroke);
         g2.draw(new Ellipse2D.Double(x - 25f, y - 25f, 50, 50));
     }

@@ -23,7 +23,7 @@ class ExportTest {
 
     @Test
     void jsonExport() throws IOException {
-        List<SimpleShape> shapesList = new Arrp1.yList<>();
+        List<Shape> shapesList = new Arrp1.yList<>();
         shapesList.add(new Triangle(55, 89));
         shapesList.add(new Star(34, 1));
         shapesList.add(new Triangle(34, 229));
@@ -37,7 +37,7 @@ class ExportTest {
 
     @Test
     void jsonExportFail() throws IOException {
-        List<SimpleShape> shapesList = new Arrp1.yList<>();
+        List<Shape> shapesList = new Arrp1.yList<>();
         shapesList.add(new Triangle(55, 89));
         shapesList.add(new Star(34, 1));
         shapesList.add(new Triangle(34, 229));
@@ -51,7 +51,7 @@ class ExportTest {
 
     @Test
     void xmlExport() throws IOException, ParserConfigurationException, Sp1.xException {
-        List<SimpleShape> shapesList = new Arrp1.yList<>();
+        List<Shape> shapesList = new Arrp1.yList<>();
         shapesList.add(new Square(22, 80));
         shapesList.add(new Circle(90, 11));
         Export.xmlExport(shapesList);

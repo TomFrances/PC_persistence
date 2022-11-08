@@ -21,7 +21,6 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
-import java.util.Vector;
 
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
@@ -31,7 +30,7 @@ import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Triangle implements SimpleShape, Drawable {
+public class Triangle implements Shape, Drawable {
 
     int x;
 
@@ -48,6 +47,9 @@ public class Triangle implements SimpleShape, Drawable {
      * @param g2 The graphics object used for painting.
      */
     public void draw(Graphics2D g2) {
+        this.draw(g2,Color.BLACK);
+    }
+    public void draw(Graphics2D g2,Color color){
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint gradient = new GradientPaint(x, y, Color.GREEN, x + 50f, y, Color.WHITE);
         g2.setPaint(gradient);
@@ -60,8 +62,8 @@ public class Triangle implements SimpleShape, Drawable {
         }
         polygon.closePath();
         g2.fill(polygon);
-        BasicStroke wideStroke = new BasicStroke(2.0f);
-        g2.setColor(Color.black);
+        BasicStroke wideStroke = new BasicStroke(3.0f);
+        g2.setColor(color);
         g2.setStroke(wideStroke);
         g2.draw(polygon);
         isInside(x+2,y+2);

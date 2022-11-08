@@ -28,7 +28,7 @@ import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Square implements SimpleShape, Drawable {
+public class Square implements Shape, Drawable {
 
     int x;
 
@@ -45,12 +45,15 @@ public class Square implements SimpleShape, Drawable {
      * @param g2 The graphics object used for painting.
      */
     public void draw(Graphics2D g2) {
+        this.draw(g2,Color.BLACK);
+    }
+    public void draw(Graphics2D g2,Color color){
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint gradient = new GradientPaint(x, y, Color.BLUE, x + 50f, y, Color.WHITE);
         g2.setPaint(gradient);
         g2.fill(new Rectangle2D.Double(x - 25d, y - 25d, 50, 50));
-        BasicStroke wideStroke = new BasicStroke(2.0f);
-        g2.setColor(Color.black);
+        BasicStroke wideStroke = new BasicStroke(3.0f);
+        g2.setColor(color);
         g2.setStroke(wideStroke);
         g2.draw(new Rectangle2D.Double(x - 25d, y - 25d, 50, 50));
     }

@@ -34,6 +34,7 @@ import java.util.List;
 import edu.uga.miage.m1.polygons.gui.file_management.Export;
 import edu.uga.miage.m1.polygons.gui.file_management.Import;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 import lombok.extern.java.Log;
 
 import javax.swing.*;
@@ -48,8 +49,9 @@ import javax.swing.*;
 @Log
 public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
-
-    private transient SimpleShape dragged;
+    private boolean groupMode = false;
+    private transient Shape dragged;
+    private transient GroupShape groupShape;
     private enum Shapes {SQUARE, TRIANGLE, CIRCLE, STAR}
 
     @Serial
@@ -58,7 +60,7 @@ public class JDrawingFrame extends JFrame
     private Shapes selected;
     public static final JPanel panel = new JPanel();
     private final JLabel label;
-    private transient List<SimpleShape> shapesList = new ArrayList<>();
+    private transient List<Shape> shapesList = new ArrayList<>();
     private final transient ActionListener reusableActionListener = new ShapeActionListener();
 
     /**
@@ -101,7 +103,7 @@ public class JDrawingFrame extends JFrame
         setPreferredSize(new Dimension(400, 400));
     }
 
-    public List<SimpleShape> getShapesList(){
+    public List<Shape> getShapesList(){
         return this.shapesList;
     }
 
@@ -133,6 +135,34 @@ public class JDrawingFrame extends JFrame
         JMenuBar menu = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         menu.add(fileMenu);
+        JMenu group = new JMenu("Action");
+        group.add(new AbstractAction("Group"){
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                groupMode = !groupMode;
+                if(groupMode) {
+                    groupShape = new GroupShape();
+                }else {
+                    if (groupShape.getShapes().size()>1){
+                        shapesList.add(groupShape);
+                        drawALlShapes();
+                    }else if(groupShape.getShapes().size()==1){
+                        shapesList.add(groupShape.getShapes().get(0));
+                    }
+                }
+                System.out.println("Groupe mode : "+groupMode);
+            }
+
+        });
+        group.add(new AbstractAction("ungroup not done"){
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                groupMode = !groupMode;
+                System.out.println("Groupe mode : "+groupMode);
+            }
+
+        });
+        menu.add(group);
         JMenu exportMenu = new JMenu("Export");
 
         fileMenu.add(exportMenu);
@@ -175,7 +205,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseClicked(MouseEvent evt) {
-        if (panel.contains(evt.getX(), evt.getY())) {
+        if (!groupMode && panel.contains(evt.getX(), evt.getY())) {
             Graphics2D g2 = (Graphics2D) panel.getGraphics();
             switch (selected) {
                 case CIRCLE -> {
@@ -193,6 +223,15 @@ public class JDrawingFrame extends JFrame
                     shapesList.add(square);
                     square.draw(g2);
                 }
+            }
+        }else if(groupMode && panel.contains(evt.getX(), evt.getY())){
+            int i = shapesList.size()-1;
+            while(i>=0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
+                i--;
+            }
+            if(i>=0){
+                Shape shape =shapesList.remove(i);
+                groupShape.addShape(shape);
             }
         }
     }
@@ -223,14 +262,19 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mousePressed(MouseEvent evt) {
-        int i = shapesList.size()-1;
-        while(i>=0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
-            i--;
-        }
-        if(i>=0){
-            SimpleShape shape =shapesList.remove(i);
-            dragged = shape;
-            shapesList.add(shape);
+        if(!groupMode){
+            int i = shapesList.size()-1;
+            while(i>=0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
+                i--;
+            }
+            if(i>=0){
+                Shape shape =shapesList.remove(i);
+                dragged = shape;
+                if(dragged instanceof GroupShape){
+                    ((GroupShape)dragged).setCoordinate(evt.getX(), evt.getY());
+                }
+                shapesList.add(shape);
+            }
         }
     }
 

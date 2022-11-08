@@ -8,7 +8,7 @@ import lombok.extern.java.Log;
 @Log
 public class ShapeFactory implements SimpleShapeFactory {
     @Override
-    public SimpleShape createSimpleShape(String type, int x, int y) {
+    public Shape createSimpleShape(String type, int x, int y) {
 
         return switch (type) {
             case "triangle" -> new Triangle(x, y);

@@ -1,6 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.GroupShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 import edu.uga.miage.m1.polygons.gui.utils.ShapeUtils;
 
 /**
@@ -11,11 +12,14 @@ public class XMLVisitor implements Visitor {
     private String representation = null;
 
     @Override
-    public void visit(SimpleShape shape) {
+    public void visit(Shape shape) {
         this.representation = createRepresentation(shape);
     }
 
-    private String createRepresentation(SimpleShape shape) {
+    private String createRepresentation(Shape shape) {
+        if(shape instanceof GroupShape){
+            return String.format("<shape><type>%s</type><x>%d</x><y>%d</y><color>%s</color></shape>", ShapeUtils.getType(shape), shape.getX(), shape.getY(), ((GroupShape) shape).getColor().getRGB());
+        }
         return String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", ShapeUtils.getType(shape), shape.getX(), shape.getY());
     }
 

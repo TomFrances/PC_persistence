@@ -1,6 +1,4 @@
 
-x
-Hsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/ImportStrategy.java,e\1\e1af551abc0c4567c1359c0a7e6566f461f8e948
 w
 G.idea/sonarlint/issuestore/3/5/354079a72b91a4280407c16a36f47d1986fd85a5,d\f\dfac3e46bbca562b4966f9fd066d5dfc4be02a5f
 w
@@ -25,23 +23,17 @@ G.idea/sonarlint/issuestore/2/8/28e4a2e57ea1412e35cd955351520c20c1e52c43,a\2\a2
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 p
 @src/main/java/edu/uga/miage/m1/polygons/gui/utils/FileUtils.java,2\f\2f8e03265c3e02fb8c558bc73c33c749fb94246c
-|
-Lsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/JsonImportStrategy.java,9\4\94911bbc8f547ed4cbaecee85d8dd03da1e9e937
-x
-Hsrc/main/java/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitor.java,6\6\66a8a27b816bf50c2cda7d568f25f222add3a95d
-?
-jsonExport.json,5\1\51311424ec8050dbc89fbf79b6967bfd615cb85d
-{
-Ksrc/test/java/edu/uga/miage/m1/polygons/gui/file_management/ExportTest.java,d\4\d49810629ccbd41a0d3150716eb6249a2e642036
-w
-Gsrc/main/java/edu/uga/miage/m1/polygons/gui/file_management/Import.java,d\e\dea05f753dbe3b6ddd60613492c7eb08e6d9324f
 r
 Bsrc/test/java/edu/uga/miage/m1/polygons/gui/JDrawingFrameTest.java,c\d\cde5d4456709a6aa6b523b3231f5a37b0467477e
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 =
 xmlExport.xml,3\a\3ac52a07a9831d24274b2f5c296545b16899b451
+d
+4src/main/java/edu/uga/miage/m1/polygons/gui/App.java,7\a\7ae6e7f4eb3971619796ade23d0b1b3d805d6ce5
+u
+Esrc/test/java/edu/uga/miage/m1/polygons/gui/JDrawingFrameE2ETest.java,6\9\693de3cb459ef0624c6434a04bcdfe1f1d8b5423
 {
-Ksrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/XMLImportStrategy.java,e\9\e96346afba985a88e01f464f51cc9c45f4e83369
-
-Osrc/test/java/edu/uga/miage/m1/polygons/gui/strategy/XMLImportStrategyTest.java,8\b\8bd86d1803c6f6da524c877ddd42e95c01380cac
+Ksrc/test/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.java,f\3\f335c413ea336461ef642e43eb566df70cda5d65
+j
+:src/main/java/edu/uga/miage/m1/polygons/gui/GUIHelper.java,a\0\a09d9862228535c50aab6abcd96dda3932bd461c

@@ -1,7 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.file_management;
 
-import edu.uga.miage.m1.polygons.gui.JDrawingFrame;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 import edu.uga.miage.m1.polygons.gui.strategy.ImportFile;
 import edu.uga.miage.m1.polygons.gui.strategy.JsonImportStrategy;
 import edu.uga.miage.m1.polygons.gui.strategy.XMLImportStrategy;
@@ -21,7 +20,7 @@ public class Import {
     private Import() {
     }
 
-    public static List<SimpleShape> importShapesFile() {
+    public static List<Shape> importShapesFile() {
         File file = FileUtils.chooseFile();
         ImportFile importFile = new ImportFile(file);
         String fileType = FileUtils.getExtension(file);

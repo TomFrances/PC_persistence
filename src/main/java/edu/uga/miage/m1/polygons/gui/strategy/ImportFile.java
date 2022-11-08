@@ -1,6 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.strategy;
 
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 
 import java.io.File;
 import java.util.List;
@@ -13,7 +13,7 @@ public class ImportFile {
         this.file = file;
     }
 
-    public List<SimpleShape> createShapesList(ImportStrategy strategy){
+    public List<Shape> createShapesList(ImportStrategy strategy){
         return strategy.importShapes(file);
     }
 

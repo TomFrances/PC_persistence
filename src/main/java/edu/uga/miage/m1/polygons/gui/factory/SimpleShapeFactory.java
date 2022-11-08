@@ -1,7 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.factory;
 
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 
 public interface SimpleShapeFactory {
-    SimpleShape createSimpleShape(String type, int x, int y);
+    Shape createSimpleShape(String type, int x, int y);
 }
