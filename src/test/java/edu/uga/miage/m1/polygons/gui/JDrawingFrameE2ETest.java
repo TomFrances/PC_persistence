@@ -2,7 +2,6 @@ package edu.uga.miage.m1.polygons.gui;
 
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
 import edu.uga.miage.m1.polygons.gui.shapes.Square;
-import edu.uga.miage.m1.polygons.gui.shapes.Star;
 import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 import org.assertj.swing.core.MouseButton;
 import org.assertj.swing.edt.FailOnThreadViolationRepaintManager;

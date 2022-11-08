@@ -49,7 +49,7 @@ import javax.swing.*;
 public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
 
-    private SimpleShape dragged;
+    private transient SimpleShape dragged;
     private enum Shapes {SQUARE, TRIANGLE, CIRCLE, STAR}
 
     @Serial
@@ -89,7 +89,6 @@ public class JDrawingFrame extends JFrame
         addShape(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/square.png"))));
         addShape(Shapes.TRIANGLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/triangle.png"))));
         addShape(Shapes.CIRCLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/circle.png"))));
-        addShape(Shapes.STAR, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/star.png"))));
 
 
         // Fills the panel
@@ -176,7 +175,6 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseClicked(MouseEvent evt) {
-
         if (panel.contains(evt.getX(), evt.getY())) {
             Graphics2D g2 = (Graphics2D) panel.getGraphics();
             switch (selected) {
@@ -194,11 +192,6 @@ public class JDrawingFrame extends JFrame
                     Square square = new Square(evt.getX(), evt.getY());
                     shapesList.add(square);
                     square.draw(g2);
-                }
-                case STAR -> {
-                    Star star = new Star(evt.getX(), evt.getY());
-                    shapesList.add(star);
-                    star.draw(g2);
                 }
             }
         }
@@ -302,9 +295,10 @@ public class JDrawingFrame extends JFrame
     }
 
     private void drawALlShapes() {
+
+        Graphics2D g2 = (Graphics2D) panel.getGraphics();
         panel.repaint();
         SwingUtilities.invokeLater(() -> {
-            Graphics2D g2 = (Graphics2D) panel.getGraphics();
             shapesList.forEach(shape -> shape.draw(g2));
         });
     }

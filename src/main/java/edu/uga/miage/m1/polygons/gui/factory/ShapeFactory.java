@@ -14,7 +14,6 @@ public class ShapeFactory implements SimpleShapeFactory {
             case "triangle" -> new Triangle(x, y);
             case "circle" -> new Circle(x, y);
             case "square" -> new Square(x, y);
-            case "star" -> new Star(x, y);
             default -> null;
         };
     }

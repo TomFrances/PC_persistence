@@ -28,7 +28,7 @@ import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Square implements SimpleShape {
+public class Square implements SimpleShape, Drawable {
 
     int x;
 
@@ -75,6 +75,7 @@ public class Square implements SimpleShape {
         return x <= this.x+25 && x>= this.x-25 && y <= this.y+25 && y>= this.y-25;
     }
 
+    @Override
     public void moveTo(int x,int y){
         this.x = x;
         this.y = y;

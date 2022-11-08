@@ -31,7 +31,7 @@ import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Triangle implements SimpleShape {
+public class Triangle implements SimpleShape, Drawable {
 
     int x;
 
@@ -81,6 +81,7 @@ public class Triangle implements SimpleShape {
     public int getY() {
         return y;
     }
+    @Override
     public void moveTo(int x,int y){
         this.x = x;
         this.y = y;

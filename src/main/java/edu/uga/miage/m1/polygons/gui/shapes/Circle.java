@@ -26,7 +26,7 @@ import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
-public class Circle implements SimpleShape {
+public class Circle implements SimpleShape{
 
     int x;
 
@@ -69,6 +69,7 @@ public class Circle implements SimpleShape {
         return y;
     }
 
+    @Override
     public void moveTo(int x,int y){
         this.x = x;
         this.y = y;

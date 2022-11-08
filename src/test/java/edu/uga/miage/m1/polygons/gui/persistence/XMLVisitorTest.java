@@ -1,12 +1,8 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
-import edu.uga.miage.m1.polygons.gui.shapes.Star;
 import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
 

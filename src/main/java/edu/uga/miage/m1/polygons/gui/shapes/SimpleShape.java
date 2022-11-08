@@ -11,21 +11,19 @@ import java.awt.Graphics2D;
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  *
  */
-public interface SimpleShape
+public interface SimpleShape extends Drawable
 {
 
     /**
      * Method to draw the shape of the extension.
      * @param g2 The graphics object used for painting.
      **/
-    void draw(Graphics2D g2);
+
 
     void accept(Visitor visitor);
 
     int getX();
     
     int getY();
-    boolean isInside(int x,int y);
 
-    void moveTo(int x,int y);
 }
