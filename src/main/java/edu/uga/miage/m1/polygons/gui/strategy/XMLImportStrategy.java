@@ -1,6 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.strategy;
 
 import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
+import edu.uga.miage.m1.polygons.gui.shapes.GroupShape;
 import edu.uga.miage.m1.polygons.gui.shapes.Shape;
 import lombok.extern.java.Log;
 import org.w3c.dom.Document;
@@ -11,9 +12,11 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 import java.util.logging.Level;
 
 @Log
@@ -30,7 +33,6 @@ public class XMLImportStrategy implements ImportStrategy {
             Document xmlDocument = db.parse(file.getPath());
 
             ShapeFactory shapeFactory = new ShapeFactory();
-
             NodeList shapes = xmlDocument.getElementsByTagName("shape");
             int nbShape = shapes.getLength();
             for (int i = 0; i < nbShape; i++) {
@@ -48,6 +50,17 @@ public class XMLImportStrategy implements ImportStrategy {
 
     private Shape createShape(Element shapeElement, ShapeFactory shapeFactory){
         String type = shapeElement.getElementsByTagName("type").item(0).getTextContent();
+        if(type.equals("groupshape")){
+            GroupShape group = new GroupShape();
+            group.setColor(new Color(Integer.parseInt(shapeElement.getElementsByTagName("color").item(0).getTextContent())));
+            NodeList shapes = shapeElement.getElementsByTagName("groupShape");
+            int nbShape = shapes.getLength();
+            for (int i = 0; i < nbShape; i++) {
+                Element el = (Element) shapes.item(i);
+                group.addShape(createShape(el, shapeFactory));
+            }
+            return group;
+        }
         int x = Integer.parseInt(shapeElement.getElementsByTagName("x").item(0).getTextContent());
         int y = Integer.parseInt(shapeElement.getElementsByTagName("y").item(0).getTextContent());
         return shapeFactory.createSimpleShape(type, x, y);

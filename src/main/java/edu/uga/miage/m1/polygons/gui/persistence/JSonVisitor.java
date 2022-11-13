@@ -22,16 +22,15 @@ public class JSonVisitor implements Visitor {
     }
 
     private String createRepresentation(Shape shape) {
-        if(shape instanceof GroupShape){
-            List<Shape> shapeList = ((GroupShape)shape).getShapes();
+        if(shape instanceof GroupShape groupeShape){
+            List<Shape> shapeList = groupeShape.getShapes();
 
             JsonArrayBuilder array = Json.createArrayBuilder();
-            shapeList.forEach(s -> {
-                array.add(Json.createObjectBuilder()
-                        .add("type", ShapeUtils.getType(s))
-                        .add("x",s.getX())
-                        .add("y",s.getY()));
-            });
+            shapeList.forEach(s ->
+                    array.add(Json.createObjectBuilder()
+                    .add("type", ShapeUtils.getType(s))
+                    .add("x",s.getX())
+                    .add("y",s.getY())));
             return Json.createObjectBuilder()
                     .add("type", ShapeUtils.getType(shape))
                     .add("x",shape.getX())

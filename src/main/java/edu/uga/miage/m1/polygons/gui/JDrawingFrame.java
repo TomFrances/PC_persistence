@@ -21,11 +21,7 @@ package edu.uga.miage.m1.polygons.gui;
 
 import java.awt.*;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.io.Serial;
 import java.util.*;
 import java.util.List;
@@ -50,6 +46,7 @@ import javax.swing.*;
 public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
     private boolean groupMode = false;
+    private boolean disassemble = false;
     private transient Shape dragged;
     private transient GroupShape groupShape;
     private enum Shapes {SQUARE, TRIANGLE, CIRCLE, STAR}
@@ -135,34 +132,32 @@ public class JDrawingFrame extends JFrame
         JMenuBar menu = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         menu.add(fileMenu);
-        JMenu group = new JMenu("Action");
-        group.add(new AbstractAction("Group"){
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                groupMode = !groupMode;
-                if(groupMode) {
-                    groupShape = new GroupShape();
-                }else {
-                    if (groupShape.getShapes().size()>1){
-                        shapesList.add(groupShape);
-                        drawALlShapes();
-                    }else if(groupShape.getShapes().size()==1){
-                        shapesList.add(groupShape.getShapes().get(0));
-                    }
+        JCheckBox groupCheck = new JCheckBox("Group mode");
+        JCheckBox disbandGroup = new JCheckBox("Disassemble group");
+        groupCheck.addItemListener(e -> {
+            groupMode = e.getStateChange() == ItemEvent.SELECTED;
+            if(disassemble){
+                disbandGroup.setSelected(false);
+                disassemble = false;
+            }
+            if(groupMode) {
+                groupShape = new GroupShape();
+            }else {
+                if (groupShape.getShapes().size()>1){
+                    shapesList.add(groupShape);
+                    drawALlShapes();
+                }else if(groupShape.getShapes().size()==1){
+                    shapesList.add(groupShape.getShapes().get(0));
                 }
-                System.out.println("Groupe mode : "+groupMode);
             }
-
         });
-        group.add(new AbstractAction("ungroup not done"){
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                groupMode = !groupMode;
-                System.out.println("Groupe mode : "+groupMode);
-            }
+        menu.add(groupCheck);
 
+        disbandGroup.addItemListener(e -> {
+            disassemble = e.getStateChange() == ItemEvent.SELECTED && !groupMode;
+            if(!disassemble)disbandGroup.setSelected(false);
         });
-        menu.add(group);
+        menu.add(disbandGroup);
         JMenu exportMenu = new JMenu("Export");
 
         fileMenu.add(exportMenu);
@@ -205,7 +200,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseClicked(MouseEvent evt) {
-        if (!groupMode && panel.contains(evt.getX(), evt.getY())) {
+        if (!groupMode && !disassemble && panel.contains(evt.getX(), evt.getY())) {
             Graphics2D g2 = (Graphics2D) panel.getGraphics();
             switch (selected) {
                 case CIRCLE -> {
@@ -232,6 +227,18 @@ public class JDrawingFrame extends JFrame
             if(i>=0){
                 Shape shape =shapesList.remove(i);
                 groupShape.addShape(shape);
+            }
+        }else if(disassemble && panel.contains(evt.getX(), evt.getY())){
+            int i = shapesList.size()-1;
+            while(i>=0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
+                i--;
+            }
+            if(i>=0){
+                Shape shape =shapesList.remove(i);
+                if(shape instanceof GroupShape sl){
+                    shapesList.addAll(sl.getShapes());
+                    drawALlShapes();
+                }
             }
         }
     }
@@ -270,14 +277,13 @@ public class JDrawingFrame extends JFrame
             if(i>=0){
                 Shape shape =shapesList.remove(i);
                 dragged = shape;
-                if(dragged instanceof GroupShape){
-                    ((GroupShape)dragged).setCoordinate(evt.getX(), evt.getY());
+                if(dragged instanceof GroupShape s){
+                    s.setCoordinate(evt.getX(), evt.getY());
                 }
                 shapesList.add(shape);
             }
         }
     }
-
     /**
      * Implements method for the <tt>MouseListener</tt> interface to complete
      * shape dragging.
@@ -339,7 +345,6 @@ public class JDrawingFrame extends JFrame
     }
 
     private void drawALlShapes() {
-
         Graphics2D g2 = (Graphics2D) panel.getGraphics();
         panel.repaint();
         SwingUtilities.invokeLater(() -> {

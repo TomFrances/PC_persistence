@@ -33,7 +33,7 @@ public class JsonImportStrategy implements ImportStrategy {
                 String type = shape.getString("type");
                 if(type.equals("groupshape")){
                     GroupShape group = new GroupShape();
-                    group.setColor(new Color(Integer.parseInt(shape.getString("color"))));
+                    group.setColor(new Color(shape.getInt("color")));
                     JSONArray groupShapes = shape.getJSONArray("shapes");
                     groupShapes.forEach(s -> {
                         JSONObject shapeObject = (JSONObject) s;

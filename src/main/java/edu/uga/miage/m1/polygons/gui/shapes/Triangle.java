@@ -66,7 +66,6 @@ public class Triangle implements Shape, Drawable {
         g2.setColor(color);
         g2.setStroke(wideStroke);
         g2.draw(polygon);
-        isInside(x+2,y+2);
     }
 
     @Override
