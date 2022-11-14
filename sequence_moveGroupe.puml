@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor JDrawingFrame
+participant "groupShape : GroupShape" as groupshape
+participant "shape : Shape" as shape
+
+JDrawingFrame -> JDrawingFrame : mousePressed()
+JDrawingFrame -> JDrawingFrame : mouseDragged()
+JDrawingFrame -> groupshape : moveTo(x,y)
+loop shapeList.size() times
+groupshape -> shape : moveTo(x,y)
+end
+
+JDrawingFrame -> JDrawingFrame : drawAllShape()
+
+
+@enduml

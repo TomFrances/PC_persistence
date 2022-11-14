@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor JDrawingFrame
+
+create "groupShape : GroupShape" as groupshape
+
+JDrawingFrame -> groupshape : new GroupShape()
+JDrawingFrame -> JDrawingFrame : shapeList.remove(shape)
+JDrawingFrame -> groupshape : addShape(shape)
+JDrawingFrame -> JDrawingFrame : shapeList.remove(shape)
+JDrawingFrame -> groupshape : addShape(shape)
+JDrawingFrame -> JDrawingFrame : shapeList.remove(shape)
+JDrawingFrame -> groupshape : addShape(shape)
+groupshape -> groupshape : shappeList.add(shape)
+JDrawingFrame ->JDrawingFrame : shapeList.add(groupshape)
+
+
+@enduml
