@@ -31,6 +31,10 @@ public class Square extends Shape {
         super(x, y);
     }
 
+    public Square(Square original){
+        super(original);
+    }
+
     public boolean isInside(int x, int y) {
         return x <= (getX() + 25) && x >= (getX() - 25) && y <= (getY() + 25) && y >= (getY() - 25);
     }

@@ -19,15 +19,20 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
 
+import java.util.Objects;
+
 public class Circle extends Shape {
 
     public Circle(int x, int y) {
         super(x, y);
     }
 
+    public Circle(Circle original) {
+        super(original);
+    }
+
     public boolean isInside(int x, int y) {
         return Math.sqrt(Math.pow((double) x - this.getX(), 2) + Math.pow((double) y - this.getY(), 2)) <= 25;
     }
-
 
 }

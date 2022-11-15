@@ -31,6 +31,9 @@ public class Triangle extends Shape {
         super(x, y);
     }
 
+    public Triangle(Triangle original){
+        super(original);
+    }
     public boolean isInside(int x, int y) {
         int x1 = this.getX()-25;
         int x2 = this.getX();

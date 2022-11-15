@@ -25,8 +25,12 @@ import java.awt.event.*;
 import java.io.Serial;
 import java.util.*;
 import java.util.List;
+import java.util.logging.Level;
 
 
+import edu.uga.miage.m1.polygons.gui.command.Command;
+import edu.uga.miage.m1.polygons.gui.command.SaveCommand;
+import edu.uga.miage.m1.polygons.gui.command.UndoCommand;
 import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
 import edu.uga.miage.m1.polygons.gui.file_management.Export;
 import edu.uga.miage.m1.polygons.gui.file_management.Import;
@@ -60,11 +64,27 @@ public class JDrawingFrame extends JFrame
     private Shapes selected;
     public static final JPanel panel = new JPanel();
     private final JLabel label;
+
+    public void setShapesList(List<Shape> shapesList) {
+        this.shapesList = shapesList;
+    }
+
     private List<Shape> shapesList = new ArrayList<>();//NOSONAR
     private final ActionListener reusableActionListener = new ShapeActionListener();//NOSONAR
     private final Drawer drawer = new Drawer();//NOSONAR
 
     private final ShapeFactory shapeFactory = new ShapeFactory();//NOSONAR
+
+    public Deque<List<Shape>> getUndoStack() {
+        return undoStack;
+    }
+
+    public Deque<List<Shape>> getRedoStackStack() {
+        return redoStackStack;
+    }
+
+    private Deque<List<Shape>> undoStack = new ArrayDeque<>();
+    private Deque<List<Shape>> redoStackStack = new ArrayDeque<>();
 
     /**
      * Tracks buttons to manage the background.
@@ -85,7 +105,7 @@ public class JDrawingFrame extends JFrame
         panel.setBackground(Color.WHITE);
         panel.setName("drawingPanel");
         panel.setLayout(null);
-        panel.setMinimumSize(new Dimension(400, 400));
+        panel.setMinimumSize(new Dimension(600, 400));
         panel.addMouseListener(this);
         panel.addMouseMotionListener(this);
         label = new JLabel(" ", SwingConstants.LEFT);
@@ -103,7 +123,7 @@ public class JDrawingFrame extends JFrame
         add(panel, BorderLayout.CENTER);
         add(label, BorderLayout.SOUTH);
 
-        setPreferredSize(new Dimension(400, 400));
+        setPreferredSize(new Dimension(1100, 700));
     }
 
     public List<Shape> getShapesList() {
@@ -196,6 +216,11 @@ public class JDrawingFrame extends JFrame
 
         fileMenu.add(importItem);
 
+        JButton buttonUndo = new JButton("Undo");
+        buttonUndo.addActionListener(e -> {
+            executeCommand(new UndoCommand(this));
+        });
+        menu.add(buttonUndo);
         return menu;
     }
 
@@ -240,6 +265,9 @@ public class JDrawingFrame extends JFrame
 
     private void createShape(MouseEvent evt) {
         Graphics2D g2 = (Graphics2D) panel.getGraphics();
+
+        executeCommand(new SaveCommand(this));
+
         switch (selected) {
             case CIRCLE -> {
                 Circle circle = (Circle) shapeFactory.createShape("circle", evt.getX(), evt.getY());
@@ -291,6 +319,9 @@ public class JDrawingFrame extends JFrame
                 i--;
             }
             if (i >= 0) {
+                log.log(Level.WARNING, "ii");
+                executeCommand(new SaveCommand(this));
+
                 Shape shape = shapesList.remove(i);
                 dragged = shape;
                 if (dragged instanceof GroupShape s) {
@@ -322,8 +353,6 @@ public class JDrawingFrame extends JFrame
             dragged.moveTo(evt.getX(), evt.getY());
             drawALlShapes();
         }
-
-
     }
 
     /**
@@ -361,9 +390,13 @@ public class JDrawingFrame extends JFrame
         }
     }
 
-    private void drawALlShapes() {
+    public void drawALlShapes() {
         Graphics2D g2 = (Graphics2D) panel.getGraphics();
         panel.repaint();
         SwingUtilities.invokeLater(() -> shapesList.forEach(shape -> drawer.drawShape(shape, g2, Color.BLACK)));
+    }
+
+    private void executeCommand(Command command) {
+        command.execute();
     }
 }

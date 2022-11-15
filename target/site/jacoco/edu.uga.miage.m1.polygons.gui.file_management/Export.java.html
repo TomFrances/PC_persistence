@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Export.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VisiteurDuMatin_g2_3</a> &gt; <a href="index.source.html" class="el_package">edu.uga.miage.m1.polygons.gui.file_management</a> &gt; <span class="el_source">Export.java</span></div><h1>Export.java</h1><pre class="source lang-java linenums">package edu.uga.miage.m1.polygons.gui.file_management;
+
+import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
+import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
+import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Logger;
+
+public class Export {
+
+    private static Visitor visitor;
+
+    private Export(){}
+    /**
+     * Export all the drawn figure to a json format
+     */
+    public static void jsonExport(List&lt;Shape&gt; shapesList) {
+<span class="fc" id="L22">        try (FileWriter fileWriter = new FileWriter(&quot;jsonExport.json&quot;, false)) {</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">            if(!(visitor instanceof JSonVisitor)){</span>
+<span class="fc" id="L24">                visitor = new JSonVisitor();</span>
+            }
+<span class="fc" id="L26">            String res = (shapesList</span>
+<span class="fc" id="L27">                    .stream()</span>
+<span class="fc" id="L28">                    .map(Export::createRepresentation)</span>
+<span class="fc" id="L29">                    .reduce(&quot;{\&quot;shapes\&quot;: [&quot;, String::concat)</span>
+<span class="fc" id="L30">                    .replace(&quot;}{&quot;, &quot;},{&quot;)</span>
+<span class="fc" id="L31">                    .concat(&quot;]}&quot;));</span>
+
+<span class="fc" id="L33">            fileWriter.write(res);</span>
+<span class="nc" id="L34">        } catch (IOException ioe) {</span>
+<span class="nc" id="L35">            Logger.getLogger(ioe.getMessage());</span>
+<span class="fc" id="L36">        }</span>
+<span class="fc" id="L37">    }</span>
+
+    /**
+     * Export all the drawn figure to a json format
+     */
+    public static void xmlExport(List&lt;Shape&gt; shapesList) {
+<span class="fc" id="L43">        try (FileWriter fileWriter = new FileWriter(&quot;xmlExport.xml&quot;, false)) {</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            if(!(visitor instanceof XMLVisitor)){</span>
+<span class="fc" id="L45">                visitor = new XMLVisitor();</span>
+            }
+<span class="fc" id="L47">            String res = (shapesList</span>
+<span class="fc" id="L48">                    .stream()</span>
+<span class="fc" id="L49">                    .map(Export::createRepresentation)</span>
+<span class="fc" id="L50">                    .reduce(&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot; ?&gt;&lt;root&gt;&lt;shapes&gt;&quot;, String::concat)</span>
+<span class="fc" id="L51">                    .concat(&quot;&lt;/shapes&gt;&lt;/root&gt;&quot;));</span>
+
+<span class="fc" id="L53">            fileWriter.write(res);</span>
+<span class="nc" id="L54">        } catch (IOException ioe) {</span>
+<span class="nc" id="L55">            Logger.getLogger(ioe.getMessage());</span>
+<span class="fc" id="L56">        }</span>
+<span class="fc" id="L57">    }</span>
+
+    private static String createRepresentation(Shape shape) {
+<span class="fc" id="L60">        shape.accept(visitor);</span>
+<span class="fc" id="L61">        return visitor.getRepresentation();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

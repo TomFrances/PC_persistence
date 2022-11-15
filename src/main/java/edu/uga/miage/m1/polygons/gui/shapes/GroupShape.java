@@ -1,5 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
+import edu.uga.miage.m1.polygons.gui.copy_factory.ShapeCopyFactory;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -7,11 +9,22 @@ import java.util.List;
 public class GroupShape extends Shape {
 
     private final List<Shape> shapes = new ArrayList<>();
-    private final Color color;
+    private Color color = null;
 
-    public GroupShape(){
+    public GroupShape() {
         super(0, 0);
         this.color = new Color((new Random()).nextInt() * 0x1000000);//NOSONAR
+    }
+
+    public GroupShape(GroupShape original) {
+        super(original);
+        if (Objects.nonNull(original)) {
+            this.color = original.getColor();
+            ShapeCopyFactory shapeCopy = new ShapeCopyFactory();
+            for(Shape shape : original.getShapes()){
+                this.shapes.add(shapeCopy.copyShape(shape));
+            }
+        }
     }
 
     public GroupShape(int x, int y) {
