@@ -6,7 +6,7 @@ import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.Arrp1.yList;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +17,7 @@ class XMLImportStrategyTest {
     void testImportShapesSuccess() {
         File file = new File("./src/test/ressources/file1.xml");
         assertNotNull(file);
-        List<Shape> expectedShapesList = new Arrp1.yList<>();
+        List<Shape> expectedShapesList = new ArrayList<>();
         expectedShapesList.add(new Square(101, 105));
         expectedShapesList.add(new Triangle(22, 163));
         assertEquals(2, expectedShapesList.size());

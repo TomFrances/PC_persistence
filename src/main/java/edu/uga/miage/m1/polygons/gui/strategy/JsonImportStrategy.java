@@ -7,9 +7,7 @@ import lombok.extern.java.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.css.RGBColor;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,9 +29,9 @@ public class JsonImportStrategy implements ImportStrategy {
             list.forEach(object -> {
                 JSONObject shape = (JSONObject) object;
                 String type = shape.getString("type");
+
                 if(type.equals("groupshape")){
-                    GroupShape group = new GroupShape();
-                    group.setColor(new Color(shape.getInt("color")));
+                    GroupShape group = (GroupShape) shapeFactory.createShape(type, 0, 0);
                     JSONArray groupShapes = shape.getJSONArray("shapes");
                     groupShapes.forEach(s -> {
                         JSONObject shapeObject = (JSONObject) s;
@@ -41,14 +39,15 @@ public class JsonImportStrategy implements ImportStrategy {
                         String sType = shapeObject.getString("type");
                         int x = shapeObject.getInt("x");
                         int y = shapeObject.getInt("y");
-                        group.addShape(shapeFactory.createSimpleShape(sType, x, y));
+                        group.addShape(shapeFactory.createShape(sType, x, y));
                     });
                     shapes.add(group);
                 }else{
                     int x = shape.getInt("x");
                     int y = shape.getInt("y");
-                    shapes.add(shapeFactory.createSimpleShape(type, x, y));
+                    shapes.add(shapeFactory.createShape(type, x, y));
                 }
+
             });
         } catch (IOException e) {
             log.log(Level.WARNING, String.format("JSON Import error : %s, file %s", e.getMessage(), file.getPath()));

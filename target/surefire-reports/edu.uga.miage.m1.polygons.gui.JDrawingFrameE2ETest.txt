@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: edu.uga.miage.m1.polygons.gui.JDrawingFrameE2ETest
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.688 s - in edu.uga.miage.m1.polygons.gui.JDrawingFrameE2ETest

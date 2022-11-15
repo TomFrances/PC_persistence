@@ -24,11 +24,11 @@ class ImportTest {
         mocked.when(FileUtils::chooseFile).thenReturn(file);
         mocked.when(() -> FileUtils.getExtension(file)).thenReturn("json");
         List<Shape> shapesList = Import.importShapesFile();
-        assertEquals(4, shapesList.size());
+        assertEquals(3, shapesList.size());
         Triangle triangle = new Triangle(257, 58);
-        assertEquals(triangle.getClass(), shapesList.get(2).getClass());
-        assertEquals(triangle.getY(), shapesList.get(2).getY());
-        assertEquals(triangle.getX(), shapesList.get(2).getX());
+        assertEquals(triangle.getClass(), shapesList.get(1).getClass());
+        assertEquals(triangle.getY(), shapesList.get(1).getY());
+        assertEquals(triangle.getX(), shapesList.get(1).getX());
         mocked.close();
     }
 
@@ -47,14 +47,4 @@ class ImportTest {
         mocked.close();
     }
 
-    @Test
-    void importShapesFileYaml() {
-        File file = new File("./src/test/ressources/file.yaml");
-        MockedStatic<FileUtils> mocked = Mockito.mockStatic(FileUtils.class);
-        mocked.when(FileUtils::chooseFile).thenReturn(file);
-        mocked.when(() -> FileUtils.getExtension(file)).thenReturn("yaml");
-        List<Shape> shapesList = Import.importShapesFile();
-        assertEquals(0, shapesList.size());
-        mocked.close();
-    }
 }

@@ -6,7 +6,6 @@ import edu.uga.miage.m1.polygons.gui.utils.ShapeUtils;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
 import java.util.List;
 
 /**
@@ -35,7 +34,6 @@ public class JSonVisitor implements Visitor {
                     .add("type", ShapeUtils.getType(shape))
                     .add("x",shape.getX())
                     .add("y",shape.getY())
-                    .add("color",((GroupShape) shape).getColor().getRGB())
                     .add("shapes", array)
                     .build()
                     .toString();

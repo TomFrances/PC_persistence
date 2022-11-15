@@ -22,7 +22,7 @@ public class XMLVisitor implements Visitor {
             for (Shape s : groupShape.getShapes()) {
                 shapeList = shapeList.concat(String.format("<groupShape><type>%s</type><x>%d</x><y>%d</y></groupShape>", ShapeUtils.getType(s), s.getX(), s.getY()));
             }
-            return String.format("<shape><type>%s</type><x>%d</x><y>%d</y><color>%s</color><shapes>%s</shapes></shape>", ShapeUtils.getType(shape), shape.getX(), shape.getY(), ((GroupShape) shape).getColor().getRGB(),shapeList);
+            return String.format("<shape><type>%s</type><x>%d</x><y>%d</y><shapes>%s</shapes></shape>", ShapeUtils.getType(shape), shape.getX(), shape.getY(), shapeList);
         }
         return String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", ShapeUtils.getType(shape), shape.getX(), shape.getY());
     }

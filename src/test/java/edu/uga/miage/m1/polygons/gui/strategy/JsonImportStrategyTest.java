@@ -28,6 +28,6 @@ class JsonImportStrategyTest {
         File file = new File("./src/test/ressources/jsonSuccess.json");
         JsonImportStrategy importStrategy = new JsonImportStrategy();
         List<Shape> shapes = importStrategy.importShapes(file);
-        assertEquals(4, shapes.size());
+        assertEquals(3, shapes.size());
     }
 }

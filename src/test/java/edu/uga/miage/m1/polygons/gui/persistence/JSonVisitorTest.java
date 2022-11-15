@@ -13,10 +13,10 @@ class JSonVisitorTest {
     void testVisit() {
         JSonVisitor visitor = new JSonVisitor();
         assertNotNull(visitor);
-        Star star = new Star(98, 45);
-        assertNotNull(star);
-        visitor.visit(star);
-        String expectedRepresentation = "{\"type\":\"star\",\"x\":98,\"y\":45}";
+        Triangle triangle = new Triangle(98, 45);
+        assertNotNull(triangle);
+        visitor.visit(triangle);
+        String expectedRepresentation = "{\"type\":\"triangle\",\"x\":98,\"y\":45}";
         String representation = visitor.getRepresentation();
         assertEquals(expectedRepresentation, representation);
     }

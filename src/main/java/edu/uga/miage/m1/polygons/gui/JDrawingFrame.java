@@ -27,10 +27,12 @@ import java.util.*;
 import java.util.List;
 
 
+import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
 import edu.uga.miage.m1.polygons.gui.file_management.Export;
 import edu.uga.miage.m1.polygons.gui.file_management.Import;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import edu.uga.miage.m1.polygons.gui.shapes.Shape;
+import edu.uga.miage.m1.polygons.gui.utils.Drawer;
 import lombok.extern.java.Log;
 
 import javax.swing.*;
@@ -49,7 +51,8 @@ public class JDrawingFrame extends JFrame
     private boolean disassemble = false;
     private transient Shape dragged;
     private transient GroupShape groupShape;
-    private enum Shapes {SQUARE, TRIANGLE, CIRCLE, STAR}
+
+    private enum Shapes {SQUARE, TRIANGLE, CIRCLE}
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -57,8 +60,11 @@ public class JDrawingFrame extends JFrame
     private Shapes selected;
     public static final JPanel panel = new JPanel();
     private final JLabel label;
-    private transient List<Shape> shapesList = new ArrayList<>();
-    private final transient ActionListener reusableActionListener = new ShapeActionListener();
+    private List<Shape> shapesList = new ArrayList<>();//NOSONAR
+    private final ActionListener reusableActionListener = new ShapeActionListener();//NOSONAR
+    private final Drawer drawer = new Drawer();//NOSONAR
+
+    private final ShapeFactory shapeFactory = new ShapeFactory();//NOSONAR
 
     /**
      * Tracks buttons to manage the background.
@@ -100,7 +106,7 @@ public class JDrawingFrame extends JFrame
         setPreferredSize(new Dimension(400, 400));
     }
 
-    public List<Shape> getShapesList(){
+    public List<Shape> getShapesList() {
         return this.shapesList;
     }
 
@@ -136,17 +142,17 @@ public class JDrawingFrame extends JFrame
         JCheckBox disbandGroup = new JCheckBox("Disassemble group");
         groupCheck.addItemListener(e -> {
             groupMode = e.getStateChange() == ItemEvent.SELECTED;
-            if(disassemble){
+            if (disassemble) {
                 disbandGroup.setSelected(false);
                 disassemble = false;
             }
-            if(groupMode) {
+            if (groupMode) {
                 groupShape = new GroupShape();
-            }else {
-                if (groupShape.getShapes().size()>1){
+            } else {
+                if (groupShape.getShapes().size() > 1) {
                     shapesList.add(groupShape);
                     drawALlShapes();
-                }else if(groupShape.getShapes().size()==1){
+                } else if (groupShape.getShapes().size() == 1) {
                     shapesList.add(groupShape.getShapes().get(0));
                 }
             }
@@ -155,7 +161,7 @@ public class JDrawingFrame extends JFrame
 
         disbandGroup.addItemListener(e -> {
             disassemble = e.getStateChange() == ItemEvent.SELECTED && !groupMode;
-            if(!disassemble)disbandGroup.setSelected(false);
+            if (!disassemble) disbandGroup.setSelected(false);
         });
         menu.add(disbandGroup);
         JMenu exportMenu = new JMenu("Export");
@@ -201,44 +207,54 @@ public class JDrawingFrame extends JFrame
      **/
     public void mouseClicked(MouseEvent evt) {
         if (!groupMode && !disassemble && panel.contains(evt.getX(), evt.getY())) {
-            Graphics2D g2 = (Graphics2D) panel.getGraphics();
-            switch (selected) {
-                case CIRCLE -> {
-                    Circle circle = new Circle(evt.getX(), evt.getY());
-                    shapesList.add(circle);
-                    circle.draw(g2);
-                }
-                case TRIANGLE -> {
-                    Triangle triangle = new Triangle(evt.getX(), evt.getY());
-                    shapesList.add(triangle);
-                    triangle.draw(g2);
-                }
-                case SQUARE -> {
-                    Square square = new Square(evt.getX(), evt.getY());
-                    shapesList.add(square);
-                    square.draw(g2);
-                }
-            }
-        }else if(groupMode && panel.contains(evt.getX(), evt.getY())){
-            int i = shapesList.size()-1;
-            while(i>=0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
-                i--;
-            }
-            if(i>=0){
-                Shape shape =shapesList.remove(i);
-                groupShape.addShape(shape);
-            }
-        }else if(disassemble && panel.contains(evt.getX(), evt.getY())){
-            int i = shapesList.size()-1;
-            while(i>=0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
-                i--;
-            }
-            if(i>=0){
-                Shape shape =shapesList.remove(i);
-                if(shape instanceof GroupShape sl){
+            createShape(evt);
+        } else if (groupMode && panel.contains(evt.getX(), evt.getY())) {
+            groupShape(evt);
+        } else if (disassemble && panel.contains(evt.getX(), evt.getY())) {
+            int i = findShapeIndex(evt);
+            if (i >= 0) {
+                Shape shape = shapesList.remove(i);
+                if (shape instanceof GroupShape sl) {
                     shapesList.addAll(sl.getShapes());
                     drawALlShapes();
                 }
+            }
+        }
+    }
+
+    private int findShapeIndex(MouseEvent evt) {
+        int i = shapesList.size() - 1;
+        while (i >= 0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
+            i--;
+        }
+        return i;
+    }
+
+    private void groupShape(MouseEvent evt) {
+        int i = findShapeIndex(evt);
+        if (i >= 0) {
+            Shape shape = shapesList.remove(i);
+            groupShape.addShape(shape);
+        }
+    }
+
+    private void createShape(MouseEvent evt) {
+        Graphics2D g2 = (Graphics2D) panel.getGraphics();
+        switch (selected) {
+            case CIRCLE -> {
+                Circle circle = (Circle) shapeFactory.createShape("circle", evt.getX(), evt.getY());
+                shapesList.add(circle);
+                drawer.drawCircle(circle, g2, Color.BLACK);
+            }
+            case TRIANGLE -> {
+                Triangle triangle = (Triangle) shapeFactory.createShape("triangle", evt.getX(), evt.getY());
+                shapesList.add(triangle);
+                drawer.drawTriangle(triangle, g2, Color.BLACK);
+            }
+            case SQUARE -> {
+                Square square = (Square) shapeFactory.createShape("square", evt.getX(), evt.getY());
+                shapesList.add(square);
+                drawer.drawSquare(square, g2, Color.BLACK);
             }
         }
     }
@@ -269,21 +285,22 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mousePressed(MouseEvent evt) {
-        if(!groupMode){
-            int i = shapesList.size()-1;
-            while(i>=0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
+        if (!groupMode) {
+            int i = shapesList.size() - 1;
+            while (i >= 0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
                 i--;
             }
-            if(i>=0){
-                Shape shape =shapesList.remove(i);
+            if (i >= 0) {
+                Shape shape = shapesList.remove(i);
                 dragged = shape;
-                if(dragged instanceof GroupShape s){
+                if (dragged instanceof GroupShape s) {
                     s.setCoordinate(evt.getX(), evt.getY());
                 }
                 shapesList.add(shape);
             }
         }
     }
+
     /**
      * Implements method for the <tt>MouseListener</tt> interface to complete
      * shape dragging.
@@ -301,7 +318,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseDragged(MouseEvent evt) {
-        if(dragged != null){
+        if (dragged != null) {
             dragged.moveTo(evt.getX(), evt.getY());
             drawALlShapes();
         }
@@ -347,8 +364,6 @@ public class JDrawingFrame extends JFrame
     private void drawALlShapes() {
         Graphics2D g2 = (Graphics2D) panel.getGraphics();
         panel.repaint();
-        SwingUtilities.invokeLater(() -> {
-            shapesList.forEach(shape -> shape.draw(g2));
-        });
+        SwingUtilities.invokeLater(() -> shapesList.forEach(shape -> drawer.drawShape(shape, g2, Color.BLACK)));
     }
 }

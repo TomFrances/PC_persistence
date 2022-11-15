@@ -1,11 +1,6 @@
 {
   "shapes": [
     {
-      "type": "star",
-      "x": 65,
-      "y": 242
-    },
-    {
       "type": "circle",
       "x": 89,
       "y": 144

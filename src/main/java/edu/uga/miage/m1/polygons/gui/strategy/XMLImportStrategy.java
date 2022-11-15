@@ -12,7 +12,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -51,8 +50,7 @@ public class XMLImportStrategy implements ImportStrategy {
     private Shape createShape(Element shapeElement, ShapeFactory shapeFactory){
         String type = shapeElement.getElementsByTagName("type").item(0).getTextContent();
         if(type.equals("groupshape")){
-            GroupShape group = new GroupShape();
-            group.setColor(new Color(Integer.parseInt(shapeElement.getElementsByTagName("color").item(0).getTextContent())));
+            GroupShape group = (GroupShape) shapeFactory.createShape(type, 0, 0);
             NodeList shapes = shapeElement.getElementsByTagName("groupShape");
             int nbShape = shapes.getLength();
             for (int i = 0; i < nbShape; i++) {
@@ -63,6 +61,6 @@ public class XMLImportStrategy implements ImportStrategy {
         }
         int x = Integer.parseInt(shapeElement.getElementsByTagName("x").item(0).getTextContent());
         int y = Integer.parseInt(shapeElement.getElementsByTagName("y").item(0).getTextContent());
-        return shapeFactory.createSimpleShape(type, x, y);
+        return shapeFactory.createShape(type, x, y);
     }
 }
