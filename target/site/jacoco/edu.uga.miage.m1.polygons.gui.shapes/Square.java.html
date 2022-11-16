@@ -31,8 +31,12 @@ public class Square extends Shape {
 <span class="fc" id="L31">        super(x, y);</span>
 <span class="fc" id="L32">    }</span>
 
+    public Square(Square original){
+<span class="nc" id="L35">        super(original);</span>
+<span class="nc" id="L36">    }</span>
+
     public boolean isInside(int x, int y) {
-<span class="fc bfc" id="L35" title="All 8 branches covered.">        return x &lt;= (getX() + 25) &amp;&amp; x &gt;= (getX() - 25) &amp;&amp; y &lt;= (getY() + 25) &amp;&amp; y &gt;= (getY() - 25);</span>
+<span class="fc bfc" id="L39" title="All 8 branches covered.">        return x &lt;= (getX() + 25) &amp;&amp; x &gt;= (getX() - 25) &amp;&amp; y &lt;= (getY() + 25) &amp;&amp; y &gt;= (getY() - 25);</span>
     }
 
 }

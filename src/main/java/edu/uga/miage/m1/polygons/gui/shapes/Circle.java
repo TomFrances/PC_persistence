@@ -19,8 +19,6 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
 
-import java.util.Objects;
-
 public class Circle extends Shape {
 
     public Circle(int x, int y) {

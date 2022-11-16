@@ -1,7 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,GUIHelper.new WindowAdapter() {...},6,0,0,0,3,0,2,0,2,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,JDrawingFrame.ShapeActionListener,48,0,4,0,11,0,4,0,2,0
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,JDrawingFrame,686,0,58,0,148,0,52,0,22,0
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,JDrawingFrame,746,0,58,0,164,0,57,0,27,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,JDrawingFrame.new AbstractAction() {...},11,0,0,0,3,0,2,0,2,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,JDrawingFrame.new AbstractAction() {...},11,0,0,0,3,0,2,0,2,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui,App,6,0,0,0,3,0,2,0,2,0
@@ -12,14 +12,18 @@ VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.persistence,XMLVisitor,67,40,
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.strategy,XMLImportStrategy,34,100,3,3,7,22,2,5,0,4
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.strategy,ImportFile,0,11,0,0,0,4,0,2,0,2
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.strategy,JsonImportStrategy,44,100,1,1,11,21,2,4,1,4
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,GroupShape,13,111,1,3,2,22,2,9,1,8
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Shape,0,34,0,0,0,15,0,7,0,7
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Triangle,0,103,0,2,0,14,0,4,0,3
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Square,0,33,0,8,0,3,0,6,0,2
-VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Circle,0,30,0,2,0,3,0,3,0,2
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.command,Command,6,0,0,0,3,0,1,0,1,0
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.command,UndoCommand,31,0,2,0,9,0,4,0,3,0
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.command,SaveCommand,43,0,2,0,10,0,4,0,3,0
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,GroupShape,55,117,5,3,10,23,5,9,2,8
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Shape,14,34,2,0,5,15,2,7,1,7
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Triangle,4,103,0,2,2,14,1,4,1,3
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Square,4,33,0,8,2,3,1,6,1,2
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.shapes,Circle,4,30,0,2,2,3,1,3,1,2
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.file_management,Export,10,67,0,4,4,25,0,5,0,3
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.file_management,Import,6,35,1,2,2,7,1,3,0,2
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.utils,ShapeUtils,0,13,0,0,0,2,0,1,0,1
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.utils,Drawer,341,0,9,0,53,0,12,0,6,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.utils,FileUtils,44,0,0,0,8,0,2,0,2,0
+VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.copy_factory,ShapeCopyFactory,40,0,5,0,8,0,6,0,2,0
 VisiteurDuMatin_g2_3,edu.uga.miage.m1.polygons.gui.factory,ShapeFactory,0,42,0,5,0,8,0,7,0,3

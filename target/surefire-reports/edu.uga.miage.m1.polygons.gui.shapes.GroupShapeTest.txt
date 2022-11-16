@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: edu.uga.miage.m1.polygons.gui.shapes.GroupShapeTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.035 s <<< FAILURE! - in edu.uga.miage.m1.polygons.gui.shapes.GroupShapeTest
-edu.uga.miage.m1.polygons.gui.shapes.GroupShapeTest.addShape  Time elapsed: 0.009 s  <<< ERROR!
-java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 1
-	at edu.uga.miage.m1.polygons.gui.shapes.GroupShapeTest.addShape(GroupShapeTest.java:41)
-
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s - in edu.uga.miage.m1.polygons.gui.shapes.GroupShapeTest

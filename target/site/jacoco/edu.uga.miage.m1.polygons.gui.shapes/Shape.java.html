@@ -2,6 +2,8 @@
 
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
+import java.util.Objects;
+
 
 /**
  * This interface defines the &lt;tt&gt;SimpleShape&lt;/tt&gt; extension. This extension
@@ -9,40 +11,47 @@ import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
  *
  * @author &lt;a href=&quot;mailto:christophe.saint-marcel@univ-grenoble-alpes.fr&quot;&gt;Christophe&lt;/a&gt;
  */
-public abstract class Shape implements IsInside{
+public abstract class Shape implements IsInside {
     private int x;
 
     private int y;
 
-<span class="fc" id="L17">    protected Shape(int x, int y) {</span>
-<span class="fc" id="L18">        this.x = x;</span>
-<span class="fc" id="L19">        this.y = y;</span>
-<span class="fc" id="L20">    }</span>
+<span class="fc" id="L19">    protected Shape(int x, int y) {</span>
+<span class="fc" id="L20">        this.x = x;</span>
+<span class="fc" id="L21">        this.y = y;</span>
+<span class="fc" id="L22">    }</span>
+
+<span class="nc" id="L24">    protected Shape(Shape original) {</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (Objects.nonNull(original)) {</span>
+<span class="nc" id="L26">            this.x = original.getX();</span>
+<span class="nc" id="L27">            this.y = original.getY();</span>
+        }
+<span class="nc" id="L29">    }</span>
 
     public void accept(Visitor visitor) {
-<span class="fc" id="L23">        visitor.visit(this);</span>
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L32">        visitor.visit(this);</span>
+<span class="fc" id="L33">    }</span>
 
     public int getX() {
-<span class="fc" id="L27">        return this.x;</span>
+<span class="fc" id="L36">        return this.x;</span>
     }
 
     public void setX(int x) {
-<span class="fc" id="L31">        this.x = x;</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L40">        this.x = x;</span>
+<span class="fc" id="L41">    }</span>
 
     public int getY() {
-<span class="fc" id="L35">        return this.y;</span>
+<span class="fc" id="L44">        return this.y;</span>
     }
 
     public void setY(int y) {
-<span class="fc" id="L39">        this.y = y;</span>
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L48">        this.y = y;</span>
+<span class="fc" id="L49">    }</span>
 
     public void moveTo(int x, int y) {
-<span class="fc" id="L43">        setX(x);</span>
-<span class="fc" id="L44">        setY(y);</span>
-<span class="fc" id="L45">    }</span>
+<span class="fc" id="L52">        setX(x);</span>
+<span class="fc" id="L53">        setY(y);</span>
+<span class="fc" id="L54">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

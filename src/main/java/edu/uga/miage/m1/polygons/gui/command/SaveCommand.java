@@ -19,6 +19,7 @@ public class SaveCommand extends Command {
 
     public boolean execute() {
         jDrawingFrame.getUndoStack().push(copyShapeList());
+        log.log(Level.INFO, "size : " + jDrawingFrame.getUndoStack().size());
         return true;
     }
 

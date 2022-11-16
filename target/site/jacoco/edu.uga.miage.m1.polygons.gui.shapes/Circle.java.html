@@ -25,10 +25,13 @@ public class Circle extends Shape {
 <span class="fc" id="L25">        super(x, y);</span>
 <span class="fc" id="L26">    }</span>
 
-    public boolean isInside(int x, int y) {
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        return Math.sqrt(Math.pow((double) x - this.getX(), 2) + Math.pow((double) y - this.getY(), 2)) &lt;= 25;</span>
-    }
+    public Circle(Circle original) {
+<span class="nc" id="L29">        super(original);</span>
+<span class="nc" id="L30">    }</span>
 
+    public boolean isInside(int x, int y) {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        return Math.sqrt(Math.pow((double) x - this.getX(), 2) + Math.pow((double) y - this.getY(), 2)) &lt;= 25;</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

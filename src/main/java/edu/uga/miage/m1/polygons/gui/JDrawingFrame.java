@@ -115,7 +115,6 @@ public class JDrawingFrame extends JFrame
         addShape(Shapes.TRIANGLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/triangle.png"))));
         addShape(Shapes.CIRCLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/circle.png"))));
 
-
         // Fills the panel
         setLayout(new BorderLayout());
         add(menuBar, BorderLayout.NORTH);
@@ -162,11 +161,14 @@ public class JDrawingFrame extends JFrame
         JCheckBox disbandGroup = new JCheckBox("Disassemble group");
         groupCheck.addItemListener(e -> {
             groupMode = e.getStateChange() == ItemEvent.SELECTED;
+
             if (disassemble) {
+                executeCommand(new SaveCommand(this));
                 disbandGroup.setSelected(false);
                 disassemble = false;
             }
             if (groupMode) {
+                executeCommand(new SaveCommand(this));
                 groupShape = new GroupShape();
             } else {
                 if (groupShape.getShapes().size() > 1) {
@@ -319,7 +321,6 @@ public class JDrawingFrame extends JFrame
                 i--;
             }
             if (i >= 0) {
-                log.log(Level.WARNING, "ii");
                 executeCommand(new SaveCommand(this));
 
                 Shape shape = shapesList.remove(i);

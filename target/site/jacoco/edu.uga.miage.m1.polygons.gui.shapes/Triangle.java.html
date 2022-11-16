@@ -31,22 +31,25 @@ public class Triangle extends Shape {
 <span class="fc" id="L31">        super(x, y);</span>
 <span class="fc" id="L32">    }</span>
 
+    public Triangle(Triangle original){
+<span class="nc" id="L35">        super(original);</span>
+<span class="nc" id="L36">    }</span>
     public boolean isInside(int x, int y) {
-<span class="fc" id="L35">        int x1 = this.getX()-25;</span>
-<span class="fc" id="L36">        int x2 = this.getX();</span>
-<span class="fc" id="L37">        int x3 = this.getX()+25;</span>
-<span class="fc" id="L38">        int y1 = this.getY()-25;</span>
-<span class="fc" id="L39">        int y2 = this.getY()+25;</span>
-<span class="fc" id="L40">        int y3 = this.getY()-25;</span>
-<span class="fc" id="L41">        double a = area (x1, y1, x2, y2, x3, y3);</span>
-<span class="fc" id="L42">        double a1 = area (x, y, x2, y2, x3, y3);</span>
-<span class="fc" id="L43">        double a2 = area (x1, y1, x, y, x3, y3);</span>
-<span class="fc" id="L44">        double a3 = area (x1, y1, x2, y2, x, y);</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">        return (a == (a1 + a2 + a3));</span>
+<span class="fc" id="L38">        int x1 = this.getX()-25;</span>
+<span class="fc" id="L39">        int x2 = this.getX();</span>
+<span class="fc" id="L40">        int x3 = this.getX()+25;</span>
+<span class="fc" id="L41">        int y1 = this.getY()-25;</span>
+<span class="fc" id="L42">        int y2 = this.getY()+25;</span>
+<span class="fc" id="L43">        int y3 = this.getY()-25;</span>
+<span class="fc" id="L44">        double a = area (x1, y1, x2, y2, x3, y3);</span>
+<span class="fc" id="L45">        double a1 = area (x, y, x2, y2, x3, y3);</span>
+<span class="fc" id="L46">        double a2 = area (x1, y1, x, y, x3, y3);</span>
+<span class="fc" id="L47">        double a3 = area (x1, y1, x2, y2, x, y);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        return (a == (a1 + a2 + a3));</span>
     }
     private double area(int x1, int y1, int x2, int y2,int x3, int y3)
     {
-<span class="fc" id="L49">        return Math.abs(( x1* ( y2 - y3 ) + x2* ( y3 - y1 )+ x3* ( y1 - y2 ))/2.0);</span>
+<span class="fc" id="L52">        return Math.abs(( x1* ( y2 - y3 ) + x2* ( y3 - y1 )+ x3* ( y1 - y2 ))/2.0);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
