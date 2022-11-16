@@ -24,15 +24,12 @@ import java.awt.BorderLayout;
 import java.awt.event.*;
 import java.io.Serial;
 import java.util.*;
-import java.util.List;
 
 
 import edu.uga.miage.m1.polygons.gui.command.*;
-import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
 import edu.uga.miage.m1.polygons.gui.file_management.Export;
 import edu.uga.miage.m1.polygons.gui.file_management.Import;
-import edu.uga.miage.m1.polygons.gui.shapes.*;
-import edu.uga.miage.m1.polygons.gui.shapes.Shape;
+import edu.uga.miage.m1.polygons.gui.shapes.Shapes;
 import edu.uga.miage.m1.polygons.gui.utils.Drawer;
 import lombok.extern.java.Log;
 
@@ -50,38 +47,15 @@ public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
     private boolean groupMode = false;
     private boolean disassemble = false;
-    private transient Shape dragged;
-    private transient GroupShape groupShape;
-
-    private enum Shapes {SQUARE, TRIANGLE, CIRCLE}
-
     @Serial
     private static final long serialVersionUID = 1L;
     private final JToolBar toolbar;
     private Shapes selected;
     public static final JPanel panel = new JPanel();
     private final JLabel label;
-
-    public void setShapesList(List<Shape> shapesList) {
-        this.shapesList = shapesList;
-    }
-
-    private List<Shape> shapesList = new ArrayList<>();//NOSONAR
     private final ActionListener reusableActionListener = new ShapeActionListener();//NOSONAR
-    private final Drawer drawer = new Drawer();//NOSONAR
-
-    private final ShapeFactory shapeFactory = new ShapeFactory();//NOSONAR
-
-    public Deque<List<Shape>> getUndoStack() {
-        return undoStack;
-    }
-
-    public Deque<List<Shape>> getRedoStack() {
-        return redoStack;
-    }
-
-    private Deque<List<Shape>> undoStack = new ArrayDeque<>();
-    private Deque<List<Shape>> redoStack = new ArrayDeque<>();
+    private final Drawer drawer;//NOSONAR
+    private final ShapeEditor shapeEditor = new ShapeEditor();//NOSONAR
 
     /**
      * Tracks buttons to manage the background.
@@ -119,11 +93,9 @@ public class JDrawingFrame extends JFrame
         add(panel, BorderLayout.CENTER);
         add(label, BorderLayout.SOUTH);
 
-        setPreferredSize(new Dimension(1100, 700));
-    }
+        drawer = new Drawer(panel, shapeEditor);
 
-    public List<Shape> getShapesList() {
-        return this.shapesList;
+        setPreferredSize(new Dimension(1100, 700));
     }
 
 
@@ -158,33 +130,21 @@ public class JDrawingFrame extends JFrame
         JCheckBox disbandGroup = new JCheckBox("Disassemble group");
         groupCheck.addItemListener(e -> {
             groupMode = e.getStateChange() == ItemEvent.SELECTED;
-
-            if (disassemble) {
-                executeCommand(new SaveUndoCommand(this));
-                executeCommand(new ClearRedoCommand(this));
-
-                disbandGroup.setSelected(false);
-                disassemble = false;
-            }
+            disbandGroup.setSelected(false);
+            disassemble = false;
             if (groupMode) {
-                executeCommand(new SaveUndoCommand(this));
-                executeCommand(new ClearRedoCommand(this));
-
-                groupShape = new GroupShape();
+                shapeEditor.startGrouping();
             } else {
-                if (groupShape.getShapes().size() > 1) {
-                    shapesList.add(groupShape);
-                    drawALlShapes();
-                } else if (groupShape.getShapes().size() == 1) {
-                    shapesList.add(groupShape.getShapes().get(0));
-                }
+                shapeEditor.endGrouping();
             }
         });
         menu.add(groupCheck);
 
         disbandGroup.addItemListener(e -> {
             disassemble = e.getStateChange() == ItemEvent.SELECTED && !groupMode;
-            if (!disassemble) disbandGroup.setSelected(false);
+            if (!disassemble) {
+                disbandGroup.setSelected(false);
+            }
         });
         menu.add(disbandGroup);
         JMenu exportMenu = new JMenu("Export");
@@ -194,7 +154,7 @@ public class JDrawingFrame extends JFrame
         itemJsonExport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Export.jsonExport(shapesList);
+                Export.jsonExport(shapeEditor.getShapesList());
             }
         });
         itemJsonExport.setText("JSON");
@@ -204,7 +164,7 @@ public class JDrawingFrame extends JFrame
         itemXmlExport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Export.xmlExport(shapesList);
+                Export.xmlExport(shapeEditor.getShapesList());
             }
         });
         itemXmlExport.setText("XML");
@@ -213,27 +173,19 @@ public class JDrawingFrame extends JFrame
         JMenuItem importItem = new JMenuItem("Import");
         importItem.setText("Import");
         importItem.addActionListener(e -> {
-            shapesList = Import.importShapesFile();
+            shapeEditor.setShapesList(Import.importShapesFile());
             drawALlShapes();
         });
 
         fileMenu.add(importItem);
 
         JButton buttonUndo = new JButton("Undo");
-        buttonUndo.addActionListener(e -> {
-            if (!getUndoStack().isEmpty()) {
-                executeCommand(new SaveRedoCommand(this));
-                executeCommand(new UndoCommand(this));
-            }
-        });
+        buttonUndo.addActionListener(e -> executeCommand(new UndoCommand(shapeEditor)));
         menu.add(buttonUndo);
 
         JButton buttonRedo = new JButton("Redo");
         buttonRedo.addActionListener(e -> {
-            if (!getRedoStack().isEmpty()) {
-                executeCommand(new SaveUndoCommand(this));
-                executeCommand(new RedoCommand(this));
-            }
+
         });
         menu.add(buttonRedo);
 
@@ -257,55 +209,16 @@ public class JDrawingFrame extends JFrame
     }
 
     private void disassembleGroupShape(MouseEvent evt) {
-        int i = findShapeIndex(evt);
-        if (i >= 0) {
-            Shape shape = shapesList.get(i);
-            if (shape instanceof GroupShape sl) {
-                shapesList.remove(shape);
-                shapesList.addAll(sl.getShapes());
-            }
-            drawALlShapes();
-        }
-    }
-
-    private int findShapeIndex(MouseEvent evt) {
-        int i = shapesList.size() - 1;
-        while (i >= 0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
-            i--;
-        }
-        return i;
+        shapeEditor.disassembleGroupShape(evt);
+        drawALlShapes();
     }
 
     private void groupShape(MouseEvent evt) {
-        int i = findShapeIndex(evt);
-        if (i >= 0) {
-            Shape shape = shapesList.remove(i);
-            groupShape.addShape(shape);
-        }
+        shapeEditor.groupShape(evt);
     }
 
     private void createShape(MouseEvent evt) {
-        Graphics2D g2 = (Graphics2D) panel.getGraphics();
-
-        executeCommand(new SaveUndoCommand(this));
-        executeCommand(new ClearRedoCommand(this));
-        switch (selected) {
-            case CIRCLE -> {
-                Circle circle = (Circle) shapeFactory.createShape("circle", evt.getX(), evt.getY());
-                shapesList.add(circle);
-                drawer.drawCircle(circle, g2, Color.BLACK);
-            }
-            case TRIANGLE -> {
-                Triangle triangle = (Triangle) shapeFactory.createShape("triangle", evt.getX(), evt.getY());
-                shapesList.add(triangle);
-                drawer.drawTriangle(triangle, g2, Color.BLACK);
-            }
-            case SQUARE -> {
-                Square square = (Square) shapeFactory.createShape("square", evt.getX(), evt.getY());
-                shapesList.add(square);
-                drawer.drawSquare(square, g2, Color.BLACK);
-            }
-        }
+        drawer.drawShape(shapeEditor.createShape(evt, selected), Color.BLACK);
     }
 
     /**
@@ -335,21 +248,7 @@ public class JDrawingFrame extends JFrame
      **/
     public void mousePressed(MouseEvent evt) {
         if (!groupMode) {
-            int i = shapesList.size() - 1;
-            while (i >= 0 && !shapesList.get(i).isInside(evt.getX(), evt.getY())) {
-                i--;
-            }
-            if (i >= 0) {
-                executeCommand(new SaveUndoCommand(this));
-                executeCommand(new ClearRedoCommand(this));
-
-                Shape shape = shapesList.remove(i);
-                dragged = shape;
-                if (dragged instanceof GroupShape s) {
-                    s.setCoordinate(evt.getX(), evt.getY());
-                }
-                shapesList.add(shape);
-            }
+            shapeEditor.startDraggingShape(evt);
         }
     }
 
@@ -360,7 +259,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseReleased(MouseEvent evt) {
-        dragged = null;
+        shapeEditor.setDragged(null);
     }
 
     /**
@@ -370,9 +269,9 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseDragged(MouseEvent evt) {
-        if (dragged != null) {
-            dragged.moveTo(evt.getX(), evt.getY());
-            drawALlShapes();
+        shapeEditor.dragShape(evt);
+        if (Objects.nonNull(shapeEditor.getDragged())) {
+            drawer.drawALlShapes();
         }
     }
 
@@ -412,12 +311,12 @@ public class JDrawingFrame extends JFrame
     }
 
     public void drawALlShapes() {
-        Graphics2D g2 = (Graphics2D) panel.getGraphics();
         panel.repaint();
-        SwingUtilities.invokeLater(() -> shapesList.forEach(shape -> drawer.drawShape(shape, g2, Color.BLACK)));
+        SwingUtilities.invokeLater(() -> shapeEditor.getShapesList().forEach(shape -> drawer.drawShape(shape, Color.BLACK)));
     }
 
     private void executeCommand(Command command) {
         command.execute();
+        drawALlShapes();
     }
 }

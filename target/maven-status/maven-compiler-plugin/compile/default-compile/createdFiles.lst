@@ -1,3 +1,4 @@
+edu\uga\miage\m1\polygons\gui\ShapeEditor.class
 edu\uga\miage\m1\polygons\gui\GUIHelper$1.class
 edu\uga\miage\m1\polygons\gui\factory\SimpleShapeFactory.class
 edu\uga\miage\m1\polygons\gui\App.class
@@ -5,9 +6,9 @@ edu\uga\miage\m1\polygons\gui\shapes\Square.class
 edu\uga\miage\m1\polygons\gui\copy_factory\ShapeCopyFactory.class
 edu\uga\miage\m1\polygons\gui\factory\ShapeFactory.class
 edu\uga\miage\m1\polygons\gui\persistence\JSonVisitor.class
+edu\uga\miage\m1\polygons\gui\shapes\Shapes.class
 edu\uga\miage\m1\polygons\gui\file_management\Import.class
 edu\uga\miage\m1\polygons\gui\copy_factory\CopyFactory.class
-edu\uga\miage\m1\polygons\gui\JDrawingFrame$Shapes.class
 edu\uga\miage\m1\polygons\gui\JDrawingFrame$ShapeActionListener.class
 edu\uga\miage\m1\polygons\gui\JDrawingFrame$2.class
 edu\uga\miage\m1\polygons\gui\persistence\Visitable.class
@@ -23,13 +24,12 @@ edu\uga\miage\m1\polygons\gui\persistence\Visitor.class
 edu\uga\miage\m1\polygons\gui\shapes\Circle.class
 edu\uga\miage\m1\polygons\gui\utils\FileUtils.class
 edu\uga\miage\m1\polygons\gui\persistence\XMLVisitor.class
-edu\uga\miage\m1\polygons\gui\JDrawingFrame$3.class
-edu\uga\miage\m1\polygons\gui\command\SaveCommand.class
 edu\uga\miage\m1\polygons\gui\utils\Drawer.class
 edu\uga\miage\m1\polygons\gui\JDrawingFrame$1.class
 edu\uga\miage\m1\polygons\gui\command\UndoCommand.class
 edu\uga\miage\m1\polygons\gui\shapes\GroupShape.class
 edu\uga\miage\m1\polygons\gui\file_management\Export.class
+edu\uga\miage\m1\polygons\gui\command\RedoCommand.class
 edu\uga\miage\m1\polygons\gui\shapes\IsInside.class
 edu\uga\miage\m1\polygons\gui\shapes\Shape.class
 edu\uga\miage\m1\polygons\gui\JDrawingFrame.class

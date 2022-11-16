@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JDrawingFrame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VisiteurDuMatin_g2_3</a> &gt; <a href="index.source.html" class="el_package">edu.uga.miage.m1.polygons.gui</a> &gt; <span class="el_source">JDrawingFrame.java</span></div><h1>JDrawingFrame.java</h1><pre class="source lang-java linenums">package edu.uga.miage.m1.polygons.gui;
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * &quot;License&quot;); you mp1.y not use this file except in compliance
+ * with the License.  You mp1.y obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required p2.y applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+
+import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.event.*;
+import java.io.Serial;
+import java.util.*;
+
+
+import edu.uga.miage.m1.polygons.gui.command.*;
+import edu.uga.miage.m1.polygons.gui.file_management.Export;
+import edu.uga.miage.m1.polygons.gui.file_management.Import;
+import edu.uga.miage.m1.polygons.gui.shapes.Shapes;
+import edu.uga.miage.m1.polygons.gui.utils.Drawer;
+import lombok.extern.java.Log;
+
+import javax.swing.*;
+
+
+/**
+ * This class represents the main application class, which is a JFrame subclass
+ * that manages a toolbar of shapes and a drawing canvas.
+ *
+ * @author &lt;a href=&quot;mailto:christophe.saint-marcel@univ-grenoble-alpes.fr&quot;&gt;Christophe&lt;/a&gt;
+ */
+<span class="nc" id="L45">@Log</span>
+public class JDrawingFrame extends JFrame
+        implements MouseListener, MouseMotionListener {
+<span class="nc" id="L48">    private boolean groupMode = false;</span>
+<span class="nc" id="L49">    private boolean disassemble = false;</span>
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private final JToolBar toolbar;
+    private Shapes selected;
+<span class="nc" id="L54">    public static final JPanel panel = new JPanel();</span>
+    private final JLabel label;
+<span class="nc" id="L56">    private final ActionListener reusableActionListener = new ShapeActionListener();//NOSONAR</span>
+    private final Drawer drawer;//NOSONAR
+<span class="nc" id="L58">    private final ShapeEditor shapeEditor = new ShapeEditor();//NOSONAR</span>
+
+    /**
+     * Tracks buttons to manage the background.
+     */
+<span class="nc" id="L63">    private final Map&lt;Shapes, JButton&gt; buttons = new EnumMap&lt;&gt;(Shapes.class);</span>
+
+    /**
+     * Default constructor that populates the main window.
+     *
+     * @param frameName the frame
+     **/
+    public JDrawingFrame(String frameName) {
+<span class="nc" id="L71">        super(frameName);</span>
+
+        // Instantiates components
+<span class="nc" id="L74">        toolbar = new JToolBar(&quot;Toolbar&quot;, SwingConstants.VERTICAL);</span>
+<span class="nc" id="L75">        JMenuBar menuBar = createToolsMenu();</span>
+<span class="nc" id="L76">        panel.setBackground(Color.WHITE);</span>
+<span class="nc" id="L77">        panel.setName(&quot;drawingPanel&quot;);</span>
+<span class="nc" id="L78">        panel.setLayout(null);</span>
+<span class="nc" id="L79">        panel.setMinimumSize(new Dimension(600, 400));</span>
+<span class="nc" id="L80">        panel.addMouseListener(this);</span>
+<span class="nc" id="L81">        panel.addMouseMotionListener(this);</span>
+<span class="nc" id="L82">        label = new JLabel(&quot; &quot;, SwingConstants.LEFT);</span>
+
+        // Add shapes in the menu
+<span class="nc" id="L85">        addShape(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource(&quot;images/square.png&quot;))));</span>
+<span class="nc" id="L86">        addShape(Shapes.TRIANGLE, new ImageIcon(Objects.requireNonNull(getClass().getResource(&quot;images/triangle.png&quot;))));</span>
+<span class="nc" id="L87">        addShape(Shapes.CIRCLE, new ImageIcon(Objects.requireNonNull(getClass().getResource(&quot;images/circle.png&quot;))));</span>
+
+        // Fills the panel
+<span class="nc" id="L90">        setLayout(new BorderLayout());</span>
+<span class="nc" id="L91">        add(menuBar, BorderLayout.NORTH);</span>
+<span class="nc" id="L92">        add(toolbar, BorderLayout.WEST);</span>
+<span class="nc" id="L93">        add(panel, BorderLayout.CENTER);</span>
+<span class="nc" id="L94">        add(label, BorderLayout.SOUTH);</span>
+
+<span class="nc" id="L96">        drawer = new Drawer(panel, shapeEditor);</span>
+
+<span class="nc" id="L98">        setPreferredSize(new Dimension(1100, 700));</span>
+<span class="nc" id="L99">    }</span>
+
+
+    /**
+     * Injects an available &lt;tt&gt;SimpleShape&lt;/tt&gt; into the drawing frame.
+     *
+     * @param shape The name of the injected &lt;tt&gt;SimpleShape&lt;/tt&gt;.
+     * @param icon  The icon associated with the injected &lt;tt&gt;SimpleShape&lt;/tt&gt;.
+     **/
+    private void addShape(Shapes shape, ImageIcon icon) {
+<span class="nc" id="L109">        JButton button = new JButton(icon);</span>
+<span class="nc" id="L110">        button.setName(shape.name());</span>
+<span class="nc" id="L111">        button.setBorderPainted(false);</span>
+<span class="nc" id="L112">        buttons.put(shape, button);</span>
+<span class="nc" id="L113">        button.setActionCommand(shape.toString());</span>
+<span class="nc" id="L114">        button.addActionListener(reusableActionListener);</span>
+
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (selected == null) {</span>
+<span class="nc" id="L117">            button.doClick();</span>
+        }
+
+<span class="nc" id="L120">        toolbar.add(button);</span>
+<span class="nc" id="L121">        toolbar.validate();</span>
+<span class="nc" id="L122">        repaint();</span>
+<span class="nc" id="L123">    }</span>
+
+    private JMenuBar createToolsMenu() {
+<span class="nc" id="L126">        JMenuBar menu = new JMenuBar();</span>
+<span class="nc" id="L127">        JMenu fileMenu = new JMenu(&quot;File&quot;);</span>
+<span class="nc" id="L128">        menu.add(fileMenu);</span>
+<span class="nc" id="L129">        JCheckBox groupCheck = new JCheckBox(&quot;Group mode&quot;);</span>
+<span class="nc" id="L130">        JCheckBox disbandGroup = new JCheckBox(&quot;Disassemble group&quot;);</span>
+<span class="nc" id="L131">        groupCheck.addItemListener(e -&gt; {</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">            groupMode = e.getStateChange() == ItemEvent.SELECTED;</span>
+<span class="nc" id="L133">            disbandGroup.setSelected(false);</span>
+<span class="nc" id="L134">            disassemble = false;</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            if (groupMode) {</span>
+<span class="nc" id="L136">                shapeEditor.startGrouping();</span>
+            } else {
+<span class="nc" id="L138">                shapeEditor.endGrouping();</span>
+            }
+<span class="nc" id="L140">        });</span>
+<span class="nc" id="L141">        menu.add(groupCheck);</span>
+
+<span class="nc" id="L143">        disbandGroup.addItemListener(e -&gt; {</span>
+<span class="nc bnc" id="L144" title="All 4 branches missed.">            disassemble = e.getStateChange() == ItemEvent.SELECTED &amp;&amp; !groupMode;</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">            if (!disassemble) {</span>
+<span class="nc" id="L146">                disbandGroup.setSelected(false);</span>
+            }
+<span class="nc" id="L148">        });</span>
+<span class="nc" id="L149">        menu.add(disbandGroup);</span>
+<span class="nc" id="L150">        JMenu exportMenu = new JMenu(&quot;Export&quot;);</span>
+
+<span class="nc" id="L152">        fileMenu.add(exportMenu);</span>
+<span class="nc" id="L153">        JMenuItem itemJsonExport = new JMenuItem();</span>
+<span class="nc" id="L154">        itemJsonExport.setAction(new AbstractAction() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L157">                Export.jsonExport(shapeEditor.getShapesList());</span>
+<span class="nc" id="L158">            }</span>
+        });
+<span class="nc" id="L160">        itemJsonExport.setText(&quot;JSON&quot;);</span>
+<span class="nc" id="L161">        exportMenu.add(itemJsonExport);</span>
+
+<span class="nc" id="L163">        JMenuItem itemXmlExport = new JMenuItem();</span>
+<span class="nc" id="L164">        itemXmlExport.setAction(new AbstractAction() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L167">                Export.xmlExport(shapeEditor.getShapesList());</span>
+<span class="nc" id="L168">            }</span>
+        });
+<span class="nc" id="L170">        itemXmlExport.setText(&quot;XML&quot;);</span>
+<span class="nc" id="L171">        exportMenu.add(itemXmlExport);</span>
+
+<span class="nc" id="L173">        JMenuItem importItem = new JMenuItem(&quot;Import&quot;);</span>
+<span class="nc" id="L174">        importItem.setText(&quot;Import&quot;);</span>
+<span class="nc" id="L175">        importItem.addActionListener(e -&gt; {</span>
+<span class="nc" id="L176">            shapeEditor.setShapesList(Import.importShapesFile());</span>
+<span class="nc" id="L177">            drawALlShapes();</span>
+<span class="nc" id="L178">        });</span>
+
+<span class="nc" id="L180">        fileMenu.add(importItem);</span>
+
+<span class="nc" id="L182">        JButton buttonUndo = new JButton(&quot;Undo&quot;);</span>
+<span class="nc" id="L183">        buttonUndo.addActionListener(e -&gt; executeCommand(new UndoCommand(shapeEditor)));</span>
+<span class="nc" id="L184">        menu.add(buttonUndo);</span>
+
+<span class="nc" id="L186">        JButton buttonRedo = new JButton(&quot;Redo&quot;);</span>
+<span class="nc" id="L187">        buttonRedo.addActionListener(e -&gt; {</span>
+
+<span class="nc" id="L189">        });</span>
+<span class="nc" id="L190">        menu.add(buttonRedo);</span>
+
+<span class="nc" id="L192">        return menu;</span>
+    }
+
+    /**
+     * Implements method for the &lt;tt&gt;MouseListener&lt;/tt&gt; interface to
+     * draw the selected shape into the drawing canvas.
+     *
+     * @param evt The associated mouse event.
+     **/
+    public void mouseClicked(MouseEvent evt) {
+<span class="nc bnc" id="L202" title="All 6 branches missed.">        if (!groupMode &amp;&amp; !disassemble &amp;&amp; panel.contains(evt.getX(), evt.getY())) {</span>
+<span class="nc" id="L203">            createShape(evt);</span>
+<span class="nc bnc" id="L204" title="All 4 branches missed.">        } else if (groupMode &amp;&amp; panel.contains(evt.getX(), evt.getY())) {</span>
+<span class="nc" id="L205">            groupShape(evt);</span>
+<span class="nc bnc" id="L206" title="All 4 branches missed.">        } else if (disassemble &amp;&amp; panel.contains(evt.getX(), evt.getY())) {</span>
+<span class="nc" id="L207">            disassembleGroupShape(evt);</span>
+        }
+<span class="nc" id="L209">    }</span>
+
+    private void disassembleGroupShape(MouseEvent evt) {
+<span class="nc" id="L212">        shapeEditor.disassembleGroupShape(evt);</span>
+<span class="nc" id="L213">        drawALlShapes();</span>
+<span class="nc" id="L214">    }</span>
+
+    private void groupShape(MouseEvent evt) {
+<span class="nc" id="L217">        shapeEditor.groupShape(evt);</span>
+<span class="nc" id="L218">    }</span>
+
+    private void createShape(MouseEvent evt) {
+<span class="nc" id="L221">        drawer.drawShape(shapeEditor.createShape(evt, selected), Color.BLACK);</span>
+<span class="nc" id="L222">    }</span>
+
+    /**
+     * Implements an empty method for the &lt;tt&gt;MouseListener&lt;/tt&gt; interface.
+     *
+     * @param evt The associated mouse event.
+     **/
+    public void mouseEntered(MouseEvent evt) {
+        /* Unused */
+<span class="nc" id="L231">    }</span>
+
+    /**
+     * Implements an empty method for the &lt;tt&gt;MouseListener&lt;/tt&gt; interface.
+     *
+     * @param evt The associated mouse event.
+     **/
+    public void mouseExited(MouseEvent evt) {
+<span class="nc" id="L239">        label.setText(&quot; &quot;);</span>
+<span class="nc" id="L240">        label.repaint();</span>
+<span class="nc" id="L241">    }</span>
+
+    /**
+     * Implements method for the &lt;tt&gt;MouseListener&lt;/tt&gt; interface to initiate
+     * shape dragging.
+     *
+     * @param evt The associated mouse event.
+     **/
+    public void mousePressed(MouseEvent evt) {
+<span class="nc bnc" id="L250" title="All 2 branches missed.">        if (!groupMode) {</span>
+<span class="nc" id="L251">            shapeEditor.startDraggingShape(evt);</span>
+        }
+<span class="nc" id="L253">    }</span>
+
+    /**
+     * Implements method for the &lt;tt&gt;MouseListener&lt;/tt&gt; interface to complete
+     * shape dragging.
+     *
+     * @param evt The associated mouse event.
+     **/
+    public void mouseReleased(MouseEvent evt) {
+<span class="nc" id="L262">        shapeEditor.setDragged(null);</span>
+<span class="nc" id="L263">    }</span>
+
+    /**
+     * Implements method for the &lt;tt&gt;MouseMotionListener&lt;/tt&gt; interface to
+     * move a dragged shape.
+     *
+     * @param evt The associated mouse event.
+     **/
+    public void mouseDragged(MouseEvent evt) {
+<span class="nc" id="L272">        shapeEditor.dragShape(evt);</span>
+<span class="nc bnc" id="L273" title="All 2 branches missed.">        if (Objects.nonNull(shapeEditor.getDragged())) {</span>
+<span class="nc" id="L274">            drawer.drawALlShapes();</span>
+        }
+<span class="nc" id="L276">    }</span>
+
+    /**
+     * Implements an empty method for the &lt;tt&gt;MouseMotionListener&lt;/tt&gt;
+     * interface.
+     *
+     * @param evt The associated mouse event.
+     **/
+    public void mouseMoved(MouseEvent evt) {
+<span class="nc" id="L285">        modifyLabel(evt);</span>
+<span class="nc" id="L286">    }</span>
+
+    private void modifyLabel(MouseEvent evt) {
+<span class="nc" id="L289">        label.setText(&quot;(&quot; + evt.getX() + &quot;,&quot; + evt.getY() + &quot;)&quot;);</span>
+<span class="nc" id="L290">    }</span>
+
+    /**
+     * Simple action listener for shape tool bar buttons that sets
+     * the drawing frame's currently selected shape when receiving
+     * an action event.
+     **/
+<span class="nc" id="L297">    private class ShapeActionListener implements ActionListener {</span>
+        public void actionPerformed(ActionEvent evt) {
+<span class="nc bnc" id="L299" title="All 2 branches missed.">            for (Map.Entry&lt;Shapes, JButton&gt; entry : buttons.entrySet()) {</span>
+<span class="nc" id="L300">                JButton btn = entry.getValue();</span>
+<span class="nc" id="L301">                Shapes shape = entry.getKey();</span>
+<span class="nc bnc" id="L302" title="All 2 branches missed.">                if (evt.getActionCommand().equals(shape.toString())) {</span>
+<span class="nc" id="L303">                    btn.setBorderPainted(true);</span>
+<span class="nc" id="L304">                    selected = shape;</span>
+                } else {
+<span class="nc" id="L306">                    btn.setBorderPainted(false);</span>
+                }
+<span class="nc" id="L308">                btn.repaint();</span>
+<span class="nc" id="L309">            }</span>
+<span class="nc" id="L310">        }</span>
+    }
+
+    public void drawALlShapes() {
+<span class="nc" id="L314">        panel.repaint();</span>
+<span class="nc" id="L315">        SwingUtilities.invokeLater(() -&gt; shapeEditor.getShapesList().forEach(shape -&gt; drawer.drawShape(shape, Color.BLACK)));</span>
+<span class="nc" id="L316">    }</span>
+
+    private void executeCommand(Command command) {
+<span class="nc" id="L319">        command.execute();</span>
+<span class="nc" id="L320">        drawALlShapes();</span>
+<span class="nc" id="L321">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
