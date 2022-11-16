@@ -25,8 +25,6 @@ Fsrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/GroupShapeTest.java,6\5\65a
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 {
 Ksrc/main/java/edu/uga/miage/m1/polygons/gui/factory/SimpleShapeFactory.java,9\6\961a9c57ac644ac99ebfbdf5bd742f7f90829046
-p
-@src/main/java/edu/uga/miage/m1/polygons/gui/command/Command.java,b\7\b7caae6950fbf96c9becd7acfb2740464a9b88e4
 y
 Isrc/main/java/edu/uga/miage/m1/polygons/gui/copy_factory/CopyFactory.java,9\b\9b2da5ffdac9b620263370d2441c37ea0a6d1352
 m
@@ -37,5 +35,3 @@ p
 @src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Triangle.java,7\a\7a6cbb31e3ea3b39d70f0c8d48d7d350953541f1
 ~
 Nsrc/main/java/edu/uga/miage/m1/polygons/gui/copy_factory/ShapeCopyFactory.java,b\1\b1fc8bbc61eb24fabcea10bb7d70a8c076f1706c
-t
-Dsrc/main/java/edu/uga/miage/m1/polygons/gui/command/UndoCommand.java,2\8\28a5cdeb70b91b11a3a97ab9d9ce5c3e596f71d9

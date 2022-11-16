@@ -25,12 +25,9 @@ import java.awt.event.*;
 import java.io.Serial;
 import java.util.*;
 import java.util.List;
-import java.util.logging.Level;
 
 
-import edu.uga.miage.m1.polygons.gui.command.Command;
-import edu.uga.miage.m1.polygons.gui.command.SaveCommand;
-import edu.uga.miage.m1.polygons.gui.command.UndoCommand;
+import edu.uga.miage.m1.polygons.gui.command.*;
 import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
 import edu.uga.miage.m1.polygons.gui.file_management.Export;
 import edu.uga.miage.m1.polygons.gui.file_management.Import;
@@ -79,12 +76,12 @@ public class JDrawingFrame extends JFrame
         return undoStack;
     }
 
-    public Deque<List<Shape>> getRedoStackStack() {
-        return redoStackStack;
+    public Deque<List<Shape>> getRedoStack() {
+        return redoStack;
     }
 
     private Deque<List<Shape>> undoStack = new ArrayDeque<>();
-    private Deque<List<Shape>> redoStackStack = new ArrayDeque<>();
+    private Deque<List<Shape>> redoStack = new ArrayDeque<>();
 
     /**
      * Tracks buttons to manage the background.
@@ -163,12 +160,16 @@ public class JDrawingFrame extends JFrame
             groupMode = e.getStateChange() == ItemEvent.SELECTED;
 
             if (disassemble) {
-                executeCommand(new SaveCommand(this));
+                executeCommand(new SaveUndoCommand(this));
+                executeCommand(new ClearRedoCommand(this));
+
                 disbandGroup.setSelected(false);
                 disassemble = false;
             }
             if (groupMode) {
-                executeCommand(new SaveCommand(this));
+                executeCommand(new SaveUndoCommand(this));
+                executeCommand(new ClearRedoCommand(this));
+
                 groupShape = new GroupShape();
             } else {
                 if (groupShape.getShapes().size() > 1) {
@@ -220,9 +221,22 @@ public class JDrawingFrame extends JFrame
 
         JButton buttonUndo = new JButton("Undo");
         buttonUndo.addActionListener(e -> {
-            executeCommand(new UndoCommand(this));
+            if (!getUndoStack().isEmpty()) {
+                executeCommand(new SaveRedoCommand(this));
+                executeCommand(new UndoCommand(this));
+            }
         });
         menu.add(buttonUndo);
+
+        JButton buttonRedo = new JButton("Redo");
+        buttonRedo.addActionListener(e -> {
+            if (!getRedoStack().isEmpty()) {
+                executeCommand(new SaveUndoCommand(this));
+                executeCommand(new RedoCommand(this));
+            }
+        });
+        menu.add(buttonRedo);
+
         return menu;
     }
 
@@ -273,8 +287,8 @@ public class JDrawingFrame extends JFrame
     private void createShape(MouseEvent evt) {
         Graphics2D g2 = (Graphics2D) panel.getGraphics();
 
-        executeCommand(new SaveCommand(this));
-
+        executeCommand(new SaveUndoCommand(this));
+        executeCommand(new ClearRedoCommand(this));
         switch (selected) {
             case CIRCLE -> {
                 Circle circle = (Circle) shapeFactory.createShape("circle", evt.getX(), evt.getY());
@@ -326,7 +340,8 @@ public class JDrawingFrame extends JFrame
                 i--;
             }
             if (i >= 0) {
-                executeCommand(new SaveCommand(this));
+                executeCommand(new SaveUndoCommand(this));
+                executeCommand(new ClearRedoCommand(this));
 
                 Shape shape = shapesList.remove(i);
                 dragged = shape;
