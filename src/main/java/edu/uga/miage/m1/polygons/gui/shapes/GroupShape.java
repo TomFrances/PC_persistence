@@ -21,7 +21,7 @@ public class GroupShape extends Shape {
         if (Objects.nonNull(original)) {
             this.color = original.getColor();
             ShapeCopyFactory shapeCopy = new ShapeCopyFactory();
-            for(Shape shape : original.getShapes()){
+            for (Shape shape : original.getShapes()) {
                 this.shapes.add(shapeCopy.copyShape(shape));
             }
         }
@@ -42,11 +42,7 @@ public class GroupShape extends Shape {
     }
 
     public void addShape(Shape shape) {
-        if (shape instanceof GroupShape s) {
-            shapes.addAll(s.getShapes());
-        } else {
-            shapes.add(shape);
-        }
+        shapes.add(shape);
     }
 
     public boolean isInside(int x, int y) {
@@ -60,7 +56,6 @@ public class GroupShape extends Shape {
         for (Shape shape : shapes) {
             shape.moveTo(shape.getX() + distX, shape.getY() + distY);
         }
-
         setCoordinate(x, y);
     }
 

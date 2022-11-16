@@ -13,8 +13,6 @@ x
 Hsrc/main/java/edu/uga/miage/m1/polygons/gui/strategy/ImportStrategy.java,e\1\e1af551abc0c4567c1359c0a7e6566f461f8e948
 r
 Bsrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/SquareTest.java,0\c\0c08f2f8d191e03ac565fdd45d0564704fd6e48e
-m
-=src/main/java/edu/uga/miage/m1/polygons/gui/utils/Drawer.java,6\b\6bbe15e07b68d3357bd0a1cc14a0713e2bdc776d
 d
 4src/main/java/edu/uga/miage/m1/polygons/gui/App.java,7\a\7ae6e7f4eb3971619796ade23d0b1b3d805d6ce5
 y
@@ -39,7 +37,5 @@ p
 @src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Triangle.java,7\a\7a6cbb31e3ea3b39d70f0c8d48d7d350953541f1
 ~
 Nsrc/main/java/edu/uga/miage/m1/polygons/gui/copy_factory/ShapeCopyFactory.java,b\1\b1fc8bbc61eb24fabcea10bb7d70a8c076f1706c
-r
-Bsrc/main/java/edu/uga/miage/m1/polygons/gui/shapes/GroupShape.java,3\2\32e8f5d8840274602edf516b7a2bd0cc191f42ac
 t
 Dsrc/main/java/edu/uga/miage/m1/polygons/gui/command/UndoCommand.java,2\8\28a5cdeb70b91b11a3a97ab9d9ce5c3e596f71d9

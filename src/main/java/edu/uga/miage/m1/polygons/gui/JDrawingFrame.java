@@ -238,14 +238,19 @@ public class JDrawingFrame extends JFrame
         } else if (groupMode && panel.contains(evt.getX(), evt.getY())) {
             groupShape(evt);
         } else if (disassemble && panel.contains(evt.getX(), evt.getY())) {
-            int i = findShapeIndex(evt);
-            if (i >= 0) {
-                Shape shape = shapesList.remove(i);
-                if (shape instanceof GroupShape sl) {
-                    shapesList.addAll(sl.getShapes());
-                    drawALlShapes();
-                }
+            disassembleGroupShape(evt);
+        }
+    }
+
+    private void disassembleGroupShape(MouseEvent evt) {
+        int i = findShapeIndex(evt);
+        if (i >= 0) {
+            Shape shape = shapesList.get(i);
+            if (shape instanceof GroupShape sl) {
+                shapesList.remove(shape);
+                shapesList.addAll(sl.getShapes());
             }
+            drawALlShapes();
         }
     }
 
