@@ -54,12 +54,12 @@ public class Drawer {
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint gradient = new GradientPaint(x, y, Color.GREEN, x + 50f, y, Color.WHITE);
         graphics2D.setPaint(gradient);
-        int[] xcoords = { x, x-25, x + 25 };
-        int[] ycoords = { y-25, y + 25, y + 25 };
-        GeneralPath polygon = new GeneralPath(Path2D.WIND_EVEN_ODD, xcoords.length);
+        int[] xCoords = { x, x-25, x + 25 };
+        int[] yCoords = { y-25, y + 25, y + 25 };
+        GeneralPath polygon = new GeneralPath(Path2D.WIND_EVEN_ODD, xCoords.length);
         polygon.moveTo(x, y - 25f);
-        for (int i = 0; i < xcoords.length; i++) {
-            polygon.lineTo(xcoords[i], ycoords[i]);
+        for (int i = 0; i < xCoords.length; i++) {
+            polygon.lineTo(xCoords[i], yCoords[i]);
         }
         polygon.closePath();
         graphics2D.fill(polygon);
@@ -89,7 +89,7 @@ public class Drawer {
         }
     }
 
-    public void drawALlShapes() {
+    public void drawAllShapes() {
         panel.repaint();
         SwingUtilities.invokeLater(() -> shapeEditor.getShapesList().forEach(shape -> drawShape(shape, Color.BLACK)));
     }

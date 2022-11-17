@@ -25,7 +25,7 @@ class ImportTest {
     }
 
     @Test
-    void importXML() {
+    void importXMLTest() {
         File file = new File("src/test/ressources/xmlExportExpected.xml");
         GroupShape group = Import.importXML(file);
         assertNotNull(group);
@@ -33,7 +33,7 @@ class ImportTest {
     }
 
     @Test
-    void importJSON() {
+    void importJSONTest() {
         File file = new File("src/test/ressources/jsonExportExpected.json");
         GroupShape group = Import.importJSON(file);
         assertNotNull(group);

@@ -25,7 +25,7 @@ class ExportTest {
     }
 
     @Test
-    void exportJSON() {
+    void exportJSONTest() {
         new File("src/test/ressources/jsonExport.json");
         File file = Export.exportJSON(this.group,new File("src/test/ressources/jsonExport.json"));
         assertNotNull(file);
@@ -40,7 +40,7 @@ class ExportTest {
     }
 
     @Test
-    void exportXML() {
+    void exportXMLTest() {
         new File("src/test/ressources/xmlExport.xml");
         File file = Export.exportXML(this.group,new File("src/test/ressources/xmlExport.xml"));
         assertNotNull(file);

@@ -17,26 +17,18 @@ package edu.uga.miage.m1.polygons.gui;
  * specific language governing permissions and limitations
  * under the License.
  */
-
-
 import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.event.*;
-import java.io.File;
 import java.io.Serial;
 import java.util.*;
-
-
 import edu.uga.miage.m1.polygons.gui.command.*;
-import edu.uga.miage.m1.polygons.gui.file_management.Export;
 import edu.uga.miage.m1.polygons.gui.shapes.Shapes;
 import edu.uga.miage.m1.polygons.gui.utils.Drawer;
-import edu.uga.miage.m1.polygons.gui.utils.FileUtils;
 import lombok.extern.java.Log;
 
 import javax.swing.*;
-import javax.swing.Timer;
-
+//import javax.swing.Timer;
 
 /**
  * This class represents the main application class, which is a JFrame subclass
@@ -210,12 +202,6 @@ public class JDrawingFrame extends JFrame
         return menu;
     }
 
-    /**
-     * Implements method for the <tt>MouseListener</tt> interface to
-     * draw the selected shape into the drawing canvas.
-     *
-     * @param evt The associated mouse event.
-     **/
     public void mouseClicked(MouseEvent evt) {
         if (!groupMode && !disassemble && panel.contains(evt.getX(), evt.getY())) {
             createShape(evt);
@@ -228,7 +214,7 @@ public class JDrawingFrame extends JFrame
 
     private void disassembleGroupShape(MouseEvent evt) {
         shapeEditor.disassembleGroupShape(evt);
-        drawAllShapes();
+        drawer.drawAllShapes();
     }
 
     private void groupShape(MouseEvent evt) {
@@ -239,66 +225,32 @@ public class JDrawingFrame extends JFrame
         drawer.drawShape(shapeEditor.createShape(evt, selected), Color.BLACK);
     }
 
-    /**
-     * Implements an empty method for the <tt>MouseListener</tt> interface.
-     *
-     * @param evt The associated mouse event.
-     **/
     public void mouseEntered(MouseEvent evt) {
         /* Unused */
     }
 
-    /**
-     * Implements an empty method for the <tt>MouseListener</tt> interface.
-     *
-     * @param evt The associated mouse event.
-     **/
     public void mouseExited(MouseEvent evt) {
         label.setText(" ");
         label.repaint();
     }
 
-    /**
-     * Implements method for the <tt>MouseListener</tt> interface to initiate
-     * shape dragging.
-     *
-     * @param evt The associated mouse event.
-     **/
     public void mousePressed(MouseEvent evt) {
         if (!groupMode) {
             shapeEditor.startDraggingShape(evt);
         }
     }
 
-    /**
-     * Implements method for the <tt>MouseListener</tt> interface to complete
-     * shape dragging.
-     *
-     * @param evt The associated mouse event.
-     **/
     public void mouseReleased(MouseEvent evt) {
         shapeEditor.setDragged(null);
     }
 
-    /**
-     * Implements method for the <tt>MouseMotionListener</tt> interface to
-     * move a dragged shape.
-     *
-     * @param evt The associated mouse event.
-     **/
     public void mouseDragged(MouseEvent evt) {
         shapeEditor.dragShape(evt);
         if (Objects.nonNull(shapeEditor.getDragged())) {
-            drawer.drawALlShapes();
+            drawer.drawAllShapes();
         }
     }
 
-    /**
-     * Implements an empty method for the <tt>MouseMotionListener</tt>
-     * interface.
-     *
-     * @param evt The associated mouse event.
-     **/
     public void mouseMoved(MouseEvent evt) {
         modifyLabel(evt);
     }
@@ -307,11 +259,6 @@ public class JDrawingFrame extends JFrame
         label.setText("(" + evt.getX() + "," + evt.getY() + ")");
     }
 
-    /**
-     * Simple action listener for shape tool bar buttons that sets
-     * the drawing frame's currently selected shape when receiving
-     * an action event.
-     **/
     private class ShapeActionListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             for (Map.Entry<Shapes, JButton> entry : buttons.entrySet()) {
@@ -328,13 +275,8 @@ public class JDrawingFrame extends JFrame
         }
     }
 
-    public void drawAllShapes() {
-        panel.repaint();
-        SwingUtilities.invokeLater(() -> shapeEditor.getShapesList().forEach(shape -> drawer.drawShape(shape, Color.BLACK)));
-    }
-
     private void executeCommand(Command command) {
         command.execute();
-        drawAllShapes();
+        drawer.drawAllShapes();
     }
 }
