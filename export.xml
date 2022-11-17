@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupShape>
+    <x>0</x>
+    <y>0</y>
+    <square>
+        <x>342</x>
+        <y>154</y>
+    </square>
+    <groupShape>
+        <x>115</x>
+        <y>270</y>
+        <square>
+            <x>130</x>
+            <y>274</y>
+        </square>
+        <square>
+            <x>269</x>
+            <y>271</y>
+        </square>
+    </groupShape>
+    <square>
+        <x>219</x>
+        <y>166</y>
+    </square>
+    <square>
+        <x>95</x>
+        <y>149</y>
+    </square>
+</groupShape>

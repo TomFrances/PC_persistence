@@ -17,9 +17,17 @@
  * under the License.
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
+import lombok.Value;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@Value
+@XmlRootElement(name = "circle")
 public class Circle extends Shape {
+
+    public Circle() {
+        super(0,0);
+    }
 
     public Circle(int x, int y) {
         super(x, y);

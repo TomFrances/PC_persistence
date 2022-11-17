@@ -150,34 +150,52 @@ public class JDrawingFrame extends JFrame
         JMenu exportMenu = new JMenu("Export");
 
         fileMenu.add(exportMenu);
-        JMenuItem itemJsonExport = new JMenuItem();
-        itemJsonExport.setAction(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Export.jsonExport(shapeEditor.getShapesList());
-            }
-        });
-        itemJsonExport.setText("JSON");
-        exportMenu.add(itemJsonExport);
 
         JMenuItem itemXmlExport = new JMenuItem();
         itemXmlExport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Export.xmlExport(shapeEditor.getShapesList());
+                shapeEditor.exportXML();
             }
         });
         itemXmlExport.setText("XML");
         exportMenu.add(itemXmlExport);
 
-        JMenuItem importItem = new JMenuItem("Import");
-        importItem.setText("Import");
-        importItem.addActionListener(e -> {
-            shapeEditor.setShapesList(Import.importShapesFile());
-            drawALlShapes();
-        });
+        JMenu importMenu = new JMenu("Import");
 
-        fileMenu.add(importItem);
+        fileMenu.add(importMenu);
+
+        JMenuItem itemXmlImport = new JMenuItem();
+        itemXmlImport.setAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shapeEditor.importXML();
+                drawAllShapes();
+            }
+        });
+        itemXmlImport.setText("XML");
+        importMenu.add(itemXmlImport);
+
+        JMenuItem itemJsonExport = new JMenuItem();
+        itemJsonExport.setAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shapeEditor.exportJSON();
+            }
+        });
+        itemJsonExport.setText("JSON");
+        exportMenu.add(itemJsonExport);
+
+        JMenuItem itemJsonImport = new JMenuItem();
+        itemJsonImport.setAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shapeEditor.importJSON();
+                drawAllShapes();
+            }
+        });
+        itemJsonImport.setText("JSON");
+        importMenu.add(itemJsonImport);
 
         JButton buttonUndo = new JButton("Undo");
         buttonUndo.addActionListener(e -> executeCommand(new UndoCommand(shapeEditor)));
@@ -210,7 +228,7 @@ public class JDrawingFrame extends JFrame
 
     private void disassembleGroupShape(MouseEvent evt) {
         shapeEditor.disassembleGroupShape(evt);
-        drawALlShapes();
+        drawAllShapes();
     }
 
     private void groupShape(MouseEvent evt) {
@@ -310,13 +328,13 @@ public class JDrawingFrame extends JFrame
         }
     }
 
-    public void drawALlShapes() {
+    public void drawAllShapes() {
         panel.repaint();
         SwingUtilities.invokeLater(() -> shapeEditor.getShapesList().forEach(shape -> drawer.drawShape(shape, Color.BLACK)));
     }
 
     private void executeCommand(Command command) {
         command.execute();
-        drawALlShapes();
+        drawAllShapes();
     }
 }

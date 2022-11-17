@@ -18,6 +18,8 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
+import lombok.Value;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This inner class implements the triangle <tt>SimpleShape</tt> service.
@@ -25,8 +27,12 @@ package edu.uga.miage.m1.polygons.gui.shapes;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
+@XmlRootElement(name = "triangle")
+@Value
 public class Triangle extends Shape {
-
+    public Triangle() {
+        super(0,0);
+    }
     public Triangle(int x, int y) {
         super(x, y);
     }

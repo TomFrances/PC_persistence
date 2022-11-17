@@ -18,6 +18,8 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
+import lombok.Value;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This class implements the square &lt;tt&gt;SimpleShape&lt;/tt&gt; extension.
@@ -25,18 +27,22 @@ package edu.uga.miage.m1.polygons.gui.shapes;
  *
  * @author &lt;a href=&quot;mailto:christophe.saint-marcel@univ-grenoble-alpes.fr&quot;&gt;Christophe&lt;/a&gt;
  */
+@XmlRootElement(name = &quot;square&quot;)
+<span class="nc bnc" id="L31" title="All 6 branches missed.">@Value</span>
 public class Square extends Shape {
-
+    public Square() {
+<span class="nc" id="L34">        super(0,0);</span>
+<span class="nc" id="L35">    }</span>
     public Square(int x, int y) {
-<span class="fc" id="L31">        super(x, y);</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L37">        super(x, y);</span>
+<span class="fc" id="L38">    }</span>
 
     public Square(Square original){
-<span class="nc" id="L35">        super(original);</span>
-<span class="nc" id="L36">    }</span>
+<span class="nc" id="L41">        super(original);</span>
+<span class="nc" id="L42">    }</span>
 
     public boolean isInside(int x, int y) {
-<span class="fc bfc" id="L39" title="All 8 branches covered.">        return x &lt;= (getX() + 25) &amp;&amp; x &gt;= (getX() - 25) &amp;&amp; y &lt;= (getY() + 25) &amp;&amp; y &gt;= (getY() - 25);</span>
+<span class="fc bfc" id="L45" title="All 8 branches covered.">        return x &lt;= (getX() + 25) &amp;&amp; x &gt;= (getX() - 25) &amp;&amp; y &lt;= (getY() + 25) &amp;&amp; y &gt;= (getY() - 25);</span>
     }
 
 }

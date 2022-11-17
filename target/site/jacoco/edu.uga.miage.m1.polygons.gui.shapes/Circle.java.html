@@ -17,20 +17,28 @@
  * under the License.
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
+import lombok.Value;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+<span class="nc bnc" id="L24" title="All 6 branches missed.">@Value</span>
+@XmlRootElement(name = &quot;circle&quot;)
 public class Circle extends Shape {
 
-    public Circle(int x, int y) {
-<span class="fc" id="L25">        super(x, y);</span>
-<span class="fc" id="L26">    }</span>
-
-    public Circle(Circle original) {
-<span class="nc" id="L29">        super(original);</span>
+    public Circle() {
+<span class="nc" id="L29">        super(0,0);</span>
 <span class="nc" id="L30">    }</span>
 
+    public Circle(int x, int y) {
+<span class="fc" id="L33">        super(x, y);</span>
+<span class="fc" id="L34">    }</span>
+
+    public Circle(Circle original) {
+<span class="nc" id="L37">        super(original);</span>
+<span class="nc" id="L38">    }</span>
+
     public boolean isInside(int x, int y) {
-<span class="fc bfc" id="L33" title="All 2 branches covered.">        return Math.sqrt(Math.pow((double) x - this.getX(), 2) + Math.pow((double) y - this.getY(), 2)) &lt;= 25;</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        return Math.sqrt(Math.pow((double) x - this.getX(), 2) + Math.pow((double) y - this.getY(), 2)) &lt;= 25;</span>
     }
 
 }

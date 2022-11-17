@@ -1,0 +1,45 @@
+{
+  "@type" : "groupShape",
+  "x" : 0,
+  "y" : 0,
+  "shapes" : [ {
+    "@type" : "triangle",
+    "x" : 172,
+    "y" : 281
+  }, {
+    "@type" : "circle",
+    "x" : 428,
+    "y" : 193
+  }, {
+    "@type" : "groupShape",
+    "x" : 109,
+    "y" : 66,
+    "shapes" : [ {
+      "@type" : "groupShape",
+      "x" : 66,
+      "y" : 146,
+      "shapes" : [ {
+        "@type" : "square",
+        "x" : 60,
+        "y" : 153
+      }, {
+        "@type" : "triangle",
+        "x" : 103,
+        "y" : 58
+      } ]
+    }, {
+      "@type" : "groupShape",
+      "x" : -39,
+      "y" : -5,
+      "shapes" : [ {
+        "@type" : "circle",
+        "x" : 96,
+        "y" : 265
+      }, {
+        "@type" : "square",
+        "x" : 185,
+        "y" : 152
+      } ]
+    } ]
+  } ]
+}

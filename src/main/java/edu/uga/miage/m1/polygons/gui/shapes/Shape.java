@@ -1,8 +1,15 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Objects;
+
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 
 
 /**
@@ -11,9 +18,18 @@ import java.util.Objects;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
+@XmlSeeAlso({Circle.class, Square.class, Triangle.class, GroupShape.class})
+@XmlType(propOrder = {"x", "y"})
+@JsonTypeInfo(use = NAME, include = PROPERTY)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Square.class, name = "square"),
+        @JsonSubTypes.Type(value = Triangle.class, name = "triangle"),
+        @JsonSubTypes.Type(value = Circle.class, name = "circle"),
+        @JsonSubTypes.Type(value = GroupShape.class, name = "groupShape")
+})
 public abstract class Shape implements IsInside {
-    private int x;
 
+    private int x;
     private int y;
 
     protected Shape(int x, int y) {

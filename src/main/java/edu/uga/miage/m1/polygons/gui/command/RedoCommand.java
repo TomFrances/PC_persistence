@@ -1,9 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.command;
 
 import edu.uga.miage.m1.polygons.gui.ShapeEditor;
-import edu.uga.miage.m1.polygons.gui.shapes.Shape;
-
-import java.util.List;
+import edu.uga.miage.m1.polygons.gui.shapes.GroupShape;
 
 public class RedoCommand extends Command {
 
@@ -13,7 +11,7 @@ public class RedoCommand extends Command {
 
     public boolean execute() {
         if (!shapeEditor.getRedoStack().isEmpty()) {
-            List<Shape> shapes = shapeEditor.getRedoStack().pop();
+            GroupShape shapes = shapeEditor.getRedoStack().pop();
             shapeEditor.setShapesList(shapes);
             return true;
         }

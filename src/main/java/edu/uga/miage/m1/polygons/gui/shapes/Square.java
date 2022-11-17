@@ -18,6 +18,8 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
+import lombok.Value;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This class implements the square <tt>SimpleShape</tt> extension.
@@ -25,8 +27,12 @@ package edu.uga.miage.m1.polygons.gui.shapes;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
+@XmlRootElement(name = "square")
+@Value
 public class Square extends Shape {
-
+    public Square() {
+        super(0,0);
+    }
     public Square(int x, int y) {
         super(x, y);
     }

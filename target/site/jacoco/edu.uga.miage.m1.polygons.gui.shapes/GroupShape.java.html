@@ -1,66 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GroupShape.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VisiteurDuMatin_g2_3</a> &gt; <a href="index.source.html" class="el_package">edu.uga.miage.m1.polygons.gui.shapes</a> &gt; <span class="el_source">GroupShape.java</span></div><h1>GroupShape.java</h1><pre class="source lang-java linenums">package edu.uga.miage.m1.polygons.gui.shapes;
 
+import com.fasterxml.jackson.annotation.*;
 import edu.uga.miage.m1.polygons.gui.copy_factory.ShapeCopyFactory;
 
+import javax.xml.bind.annotation.*;
 import java.awt.*;
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.List;
 
+
+@JsonIgnoreProperties(value = { &quot;color&quot; })
+@XmlType(propOrder = { &quot;shapes&quot; })
 public class GroupShape extends Shape {
 
-<span class="pc" id="L11">    private final List&lt;Shape&gt; shapes = new ArrayList&lt;&gt;();</span>
-<span class="pc" id="L12">    private Color color = null;</span>
-
+<span class="pc" id="L17">    @XmlElements(</span>
+            {
+                    @XmlElement(name = &quot;square&quot;, type = Square.class),
+                    @XmlElement(name = &quot;circle&quot;, type = Circle.class),
+                    @XmlElement(name = &quot;triangle&quot;, type = Triangle.class),
+                    @XmlElement(name = &quot;groupShape&quot;, type = GroupShape.class)
+            }
+    )
+    @JsonProperty(&quot;shapes&quot;)
+    private final List&lt;Shape&gt; shapes = new ArrayList&lt;&gt;();
+<span class="pc" id="L27">    private Color color = null;</span>
+    @JsonCreator
     public GroupShape() {
-<span class="fc" id="L15">        super(0, 0);</span>
-<span class="fc" id="L16">        this.color = new Color((new Random()).nextInt() * 0x1000000);//NOSONAR</span>
-<span class="fc" id="L17">    }</span>
+<span class="fc" id="L30">        super(0, 0);</span>
+<span class="fc" id="L31">        Random rand = new SecureRandom();</span>
+        // Java 'Color' class takes 3 floats, from 0 to 1.
+<span class="fc" id="L33">        float red = rand.nextFloat();</span>
+<span class="fc" id="L34">        float green = rand.nextFloat();</span>
+<span class="fc" id="L35">        float blue = rand.nextFloat();</span>
 
-    public GroupShape(GroupShape original) {
-<span class="nc" id="L20">        super(original);</span>
-<span class="nc bnc" id="L21" title="All 2 branches missed.">        if (Objects.nonNull(original)) {</span>
-<span class="nc" id="L22">            this.color = original.getColor();</span>
-<span class="nc" id="L23">            ShapeCopyFactory shapeCopy = new ShapeCopyFactory();</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">            for (Shape shape : original.getShapes()) {</span>
-<span class="nc" id="L25">                this.shapes.add(shapeCopy.copyShape(shape));</span>
-<span class="nc" id="L26">            }</span>
-        }
-<span class="nc" id="L28">    }</span>
-
-    public GroupShape(int x, int y) {
-<span class="fc" id="L31">        super(x, y);</span>
-<span class="fc" id="L32">        this.color = new Color((new Random()).nextInt() * 0x1000000);//NOSONAR</span>
-<span class="fc" id="L33">    }</span>
-
-    public void setCoordinate(int x, int y) {
-<span class="fc" id="L36">        setX(x);</span>
-<span class="fc" id="L37">        setY(y);</span>
+<span class="fc" id="L37">        this.color = new Color(red, green, blue);</span>
 <span class="fc" id="L38">    }</span>
 
+    public GroupShape(GroupShape original) {
+<span class="nc" id="L41">        super(original);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (Objects.nonNull(original)) {</span>
+<span class="nc" id="L43">            this.color = original.getColor();</span>
+<span class="nc" id="L44">            ShapeCopyFactory shapeCopy = new ShapeCopyFactory();</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            for (Shape shape : original.getShapes()) {</span>
+<span class="nc" id="L46">                this.shapes.add(shapeCopy.copyShape(shape));</span>
+<span class="nc" id="L47">            }</span>
+        }
+<span class="nc" id="L49">    }</span>
+
+    public GroupShape(int x, int y) {
+<span class="fc" id="L52">        super(x, y);</span>
+<span class="fc" id="L53">        Random rand = new SecureRandom();</span>
+        // Java 'Color' class takes 3 floats, from 0 to 1.
+<span class="fc" id="L55">        float red = rand.nextFloat();</span>
+<span class="fc" id="L56">        float green = rand.nextFloat();</span>
+<span class="fc" id="L57">        float blue = rand.nextFloat();</span>
+<span class="fc" id="L58">        this.color = new Color(red, green, blue);</span>
+<span class="fc" id="L59">    }</span>
+
     public List&lt;Shape&gt; getShapes() {
-<span class="fc" id="L41">        return shapes;</span>
+<span class="fc" id="L62">        return shapes;</span>
+    }
+
+    public Shape getShape(int index){
+<span class="nc" id="L66">        return shapes.get(index);</span>
     }
 
     public void addShape(Shape shape) {
-<span class="fc" id="L45">        shapes.add(shape);</span>
-<span class="fc" id="L46">    }</span>
-
+<span class="fc" id="L70">        shapes.add(shape);</span>
+<span class="fc" id="L71">    }</span>
+    public void addAllShapes(List&lt;Shape&gt; shapes) {
+<span class="nc" id="L73">        this.shapes.addAll(shapes);</span>
+<span class="nc" id="L74">    }</span>
+    public void remove(Shape shape){
+<span class="nc" id="L76">         shapes.remove(shape);</span>
+<span class="nc" id="L77">    }</span>
+    public Shape remove(int index){
+<span class="nc" id="L79">        return shapes.remove(index);</span>
+    }
+    public void setColor(Color color) {
+<span class="nc" id="L82">        this.color = color;</span>
+<span class="nc" id="L83">    }</span>
+    @XmlTransient
+    public Color getColor() {
+<span class="nc" id="L86">        return color;</span>
+    }
+    public void setCoordinate(int x, int y) {
+<span class="fc" id="L89">        setX(x);</span>
+<span class="fc" id="L90">        setY(y);</span>
+<span class="fc" id="L91">    }</span>
     public boolean isInside(int x, int y) {
-<span class="fc" id="L49">        return shapes.stream().anyMatch(shape -&gt; shape.isInside(x, y));</span>
+<span class="fc" id="L93">        return shapes.stream().anyMatch(shape -&gt; shape.isInside(x, y));</span>
     }
 
     @Override
     public void moveTo(int x, int y) {
-<span class="fc" id="L54">        int distX = x - getX();</span>
-<span class="fc" id="L55">        int distY = y - getY();</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        for (Shape shape : shapes) {</span>
-<span class="fc" id="L57">            shape.moveTo(shape.getX() + distX, shape.getY() + distY);</span>
-<span class="fc" id="L58">        }</span>
-<span class="fc" id="L59">        setCoordinate(x, y);</span>
-<span class="fc" id="L60">    }</span>
-
-    public Color getColor() {
-<span class="nc" id="L63">        return color;</span>
-    }
+<span class="fc" id="L98">        int distX = x - getX();</span>
+<span class="fc" id="L99">        int distY = y - getY();</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        for (Shape shape : shapes) {</span>
+<span class="fc" id="L101">            shape.moveTo(shape.getX() + distX, shape.getY() + distY);</span>
+<span class="fc" id="L102">        }</span>
+<span class="fc" id="L103">        setCoordinate(x, y);</span>
+<span class="fc" id="L104">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

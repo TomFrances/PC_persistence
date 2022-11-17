@@ -1,19 +1,26 @@
 package edu.uga.miage.m1.polygons.gui;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import edu.uga.miage.m1.polygons.gui.copy_factory.ShapeCopyFactory;
 import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.awt.event.MouseEvent;
+import java.io.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class ShapeEditor {
     private Shape dragged;
     private GroupShape groupShape;
-    private List<Shape> shapesList = new ArrayList<>();//NOSONAR
+    private GroupShape shapesList = new GroupShape();//NOSONAR
     private final ShapeFactory shapeFactory = new ShapeFactory();//NOSONAR
-    private final Deque<List<Shape>> undoStack = new ArrayDeque<>();
-    private final Deque<List<Shape>> redoStack = new ArrayDeque<>();
+    private final Deque<GroupShape> undoStack = new ArrayDeque<>();
+    private final Deque<GroupShape> redoStack = new ArrayDeque<>();
 
     public Shape getDragged() {
         return dragged;
@@ -28,35 +35,77 @@ public class ShapeEditor {
     }
 
     public List<Shape> getShapesList() {
-        return shapesList;
+        return shapesList.getShapes();
     }
 
-    public void setShapesList(List<Shape> shapesList) {
+    public void setShapesList(GroupShape shapesList) {
         this.shapesList = shapesList;
     }
 
-    public Deque<List<Shape>> getUndoStack() {
+    public Deque<GroupShape> getUndoStack() {
         return undoStack;
     }
 
-    public Deque<List<Shape>> getRedoStack() {
+    public Deque<GroupShape> getRedoStack() {
         return redoStack;
     }
 
     public Shape createShape(MouseEvent evt, Shapes type) {
         saveStateForUndo();
         Shape shape = shapeFactory.createShape(type.value, evt.getX(), evt.getY());
-        shapesList.add(shape);
+        shapesList.addShape(shape);
         return shape;
     }
+    public void exportXML(){
 
+        try {
+            JAXBContext context = JAXBContext.newInstance(GroupShape.class);
+            Marshaller mar= context.createMarshaller();
+            mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            mar.marshal(shapesList, new File("./export.xml"));
+        } catch (JAXBException e) {
+            Logger.getLogger(e.getMessage());
+        }
+
+    }
+    public void importXML(){
+        try {
+            JAXBContext context = JAXBContext.newInstance(GroupShape.class);
+            setShapesList((GroupShape) context.createUnmarshaller().unmarshal(new FileReader("./export.xml")));
+        } catch (FileNotFoundException | JAXBException e) {
+            Logger.getLogger(e.getMessage());
+        }
+
+    }
+
+    public void exportJSON(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./exportJson.json")))
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            writer.write(mapper.writeValueAsString(shapesList));
+        } catch (IOException e) {
+            Logger.getLogger(e.getMessage());
+        }
+
+    }
+    public void importJSON(){
+        try {
+            setShapesList(new ObjectMapper().readValue(new FileReader("./exportJson.json"), GroupShape.class));
+        } catch (IOException e) {
+            Logger.getLogger(e.getMessage());
+        }
+
+
+    }
     public void disassembleGroupShape(MouseEvent evt) {
         int i = findShapeIndex(evt);
         if (i >= 0) {
-            Shape shape = shapesList.get(i);
+            Shape shape = shapesList.getShape(i);
             if (shape instanceof GroupShape sl) {
-                shapesList.remove(shape);
-                shapesList.addAll(sl.getShapes());
+                List<Shape> s = sl.getShapes();
+                shapesList.remove(i);
+                shapesList.addAllShapes(s);
             }
         }
     }
@@ -78,7 +127,7 @@ public class ShapeEditor {
             if (dragged instanceof GroupShape s) {
                 s.setCoordinate(evt.getX(), evt.getY());
             }
-            shapesList.add(shape);
+            shapesList.addShape(shape);
         }
     }
 
@@ -89,9 +138,9 @@ public class ShapeEditor {
 
     public void endGrouping() {
         if (groupShape.getShapes().size() > 1) {
-            shapesList.add(groupShape);
+            shapesList.addShape(groupShape);
         } else if (groupShape.getShapes().size() == 1) {
-            shapesList.add(groupShape.getShapes().get(0));
+            shapesList.addShape(groupShape.getShapes().get(0));
         }
         setGroupShape(null);
     }
@@ -114,10 +163,10 @@ public class ShapeEditor {
         undoStack.push(copyShapeList());
     }
 
-    private List<Shape> copyShapeList() {
-        List<Shape> shapes = new ArrayList<>();
+    private GroupShape copyShapeList() {
+        GroupShape shapes = new GroupShape();
         for (Shape shape : getShapesList()) {
-            shapes.add((new ShapeCopyFactory()).copyShape(shape));
+            shapes.addShape((new ShapeCopyFactory()).copyShape(shape));
         }
         return shapes;
     }
