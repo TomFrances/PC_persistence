@@ -11,6 +11,7 @@ import java.util.List;
 
 
 @JsonIgnoreProperties(value = { "color" })
+@XmlRootElement(name = "groupShape")
 @XmlType(propOrder = { "shapes" })
 public class GroupShape extends Shape {
 

@@ -18,9 +18,7 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import lombok.Value;
 import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * This class implements the square <tt>SimpleShape</tt> extension.
  * It simply provides a <tt>draw()</tt> that paints a square.
@@ -28,7 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
 @XmlRootElement(name = "square")
-@Value
 public class Square extends Shape {
     public Square() {
         super(0,0);

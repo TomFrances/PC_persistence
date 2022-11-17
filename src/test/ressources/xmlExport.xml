@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupShape>
+    <x>0</x>
+    <y>0</y>
+    <circle>
+        <x>32</x>
+        <y>71</y>
+    </circle>
+    <circle>
+        <x>32</x>
+        <y>72</y>
+    </circle>
+    <groupShape>
+        <x>0</x>
+        <y>0</y>
+        <square>
+            <x>32</x>
+            <y>73</y>
+        </square>
+        <triangle>
+            <x>32</x>
+            <y>74</y>
+        </triangle>
+    </groupShape>
+</groupShape>

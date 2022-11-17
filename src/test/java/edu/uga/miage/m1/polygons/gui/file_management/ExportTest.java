@@ -1,73 +1,54 @@
 package edu.uga.miage.m1.polygons.gui.file_management;
 
-import edu.uga.miage.m1.polygons.gui.shapes.*;
+import edu.uga.miage.m1.polygons.gui.shapes.Circle;
+import edu.uga.miage.m1.polygons.gui.shapes.GroupShape;
+import edu.uga.miage.m1.polygons.gui.shapes.Square;
+import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExportTest {
-
-    @Test
-    void jsonExport() throws IOException {
-        List<Shape> shapesList = new ArrayList<>();
-        shapesList.add(new Triangle(55, 89));
-        shapesList.add(new Triangle(34, 229));
-        Export.jsonExport(shapesList);
-        Export.jsonExport(shapesList);
-        File file = new File("./jsonExport.json");
-        String fileContent = Files.readString(Path.of(file.getPath()));
-        String expectedContent = "{\"shapes\": [{\"type\":\"triangle\",\"x\":55,\"y\":89},{\"type\":\"triangle\",\"x\":34,\"y\":229}]}";
-        assertEquals(expectedContent, fileContent);
+    GroupShape group = new GroupShape();
+    @BeforeEach
+    public void setUp() {
+            group.addShape(new Circle(32, 71));
+            group.addShape(new Circle(32, 72));
+            GroupShape group2 = new GroupShape();
+            group2.addShape(new Square(32, 73));
+            group2.addShape(new Triangle(32, 74));
+            group.addShape(group2);
     }
 
     @Test
-    void jsonExportFail() throws IOException {
-        List<Shape> shapesList = new ArrayList<>();
-        shapesList.add(new Triangle(55, 89));
-        shapesList.add(new Triangle(34, 229));
-        Export.jsonExport(shapesList);
-        Export.jsonExport(shapesList);
-        File file = new File("./jsonExport.json");
-        String fileContent = Files.readString(Path.of(file.getPath()));
-        String expectedContent = "{\"shapes\": [{\"type\":\"triangle\",\"x\":55,\"y\":89},{\"type\":\"triangle\",\"x\":34,\"y\":229}]}";
-        assertEquals(expectedContent, fileContent);
+    void exportJSON() {
+        new File("src/test/ressources/jsonExport.json");
+        File file = Export.exportJSON(this.group,new File("src/test/ressources/jsonExport.json"));
+        assertNotNull(file);
+        assertTrue(file.exists());
+        try{
+            assertFalse(Files.readString(file.toPath()).isEmpty());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Test
-    void xmlExport() throws IOException, ParserConfigurationException, SAXException {
-        List<Shape> shapesList = new ArrayList<>();
-        shapesList.add(new Square(22, 80));
-        shapesList.add(new Circle(90, 11));
-        Export.xmlExport(shapesList);
-        Export.xmlExport(shapesList);
-        File file = new File("./xmlExport.xml");
-
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        Document xmlDocument = db.parse(file.getPath());
-
-        NodeList shapes = xmlDocument.getElementsByTagName("shape");
-
-        assertEquals( "square", ((Element) shapes.item(0)).getElementsByTagName("type").item(0).getTextContent());
-        assertEquals( 80, Integer.parseInt(((Element) shapes.item(0)).getElementsByTagName("y").item(0).getTextContent()));
-        assertEquals( 22, Integer.parseInt(((Element) shapes.item(0)).getElementsByTagName("x").item(0).getTextContent()));
-        assertEquals( "circle", ((Element) shapes.item(1)).getElementsByTagName("type").item(0).getTextContent());
-        assertEquals( 11, Integer.parseInt(((Element) shapes.item(1)).getElementsByTagName("y").item(0).getTextContent()));
-        assertEquals( 90, Integer.parseInt(((Element) shapes.item(1)).getElementsByTagName("x").item(0).getTextContent()));
+    void exportXML() {
+        new File("src/test/ressources/xmlExport.xml");
+        File file = Export.exportXML(this.group,new File("src/test/ressources/xmlExport.xml"));
+        assertNotNull(file);
+        assertTrue(file.exists());
+        try{
+            assertFalse(Files.readString(file.toPath()).isEmpty());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

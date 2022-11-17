@@ -11,7 +11,7 @@ public class ShapeCopyFactory implements CopyFactory {
             case "triangle" -> new Triangle((Triangle) shape);
             case "square" -> new Square((Square) shape);
             case "circle" -> new Circle((Circle) shape);
-            case "groupshape" ->  new GroupShape((GroupShape) shape);
+            case "groupshape" -> new GroupShape((GroupShape) shape);
             default -> null;
         };
     }

@@ -18,9 +18,7 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import lombok.Value;
 import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * This inner class implements the triangle <tt>SimpleShape</tt> service.
  * It simply provides a <tt>draw()</tt> that paints a triangle.
@@ -28,7 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
 @XmlRootElement(name = "triangle")
-@Value
 public class Triangle extends Shape {
     public Triangle() {
         super(0,0);

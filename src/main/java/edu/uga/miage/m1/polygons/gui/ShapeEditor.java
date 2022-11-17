@@ -1,18 +1,10 @@
 package edu.uga.miage.m1.polygons.gui;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import edu.uga.miage.m1.polygons.gui.copy_factory.ShapeCopyFactory;
 import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import java.awt.event.MouseEvent;
-import java.io.*;
 import java.util.*;
-import java.util.logging.Logger;
 
 public class ShapeEditor {
     private Shape dragged;
@@ -56,48 +48,8 @@ public class ShapeEditor {
         shapesList.addShape(shape);
         return shape;
     }
-    public void exportXML(){
-
-        try {
-            JAXBContext context = JAXBContext.newInstance(GroupShape.class);
-            Marshaller mar= context.createMarshaller();
-            mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            mar.marshal(shapesList, new File("./export.xml"));
-        } catch (JAXBException e) {
-            Logger.getLogger(e.getMessage());
-        }
-
-    }
-    public void importXML(){
-        try {
-            JAXBContext context = JAXBContext.newInstance(GroupShape.class);
-            setShapesList((GroupShape) context.createUnmarshaller().unmarshal(new FileReader("./export.xml")));
-        } catch (FileNotFoundException | JAXBException e) {
-            Logger.getLogger(e.getMessage());
-        }
-
-    }
-
-    public void exportJSON(){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./exportJson.json")))
-        {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            writer.write(mapper.writeValueAsString(shapesList));
-        } catch (IOException e) {
-            Logger.getLogger(e.getMessage());
-        }
-
-    }
-    public void importJSON(){
-        try {
-            setShapesList(new ObjectMapper().readValue(new FileReader("./exportJson.json"), GroupShape.class));
-        } catch (IOException e) {
-            Logger.getLogger(e.getMessage());
-        }
 
 
-    }
     public void disassembleGroupShape(MouseEvent evt) {
         int i = findShapeIndex(evt);
         if (i >= 0) {

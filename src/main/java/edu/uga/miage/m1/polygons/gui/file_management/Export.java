@@ -1,64 +1,45 @@
 package edu.uga.miage.m1.polygons.gui.file_management;
 
-import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
-import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
-import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
-import edu.uga.miage.m1.polygons.gui.shapes.Shape;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import edu.uga.miage.m1.polygons.gui.shapes.GroupShape;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class Export {
-
-    private static Visitor visitor;
-
     private Export(){}
-    /**
-     * Export all the drawn figure to a json format
-     */
-    public static void jsonExport(List<Shape> shapesList) {
-        try (FileWriter fileWriter = new FileWriter("jsonExport.json", false)) {
-            if(!(visitor instanceof JSonVisitor)){
-                visitor = new JSonVisitor();
-            }
-            String res = (shapesList
-                    .stream()
-                    .map(Export::createRepresentation)
-                    .reduce("{\"shapes\": [", String::concat)
-                    .replace("}{", "},{")
-                    .concat("]}"));
 
-            fileWriter.write(res);
-        } catch (IOException ioe) {
-            Logger.getLogger(ioe.getMessage());
+    public static File exportJSON(GroupShape shapesList,File export){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(export)))
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            writer.write(mapper.writeValueAsString(shapesList));
+            return export;
+        } catch (IOException e) {
+            Logger.getLogger(e.getMessage());
         }
+        return null;
     }
 
-    /**
-     * Export all the drawn figure to a json format
-     */
-    public static void xmlExport(List<Shape> shapesList) {
-        try (FileWriter fileWriter = new FileWriter("xmlExport.xml", false)) {
-            if(!(visitor instanceof XMLVisitor)){
-                visitor = new XMLVisitor();
-            }
-            String res = (shapesList
-                    .stream()
-                    .map(Export::createRepresentation)
-                    .reduce("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>", String::concat)
-                    .concat("</shapes></root>"));
-
-            fileWriter.write(res);
-        } catch (IOException ioe) {
-            Logger.getLogger(ioe.getMessage());
+    public static File exportXML(GroupShape shapesList,File export){
+        try {
+            JAXBContext context = JAXBContext.newInstance(GroupShape.class);
+            Marshaller mar= context.createMarshaller();
+            mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            mar.marshal(shapesList, export);
+            return new File(export.getPath());
+        } catch (JAXBException e) {
+            Logger.getLogger(e.getMessage());
         }
-    }
-
-    private static String createRepresentation(Shape shape) {
-        shape.accept(visitor);
-        return visitor.getRepresentation();
+        return null;
     }
 
 }

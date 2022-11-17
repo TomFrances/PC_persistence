@@ -2,7 +2,6 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
@@ -42,10 +41,6 @@ public abstract class Shape implements IsInside {
             this.x = original.getX();
             this.y = original.getY();
         }
-    }
-
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
     }
 
     public int getX() {

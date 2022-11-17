@@ -1,0 +1,27 @@
+{
+  "@type" : "groupShape",
+  "x" : 0,
+  "y" : 0,
+  "shapes" : [ {
+    "@type" : "circle",
+    "x" : 32,
+    "y" : 71
+  }, {
+    "@type" : "circle",
+    "x" : 32,
+    "y" : 72
+  }, {
+    "@type" : "groupShape",
+    "x" : 0,
+    "y" : 0,
+    "shapes" : [ {
+      "@type" : "square",
+      "x" : 32,
+      "y" : 73
+    }, {
+      "@type" : "triangle",
+      "x" : 32,
+      "y" : 74
+    } ]
+  } ]
+}
