@@ -13,11 +13,12 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Objects;
 
 public class Drawer {
     private Drawer(){}
 
-    public static void drawShape(Shape shape, Color color){
+    public void drawShape(Shape shape, Color color){
         String type = ShapeUtils.getType(shape);
         switch (type){
             case "triangle" -> drawTriangle((Triangle) shape, color);
@@ -30,6 +31,9 @@ public class Drawer {
     
     private static void drawCircle(Circle circle, Color color) {
         Graphics2D graphics2D = (Graphics2D) JDrawingFrame.panel.getGraphics();
+        if(Objects.isNull(graphics2D)){
+            return;
+        }
         int x = circle.getX();
         int y = circle.getY();
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -44,6 +48,9 @@ public class Drawer {
 
     private static void drawTriangle(Triangle triangle, Color color){
         Graphics2D graphics2D = (Graphics2D) JDrawingFrame.panel.getGraphics();
+        if(Objects.isNull(graphics2D)){
+            return;
+        }
         int x = triangle.getX();
         int y = triangle.getY();
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -66,6 +73,9 @@ public class Drawer {
 
     private static void drawSquare(Square square, Color color) {
         Graphics2D graphics2D = (Graphics2D) JDrawingFrame.panel.getGraphics();
+        if(Objects.isNull(graphics2D)){
+            return;
+        }
         int x = square.getX();
         int y = square.getY();
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -78,17 +88,19 @@ public class Drawer {
         graphics2D.draw(new Rectangle2D.Double(x - 25d, y - 25d, 50, 50));
     }
 
-    public static void drawGroup(GroupShape group) {
+    public void drawGroup(GroupShape group) {
         for (Shape shape : group.getShapes()) {
             drawShape(shape, group.getColor());
         }
     }
 
-    public static void drawAllShapes(GroupShape shapes) {
+    public void drawAllShapes(GroupShape shapes) {
         JDrawingFrame.panel.repaint();
-        SwingUtilities
-                .invokeLater(() -> shapes.getShapes()
-                        .forEach(shape -> drawShape(shape, Color.BLACK)));
+        if(!shapes.getShapes().isEmpty()) {
+            SwingUtilities
+                    .invokeLater(() -> shapes.getShapes()
+                            .forEach(shape -> drawShape(shape, Color.BLACK)));
+        }
     }
 
 }

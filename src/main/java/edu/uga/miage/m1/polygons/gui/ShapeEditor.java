@@ -18,6 +18,7 @@ public class ShapeEditor {
     private final ShapeFactory shapeFactory = new ShapeFactory();//NOSONAR
     public final Deque<GroupShape> undoStack = new ArrayDeque<>();
     public final Deque<GroupShape> redoStack = new ArrayDeque<>();
+    private final Drawer drawer = new Drawer();
 
     public void setDragged(Shape dragged) {
         this.dragged = dragged;
@@ -29,7 +30,7 @@ public class ShapeEditor {
 
     public void setShapesList(GroupShape shapesList) {
         this.shapesList = shapesList;
-        Drawer.drawAllShapes(shapesList);
+        drawer.drawAllShapes(shapesList);
     }
 
     public GroupShape getShapesList(){
@@ -40,7 +41,7 @@ public class ShapeEditor {
         clearRedo();
         saveStateForUndo();
         Shape shape = shapeFactory.createShape(type.value, evt.getX(), evt.getY());
-        Drawer.drawShape(shape, Color.BLACK);
+        drawer.drawShape(shape, Color.BLACK);
         shapesList.addShape(shape);
     }
 
@@ -53,7 +54,7 @@ public class ShapeEditor {
                 List<Shape> s = sl.getShapes();
                 shapesList.remove(i);
                 shapesList.addAllShapes(s);
-                Drawer.drawAllShapes(shapesList);
+                drawer.drawAllShapes(shapesList);
             }
         }
     }
@@ -92,14 +93,14 @@ public class ShapeEditor {
         } else if (groupShape.getShapes().size() == 1) {
             shapesList.addShape(groupShape.getShapes().get(0));
         }
-        Drawer.drawAllShapes(shapesList);
+        drawer.drawAllShapes(shapesList);
         setGroupShape(null);
     }
 
     public void dragShape(MouseEvent evt) {
         if (Objects.nonNull(dragged)) {
             dragged.moveTo(evt.getX(), evt.getY());
-            Drawer.drawAllShapes(shapesList);
+            drawer.drawAllShapes(shapesList);
         }
     }
 
@@ -141,6 +142,6 @@ public class ShapeEditor {
         clearUndo();
         setDragged(null);
         setGroupShape(null);
-        Drawer.drawAllShapes(shapesList);
+        drawer.drawAllShapes(shapesList);
     }
 }
