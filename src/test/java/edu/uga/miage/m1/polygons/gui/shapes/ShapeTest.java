@@ -45,4 +45,12 @@ class ShapeTest {
         assertEquals(100, triangle.getX());
         assertEquals(54, triangle.getY());
     }
+
+    @Test
+    void nullCopyConstructor(){
+        Triangle triangleCopy = new Triangle(null);
+        System.out.println(triangleCopy.getX());
+        assertEquals(0, triangleCopy.getX());
+        assertEquals(0, triangleCopy.getY());
+    }
 }
