@@ -3,6 +3,7 @@ package edu.uga.miage.m1.polygons.gui.file_management;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import edu.uga.miage.m1.polygons.gui.shapes.GroupShape;
+import lombok.extern.java.Log;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -11,8 +12,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
+@Log
 public class Export {
     private Export(){}
 
@@ -24,7 +26,7 @@ public class Export {
             writer.write(mapper.writeValueAsString(shapesList));
             return export;
         } catch (IOException e) {
-            Logger.getLogger(e.getMessage());
+            log.log(Level.WARNING,e.getMessage());
         }
         return null;
     }
@@ -37,7 +39,7 @@ public class Export {
             mar.marshal(shapesList, export);
             return new File(export.getPath());
         } catch (JAXBException e) {
-            Logger.getLogger(e.getMessage());
+            log.log(Level.WARNING,e.getMessage());
         }
         return null;
     }

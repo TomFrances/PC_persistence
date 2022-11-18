@@ -30,6 +30,14 @@ class ImportTest {
         GroupShape group = Import.importXML(file);
         assertNotNull(group);
         assertEquals(expected.getShapes().size(), group.getShapes().size());
+    }@Test
+    void importXMLExceptionTest() {
+        assertNull(Import.importXML(new File("src/test/ressources")));
+    }
+
+    @Test
+    void importJSONExceptionTest() {
+        assertNull(Import.importJSON(new File("src/test/ressources")));
     }
 
     @Test
