@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 @Log
 @Getter
 public class Import {
-
+    private Import(){}
     public static GroupShape importXML(File file){
         try {
             JAXBContext context = JAXBContext.newInstance(GroupShape.class);
