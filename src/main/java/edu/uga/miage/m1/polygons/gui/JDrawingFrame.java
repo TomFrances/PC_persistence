@@ -17,18 +17,20 @@ package edu.uga.miage.m1.polygons.gui;
  * specific language governing permissions and limitations
  * under the License.
  */
+
 import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.event.*;
 import java.io.Serial;
 import java.util.*;
+
 import edu.uga.miage.m1.polygons.gui.command.*;
+import edu.uga.miage.m1.polygons.gui.file_management.Export;
+import edu.uga.miage.m1.polygons.gui.file_management.Import;
 import edu.uga.miage.m1.polygons.gui.shapes.Shapes;
-import edu.uga.miage.m1.polygons.gui.utils.Drawer;
-import lombok.extern.java.Log;
+import edu.uga.miage.m1.polygons.gui.utils.FileUtils;
 
 import javax.swing.*;
-//import javax.swing.Timer;
 
 /**
  * This class represents the main application class, which is a JFrame subclass
@@ -36,7 +38,6 @@ import javax.swing.*;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-@Log
 public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
     private boolean groupMode = false;
@@ -48,19 +49,9 @@ public class JDrawingFrame extends JFrame
     public static final JPanel panel = new JPanel();
     private final JLabel label;
     private final ActionListener reusableActionListener = new ShapeActionListener();//NOSONAR
-    private final Drawer drawer;//NOSONAR
     private final ShapeEditor shapeEditor = new ShapeEditor();//NOSONAR
-
-    /**
-     * Tracks buttons to manage the background.
-     */
     private final Map<Shapes, JButton> buttons = new EnumMap<>(Shapes.class);
 
-    /**
-     * Default constructor that populates the main window.
-     *
-     * @param frameName the frame
-     **/
     public JDrawingFrame(String frameName) {
         super(frameName);
 
@@ -87,18 +78,9 @@ public class JDrawingFrame extends JFrame
         add(panel, BorderLayout.CENTER);
         add(label, BorderLayout.SOUTH);
 
-        drawer = new Drawer(panel, shapeEditor);
-
         setPreferredSize(new Dimension(1100, 700));
     }
 
-
-    /**
-     * Injects an available <tt>SimpleShape</tt> into the drawing frame.
-     *
-     * @param shape The name of the injected <tt>SimpleShape</tt>.
-     * @param icon  The icon associated with the injected <tt>SimpleShape</tt>.
-     **/
     private void addShape(Shapes shape, ImageIcon icon) {
         JButton button = new JButton(icon);
         button.setName(shape.name());
@@ -122,107 +104,102 @@ public class JDrawingFrame extends JFrame
         menu.add(fileMenu);
         JCheckBox groupCheck = new JCheckBox("Group mode");
         JCheckBox disbandGroup = new JCheckBox("Disassemble group");
-        groupCheck.addItemListener(e -> {
-            groupMode = e.getStateChange() == ItemEvent.SELECTED;
-            disbandGroup.setSelected(false);
-            disassemble = false;
-            if (groupMode) {
-                shapeEditor.startGrouping();
-            } else {
-                shapeEditor.endGrouping();
-            }
-        });
+        groupCheck.addItemListener(e -> groupActionListener(disbandGroup, e));
         menu.add(groupCheck);
 
-        disbandGroup.addItemListener(e -> {
-            disassemble = e.getStateChange() == ItemEvent.SELECTED && !groupMode;
-            if (!disassemble) {
-                disbandGroup.setSelected(false);
+        disbandGroup.addItemListener(e -> disbandActionListener(disbandGroup, e));
+        menu.add(disbandGroup);
+
+        fileMenu.add(createExportMenu());
+        fileMenu.add(createImportMenu());
+
+        JButton buttonUndo = new JButton("Undo");
+        buttonUndo.addActionListener(e -> (new UndoCommand(shapeEditor)).execute());
+        menu.add(buttonUndo);
+
+        JButton buttonRedo = new JButton("Redo");
+        buttonRedo.addActionListener(e -> (new RedoCommand(shapeEditor)).execute());
+        menu.add(buttonRedo);
+
+        JButton buttonReset = new JButton("Reset");
+        buttonReset.addActionListener(e -> (new ResetCommand(shapeEditor)).execute());
+        menu.add(buttonReset);
+        return menu;
+    }
+
+    private void disbandActionListener(JCheckBox disbandGroup, ItemEvent e) {
+        disassemble = e.getStateChange() == ItemEvent.SELECTED && !groupMode;
+        if (!disassemble) {
+            disbandGroup.setSelected(false);
+        }
+    }
+
+    private void groupActionListener(JCheckBox disbandGroup, ItemEvent e) {
+        groupMode = e.getStateChange() == ItemEvent.SELECTED;
+        disbandGroup.setSelected(false);
+        disassemble = false;
+        if (groupMode) {
+            shapeEditor.startGrouping();
+        } else {
+            shapeEditor.endGrouping();
+        }
+    }
+
+    private JMenu createImportMenu() {
+        JMenu importMenu = new JMenu("Import");
+        JMenuItem itemXmlImport = new JMenuItem();
+        itemXmlImport.setAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shapeEditor.setShapesList(Import.importXML(FileUtils.chooseFile()));
             }
         });
-        menu.add(disbandGroup);
+        itemXmlImport.setText("XML");
+        importMenu.add(itemXmlImport);
+        JMenuItem itemJsonImport = new JMenuItem();
+        itemJsonImport.setAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shapeEditor.setShapesList(Import.importJSON(FileUtils.chooseFile()));
+            }
+        });
+        itemJsonImport.setText("JSON");
+        importMenu.add(itemJsonImport);
+        return importMenu;
+    }
+
+    private JMenu createExportMenu() {
         JMenu exportMenu = new JMenu("Export");
-
-        fileMenu.add(exportMenu);
-
         JMenuItem itemXmlExport = new JMenuItem();
         itemXmlExport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO add export XML
+                Export.exportXML(shapeEditor.getShapesList(), FileUtils.chooseFile());
             }
         });
         itemXmlExport.setText("XML");
         exportMenu.add(itemXmlExport);
 
-        JMenu importMenu = new JMenu("Import");
-
-        fileMenu.add(importMenu);
-
-        JMenuItem itemXmlImport = new JMenuItem();
-        itemXmlImport.setAction(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO add export JSON
-            }
-        });
-        itemXmlImport.setText("XML");
-        importMenu.add(itemXmlImport);
-
         JMenuItem itemJsonExport = new JMenuItem();
         itemJsonExport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO add import XML
+                Export.exportJSON(shapeEditor.getShapesList(), FileUtils.chooseFile());
             }
         });
         itemJsonExport.setText("JSON");
         exportMenu.add(itemJsonExport);
-
-        JMenuItem itemJsonImport = new JMenuItem();
-        itemJsonImport.setAction(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO add import JSON
-            }
-        });
-        itemJsonImport.setText("JSON");
-        importMenu.add(itemJsonImport);
-
-        JButton buttonUndo = new JButton("Undo");
-        buttonUndo.addActionListener(e -> executeCommand(new UndoCommand(shapeEditor)));
-        menu.add(buttonUndo);
-
-        JButton buttonRedo = new JButton("Redo");
-        buttonRedo.addActionListener(e -> {
-
-        });
-        menu.add(buttonRedo);
-
-        return menu;
+        return exportMenu;
     }
 
     public void mouseClicked(MouseEvent evt) {
         if (!groupMode && !disassemble && panel.contains(evt.getX(), evt.getY())) {
-            createShape(evt);
+            shapeEditor.createShape(evt, selected);
         } else if (groupMode && panel.contains(evt.getX(), evt.getY())) {
-            groupShape(evt);
+            shapeEditor.groupShape(evt);
         } else if (disassemble && panel.contains(evt.getX(), evt.getY())) {
-            disassembleGroupShape(evt);
+            shapeEditor.disassembleGroupShape(evt);
         }
-    }
-
-    private void disassembleGroupShape(MouseEvent evt) {
-        shapeEditor.disassembleGroupShape(evt);
-        drawer.drawAllShapes();
-    }
-
-    private void groupShape(MouseEvent evt) {
-        shapeEditor.groupShape(evt);
-    }
-
-    private void createShape(MouseEvent evt) {
-        drawer.drawShape(shapeEditor.createShape(evt, selected), Color.BLACK);
     }
 
     public void mouseEntered(MouseEvent evt) {
@@ -246,9 +223,6 @@ public class JDrawingFrame extends JFrame
 
     public void mouseDragged(MouseEvent evt) {
         shapeEditor.dragShape(evt);
-        if (Objects.nonNull(shapeEditor.getDragged())) {
-            drawer.drawAllShapes();
-        }
     }
 
     public void mouseMoved(MouseEvent evt) {
@@ -273,10 +247,5 @@ public class JDrawingFrame extends JFrame
                 btn.repaint();
             }
         }
-    }
-
-    private void executeCommand(Command command) {
-        command.execute();
-        drawer.drawAllShapes();
     }
 }

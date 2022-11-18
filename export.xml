@@ -2,28 +2,24 @@
 <groupShape>
     <x>0</x>
     <y>0</y>
-    <square>
-        <x>342</x>
-        <y>154</y>
-    </square>
     <groupShape>
-        <x>115</x>
+        <x>102</x>
         <y>270</y>
         <square>
-            <x>130</x>
-            <y>274</y>
+            <x>103</x>
+            <y>246</y>
         </square>
         <square>
-            <x>269</x>
-            <y>271</y>
+            <x>524</x>
+            <y>393</y>
+        </square>
+        <square>
+            <x>670</x>
+            <y>292</y>
         </square>
     </groupShape>
-    <square>
-        <x>219</x>
-        <y>166</y>
-    </square>
-    <square>
-        <x>95</x>
-        <y>149</y>
-    </square>
+    <circle>
+        <x>314</x>
+        <y>95</y>
+    </circle>
 </groupShape>

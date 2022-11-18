@@ -1,5 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.utils;
 
+import edu.uga.miage.m1.polygons.gui.JDrawingFrame;
 import edu.uga.miage.m1.polygons.gui.ShapeEditor;
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
 import edu.uga.miage.m1.polygons.gui.shapes.GroupShape;
@@ -15,26 +16,20 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
 public class Drawer {
-    private final JPanel panel;
-    private final ShapeEditor shapeEditor;
 
-    public Drawer(JPanel panel, ShapeEditor shapeEditor){
-        this.panel = panel;
-        this.shapeEditor = shapeEditor;
-    }
-    public void drawShape(Shape shape, Color color){
+    public static void drawShape(Shape shape, Color color){
         String type = ShapeUtils.getType(shape);
         switch (type){
-            case "triangle" -> this.drawTriangle((Triangle) shape, color);
-            case "square" -> this.drawSquare((Square) shape, color);
-            case "circle" -> this.drawCircle((Circle) shape, color);
-            case "groupshape" -> this.drawGroup((GroupShape) shape);
+            case "triangle" -> drawTriangle((Triangle) shape, color);
+            case "square" -> drawSquare((Square) shape, color);
+            case "circle" -> drawCircle((Circle) shape, color);
+            case "groupshape" -> drawGroup((GroupShape) shape);
             default -> throw new IllegalStateException("Unexpected value: " + type);
         }
     }
     
-    public void drawCircle(Circle circle, Color color) {
-        Graphics2D graphics2D = (Graphics2D) panel.getGraphics();
+    private static void drawCircle(Circle circle, Color color) {
+        Graphics2D graphics2D = (Graphics2D) JDrawingFrame.panel.getGraphics();
         int x = circle.getX();
         int y = circle.getY();
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -47,8 +42,8 @@ public class Drawer {
         graphics2D.draw(new Ellipse2D.Double(x - 25f, y - 25f, 50, 50));
     }
 
-    public void drawTriangle(Triangle triangle, Color color){
-        Graphics2D graphics2D = (Graphics2D) panel.getGraphics();
+    private static void drawTriangle(Triangle triangle, Color color){
+        Graphics2D graphics2D = (Graphics2D) JDrawingFrame.panel.getGraphics();
         int x = triangle.getX();
         int y = triangle.getY();
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -69,8 +64,8 @@ public class Drawer {
         graphics2D.draw(polygon);
     }
 
-    public void drawSquare(Square square, Color color) {
-        Graphics2D graphics2D = (Graphics2D) panel.getGraphics();
+    private static void drawSquare(Square square, Color color) {
+        Graphics2D graphics2D = (Graphics2D) JDrawingFrame.panel.getGraphics();
         int x = square.getX();
         int y = square.getY();
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -83,15 +78,17 @@ public class Drawer {
         graphics2D.draw(new Rectangle2D.Double(x - 25d, y - 25d, 50, 50));
     }
 
-    public void drawGroup(GroupShape group) {
+    public static void drawGroup(GroupShape group) {
         for (Shape shape : group.getShapes()) {
-            this.drawShape(shape, group.getColor());
+            drawShape(shape, group.getColor());
         }
     }
 
-    public void drawAllShapes() {
-        panel.repaint();
-        SwingUtilities.invokeLater(() -> shapeEditor.getShapesList().forEach(shape -> drawShape(shape, Color.BLACK)));
+    public static void drawAllShapes(GroupShape shapes) {
+        JDrawingFrame.panel.repaint();
+        SwingUtilities
+                .invokeLater(() -> shapes.getShapes()
+                        .forEach(shape -> drawShape(shape, Color.BLACK)));
     }
 
 }

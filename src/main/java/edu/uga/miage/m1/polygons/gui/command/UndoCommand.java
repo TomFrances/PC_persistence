@@ -10,8 +10,9 @@ public class UndoCommand extends Command {
     }
 
     public boolean execute() {
-        if (!shapeEditor.getUndoStack().isEmpty()) {
-            GroupShape shapes = shapeEditor.getUndoStack().pop();
+        if (!shapeEditor.undoStack.isEmpty()) {
+            GroupShape shapes = shapeEditor.undoStack.pop();
+            shapeEditor.saveStateForRedo();
             shapeEditor.setShapesList(shapes);
             return true;
         }

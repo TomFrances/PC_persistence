@@ -10,8 +10,9 @@ public class RedoCommand extends Command {
     }
 
     public boolean execute() {
-        if (!shapeEditor.getRedoStack().isEmpty()) {
-            GroupShape shapes = shapeEditor.getRedoStack().pop();
+        if (!shapeEditor.redoStack.isEmpty()) {
+            GroupShape shapes = shapeEditor.redoStack.pop();
+            shapeEditor.saveStateForUndo();
             shapeEditor.setShapesList(shapes);
             return true;
         }

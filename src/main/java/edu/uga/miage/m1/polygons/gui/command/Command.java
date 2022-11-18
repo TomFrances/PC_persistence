@@ -18,7 +18,7 @@ public abstract class Command {
 
     protected List<Shape> copyShapeList(){
         List<Shape> shapes = new ArrayList<>();
-        for(Shape shape : shapeEditor.getShapesList()){
+        for(Shape shape : shapeEditor.getShapesList().getShapes()){
             shapes.add((new ShapeCopyFactory()).copyShape(shape));
         }
         return shapes;

@@ -3,20 +3,21 @@ package edu.uga.miage.m1.polygons.gui;
 import edu.uga.miage.m1.polygons.gui.copy_factory.ShapeCopyFactory;
 import edu.uga.miage.m1.polygons.gui.factory.ShapeFactory;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
+import edu.uga.miage.m1.polygons.gui.shapes.Shape;
+import edu.uga.miage.m1.polygons.gui.utils.Drawer;
+
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.util.List;
 
 public class ShapeEditor {
     private Shape dragged;
     private GroupShape groupShape;
     private GroupShape shapesList = new GroupShape();//NOSONAR
     private final ShapeFactory shapeFactory = new ShapeFactory();//NOSONAR
-    private final Deque<GroupShape> undoStack = new ArrayDeque<>();
-    private final Deque<GroupShape> redoStack = new ArrayDeque<>();
-
-    public Shape getDragged() {
-        return dragged;
-    }
+    public final Deque<GroupShape> undoStack = new ArrayDeque<>();
+    public final Deque<GroupShape> redoStack = new ArrayDeque<>();
 
     public void setDragged(Shape dragged) {
         this.dragged = dragged;
@@ -26,31 +27,25 @@ public class ShapeEditor {
         this.groupShape = groupShape;
     }
 
-    public List<Shape> getShapesList() {
-        return shapesList.getShapes();
-    }
-
     public void setShapesList(GroupShape shapesList) {
         this.shapesList = shapesList;
+        Drawer.drawAllShapes(shapesList);
     }
 
-    public Deque<GroupShape> getUndoStack() {
-        return undoStack;
+    public GroupShape getShapesList(){
+        return this.shapesList;
     }
 
-    public Deque<GroupShape> getRedoStack() {
-        return redoStack;
-    }
-
-    public Shape createShape(MouseEvent evt, Shapes type) {
+    public void createShape(MouseEvent evt, Shapes type) {
+        clearRedo();
         saveStateForUndo();
         Shape shape = shapeFactory.createShape(type.value, evt.getX(), evt.getY());
+        Drawer.drawShape(shape, Color.BLACK);
         shapesList.addShape(shape);
-        return shape;
     }
 
-
     public void disassembleGroupShape(MouseEvent evt) {
+        clearRedo();
         int i = findShapeIndex(evt);
         if (i >= 0) {
             Shape shape = shapesList.getShape(i);
@@ -58,6 +53,7 @@ public class ShapeEditor {
                 List<Shape> s = sl.getShapes();
                 shapesList.remove(i);
                 shapesList.addAllShapes(s);
+                Drawer.drawAllShapes(shapesList);
             }
         }
     }
@@ -71,6 +67,7 @@ public class ShapeEditor {
     }
 
     public void startDraggingShape(MouseEvent evt) {
+        clearRedo();
         int i = findShapeIndex(evt);
         if (i >= 0) {
             saveStateForUndo();
@@ -89,37 +86,61 @@ public class ShapeEditor {
     }
 
     public void endGrouping() {
+        clearRedo();
         if (groupShape.getShapes().size() > 1) {
             shapesList.addShape(groupShape);
         } else if (groupShape.getShapes().size() == 1) {
             shapesList.addShape(groupShape.getShapes().get(0));
         }
+        Drawer.drawAllShapes(shapesList);
         setGroupShape(null);
     }
 
     public void dragShape(MouseEvent evt) {
         if (Objects.nonNull(dragged)) {
             dragged.moveTo(evt.getX(), evt.getY());
+            Drawer.drawAllShapes(shapesList);
         }
     }
 
     private int findShapeIndex(MouseEvent evt) {
-        int i = getShapesList().size() - 1;
-        while (i >= 0 && !getShapesList().get(i).isInside(evt.getX(), evt.getY())) {
+        int i = shapesList.getShapes().size() - 1;
+        while (i >= 0 && !shapesList.getShapes().get(i).isInside(evt.getX(), evt.getY())) {
             i--;
         }
         return i;
     }
 
-    private void saveStateForUndo(){
+    public void saveStateForUndo() {
         undoStack.push(copyShapeList());
+    }
+
+    public void saveStateForRedo() {
+        redoStack.push(copyShapeList());
+    }
+
+    private void clearRedo() {
+        redoStack.clear();
+    }
+
+    private void clearUndo() {
+        undoStack.clear();
     }
 
     private GroupShape copyShapeList() {
         GroupShape shapes = new GroupShape();
-        for (Shape shape : getShapesList()) {
+        for (Shape shape : shapesList.getShapes()) {
             shapes.addShape((new ShapeCopyFactory()).copyShape(shape));
         }
         return shapes;
+    }
+
+    public void reset() {
+        setShapesList(new GroupShape());
+        clearRedo();
+        clearUndo();
+        setDragged(null);
+        setGroupShape(null);
+        Drawer.drawAllShapes(shapesList);
     }
 }
