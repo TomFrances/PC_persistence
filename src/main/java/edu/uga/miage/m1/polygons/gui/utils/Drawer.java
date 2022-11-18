@@ -1,7 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.utils;
 
 import edu.uga.miage.m1.polygons.gui.JDrawingFrame;
-import edu.uga.miage.m1.polygons.gui.ShapeEditor;
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
 import edu.uga.miage.m1.polygons.gui.shapes.GroupShape;
 import edu.uga.miage.m1.polygons.gui.shapes.Shape;
@@ -16,6 +15,7 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
 public class Drawer {
+    private Drawer(){}
 
     public static void drawShape(Shape shape, Color color){
         String type = ShapeUtils.getType(shape);

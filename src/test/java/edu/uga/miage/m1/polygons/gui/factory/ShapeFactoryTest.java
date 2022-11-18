@@ -48,6 +48,15 @@ class ShapeFactoryTest {
         assert(group instanceof GroupShape);
         assertEquals(0, group.getX());
         assertEquals(0, group.getY());
+    }@Test
+    void testCreateCircle() {
+        String type = "circle";
+        ShapeFactory shapeFactory = new ShapeFactory();
+        Shape group = shapeFactory.createShape(type, 0, 0);
+        assertNotNull(group);
+        assert(group instanceof Circle);
+        assertEquals(0, group.getX());
+        assertEquals(0, group.getY());
     }
 
     @Test
