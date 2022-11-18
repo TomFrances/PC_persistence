@@ -28,7 +28,7 @@ public class Drawer {
         }
     }
     
-    private static void drawCircle(Circle circle, Color color) {
+    private void drawCircle(Circle circle, Color color) {
         Graphics2D graphics2D = (Graphics2D) JDrawingFrame.panel.getGraphics();
         if(Objects.isNull(graphics2D)){
             return;
@@ -45,7 +45,7 @@ public class Drawer {
         graphics2D.draw(new Ellipse2D.Double(x - 25f, y - 25f, 50, 50));
     }
 
-    private static void drawTriangle(Triangle triangle, Color color){
+    private void drawTriangle(Triangle triangle, Color color){
         Graphics2D graphics2D = (Graphics2D) JDrawingFrame.panel.getGraphics();
         if(Objects.isNull(graphics2D)){
             return;
@@ -70,7 +70,7 @@ public class Drawer {
         graphics2D.draw(polygon);
     }
 
-    private static void drawSquare(Square square, Color color) {
+    private void drawSquare(Square square, Color color) {
         Graphics2D graphics2D = (Graphics2D) JDrawingFrame.panel.getGraphics();
         if(Objects.isNull(graphics2D)){
             return;
