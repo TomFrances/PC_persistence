@@ -19,6 +19,9 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
+
 /**
  * This inner class implements the triangle <tt>SimpleShape</tt> service.
  * It simply provides a <tt>draw()</tt> that paints a triangle.
@@ -37,21 +40,19 @@ public class Triangle extends Shape {
     public Triangle(Triangle original){
         super(original);
     }
-    public boolean isInside(int x, int y) {
-        int x1 = this.getX()-25;
-        int x2 = this.getX();
-        int x3 = this.getX()+25;
-        int y1 = this.getY()-25;
-        int y2 = this.getY()+25;
-        int y3 = this.getY()-25;
-        double a = area (x1, y1, x2, y2, x3, y3);
-        double a1 = area (x, y, x2, y2, x3, y3);
-        double a2 = area (x1, y1, x, y, x3, y3);
-        double a3 = area (x1, y1, x2, y2, x, y);
-        return (a == (a1 + a2 + a3));
-    }
-    private double area(int x1, int y1, int x2, int y2,int x3, int y3)
-    {
-        return Math.abs(( x1* ( y2 - y3 ) + x2* ( y3 - y1 )+ x3* ( y1 - y2 ))/2.0);
+
+    @Override
+    public void setShapeDraw() {
+        int x = getX();
+        int y = getY();
+        int[] xCoords = { x, x-25, x + 25 };
+        int[] yCoords = { y-25, y + 25, y + 25 };
+        GeneralPath polygon = new GeneralPath(Path2D.WIND_EVEN_ODD, xCoords.length);
+        polygon.moveTo(x, y - 25f);
+        for (int i = 0; i < xCoords.length; i++) {
+            polygon.lineTo(xCoords[i], yCoords[i]);
+        }
+        polygon.closePath();
+        shapeDraw = polygon;
     }
 }

@@ -19,6 +19,8 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.awt.geom.Rectangle2D;
+
 /**
  * This class implements the square <tt>SimpleShape</tt> extension.
  * It simply provides a <tt>draw()</tt> that paints a square.
@@ -38,8 +40,8 @@ public class Square extends Shape {
         super(original);
     }
 
-    public boolean isInside(int x, int y) {
-        return x <= (getX() + 25) && x >= (getX() - 25) && y <= (getY() + 25) && y >= (getY() - 25);
+    @Override
+    public void setShapeDraw() {
+        shapeDraw = new Rectangle2D.Double(getX() - 25d, getY() - 25d, 50, 50);
     }
-
 }

@@ -88,7 +88,7 @@ class GroupShapeTest {
         group.addShape(new Circle(32, 71));
         group.addShape(new Triangle(2, 45));
         assertTrue(group.isInside(32, 79));
-        assertTrue(group.isInside(15, 39));
+        assertTrue(group.isInside(10, 39));
         assertFalse(group.isInside(100, 100));
     }
 
