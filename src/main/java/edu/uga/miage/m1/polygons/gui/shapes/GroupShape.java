@@ -3,7 +3,6 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 import com.fasterxml.jackson.annotation.*;
 import edu.uga.miage.m1.polygons.gui.copy_factory.ShapeCopyFactory;
 
-import javax.xml.bind.annotation.*;
 import java.awt.*;
 import java.security.SecureRandom;
 import java.util.*;
@@ -70,7 +69,6 @@ public class GroupShape extends Shape {
     public Shape remove(int index){
         return shapes.remove(index);
     }
-    @XmlTransient
     public Color getColor() {
         return color;
     }
