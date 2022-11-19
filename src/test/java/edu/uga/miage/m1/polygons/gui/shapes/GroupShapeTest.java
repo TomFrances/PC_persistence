@@ -2,13 +2,31 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupShapeTest {
+
+    @Test
+    void copyConstructorNotNull(){
+        GroupShape groupShapeOriginal = new GroupShape();
+        groupShapeOriginal.addShape(new Circle(43, 12));
+        groupShapeOriginal.addShape(new Triangle(88, 66));
+        GroupShape groupShapeCopy = new GroupShape(groupShapeOriginal);
+        assertEquals(2, groupShapeCopy.getShapes().size());
+        assertEquals(12, groupShapeCopy.getShapes().get(0).getY());
+        assertEquals(88, groupShapeCopy.getShapes().get(1).getX());
+    }
+    @Test
+    void copyConstructorNull(){
+        GroupShape groupShapeCopy = new GroupShape(null);
+        assertEquals(0, groupShapeCopy.getShapes().size());
+        assertEquals(0, groupShapeCopy.getY());
+        assertEquals(0, groupShapeCopy.getX());
+    }
 
     @Test
     void setCoordinate() {
@@ -33,11 +51,35 @@ class GroupShapeTest {
 
     @Test
     void addShape() {
-        //TODO
         GroupShape group = new GroupShape();
         group.addShape(new Circle(32, 71));
         assertEquals(1, group.getShapes().size());
         assertTrue(group.getShapes().get(0) instanceof Circle);
+    }
+
+    @Test
+    void addAll(){
+        List<Shape> shapes = new ArrayList<>();
+        shapes.add(new Triangle(43, 12));
+        shapes.add(new Circle(89,87));
+        GroupShape group = new GroupShape();
+        assertEquals(0, group.getShapes().size());
+        group.addAllShapes(shapes);
+        assertEquals(2, group.getShapes().size());
+        assertEquals(87, group.getShapes().get(1).getY());
+    }
+    @Test
+    void remove(){
+        List<Shape> shapes = new ArrayList<>();
+        shapes.add(new Triangle(43, 12));
+        shapes.add(new Circle(89,87));
+        GroupShape group = new GroupShape();
+        assertEquals(0, group.getShapes().size());
+        group.addAllShapes(shapes);
+        assertEquals(2, group.getShapes().size());
+        assertEquals(87, group.getShapes().get(1).getY());
+        group.remove(1);
+        assertEquals(43, group.getShape(0).getX());
     }
 
     @Test
