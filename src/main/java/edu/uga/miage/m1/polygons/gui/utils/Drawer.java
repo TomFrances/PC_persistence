@@ -16,7 +16,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.Objects;
 
 public class Drawer {
-    private Drawer(){}
 
     public void drawShape(Shape shape, Color color){
         String type = ShapeUtils.getType(shape);

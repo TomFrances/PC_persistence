@@ -19,7 +19,6 @@ public class ShapeEditor {
     public final Deque<GroupShape> undoStack = new ArrayDeque<>();
     public final Deque<GroupShape> redoStack = new ArrayDeque<>();
     private final Drawer drawer = new Drawer();
-
     public void setDragged(Shape dragged) {
         this.dragged = dragged;
     }
