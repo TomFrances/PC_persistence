@@ -22,11 +22,11 @@ class ShapeEditorTest {
         group = new GroupShape();
         circle1 = new Circle(0, 100);
         group.addShape(circle1);
-        group.addShape(new Circle(100, 0));
         group2 = new GroupShape();
         group2.addShape(new Square(0, 0));
         group2.addShape(new Triangle(100, 100));
         group.addShape(group2);
+        group.addShape(new Circle(100, 0));
         editor.setShapesList(group);
     }
 
@@ -44,6 +44,13 @@ class ShapeEditorTest {
         JPanel pan = new JPanel();
         editor.disassembleGroupShape(new MouseEvent(pan,0,0,0,100,100,0,false,0));
         assertEquals(4,editor.getShapesList().getShapes().size());
+    }
+    @Test
+    void disassembleGroupShapeNotGroup() {
+        assertEquals(3,editor.getShapesList().getShapes().size());
+        JPanel pan = new JPanel();
+        editor.disassembleGroupShape(new MouseEvent(pan,0,0,0,0,100,0,false,0));
+        assertEquals(3,editor.getShapesList().getShapes().size());
     }
     @Test
     void disassembleGroupShapeNotFound() {
@@ -78,6 +85,13 @@ class ShapeEditorTest {
         assertEquals(2,editor.getShapesList().getShapes().indexOf(circle1));
     }
     @Test
+    void startDraggingGroupShape() {
+        assertEquals(1,editor.getShapesList().getShapes().indexOf(group2));
+        JPanel pan = new JPanel();
+        editor.startDraggingShape(new MouseEvent(pan,0,0,0,100,100,0,false,0));
+        assertEquals(2,editor.getShapesList().getShapes().indexOf(group2));
+    }
+    @Test
     void startDraggingShapeNotFound() {
         assertEquals(0,editor.getShapesList().getShapes().indexOf(circle1));
         JPanel pan = new JPanel();
@@ -105,6 +119,14 @@ class ShapeEditorTest {
         editor.endGrouping();
         assertEquals(4,editor.getShapesList().getShapes().size());
         assertEquals(GroupShape.class,editor.getShapesList().getShapes().get(3).getClass());
+    }
+    @Test
+    void endGroupingEmpty() {
+        assertEquals(3,editor.getShapesList().getShapes().size());
+        GroupShape end = new GroupShape();
+        editor.setGroupShape(end);
+        editor.endGrouping();
+        assertEquals(3,editor.getShapesList().getShapes().size());
     }
 
     @Test
