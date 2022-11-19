@@ -9,10 +9,6 @@ import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
 import java.util.Objects;
 
 public class Drawer {
@@ -38,11 +34,11 @@ public class Drawer {
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint gradient = new GradientPaint(x - 25f, y - 25f, Color.RED, x + 25f, y - 25f, Color.WHITE);
         graphics2D.setPaint(gradient);
-        graphics2D.fill(new Ellipse2D.Double(x - 25f, y - 25f, 50, 50));
+        graphics2D.fill(circle.getShapeDraw());
         BasicStroke wideStroke = new BasicStroke(3.0f);
         graphics2D.setColor(color);
         graphics2D.setStroke(wideStroke);
-        graphics2D.draw(new Ellipse2D.Double(x - 25f, y - 25f, 50, 50));
+        graphics2D.draw(circle.getShapeDraw());
     }
 
     private void drawTriangle(Triangle triangle, Color color){
@@ -55,19 +51,11 @@ public class Drawer {
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint gradient = new GradientPaint(x, y, Color.GREEN, x + 50f, y, Color.WHITE);
         graphics2D.setPaint(gradient);
-        int[] xCoords = { x, x-25, x + 25 };
-        int[] yCoords = { y-25, y + 25, y + 25 };
-        GeneralPath polygon = new GeneralPath(Path2D.WIND_EVEN_ODD, xCoords.length);
-        polygon.moveTo(x, y - 25f);
-        for (int i = 0; i < xCoords.length; i++) {
-            polygon.lineTo(xCoords[i], yCoords[i]);
-        }
-        polygon.closePath();
-        graphics2D.fill(polygon);
+        graphics2D.fill(triangle.getShapeDraw());
         BasicStroke wideStroke = new BasicStroke(3.0f);
         graphics2D.setColor(color);
         graphics2D.setStroke(wideStroke);
-        graphics2D.draw(polygon);
+        graphics2D.draw(triangle.getShapeDraw());
     }
 
     private void drawSquare(Square square, Color color) {
@@ -80,11 +68,11 @@ public class Drawer {
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint gradient = new GradientPaint(x, y, Color.BLUE, x + 50f, y, Color.WHITE);
         graphics2D.setPaint(gradient);
-        graphics2D.fill(new Rectangle2D.Double(x - 25d, y - 25d, 50, 50));
+        graphics2D.fill(square.getShapeDraw());
         BasicStroke wideStroke = new BasicStroke(3.0f);
         graphics2D.setColor(color);
         graphics2D.setStroke(wideStroke);
-        graphics2D.draw(new Rectangle2D.Double(x - 25d, y - 25d, 50, 50));
+        graphics2D.draw(square.getShapeDraw());
     }
 
     public void drawGroup(GroupShape group) {

@@ -1,9 +1,11 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
@@ -26,20 +28,24 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
         @JsonSubTypes.Type(value = Circle.class, name = "circle"),
         @JsonSubTypes.Type(value = GroupShape.class, name = "groupShape")
 })
+@JsonIgnoreProperties(value = {"shapeDraw"})
 public abstract class Shape implements IsInside {
 
     private int x;
     private int y;
+    protected java.awt.Shape shapeDraw;
 
     protected Shape(int x, int y) {
         this.x = x;
         this.y = y;
+        setShapeDraw();
     }
 
     protected Shape(Shape original) {
         if (Objects.nonNull(original)) {
             this.x = original.getX();
             this.y = original.getY();
+            this.shapeDraw = original.getShapeDraw();
         }
     }
 
@@ -59,9 +65,21 @@ public abstract class Shape implements IsInside {
         this.y = y;
     }
 
+    @XmlTransient
+    public java.awt.Shape getShapeDraw(){
+        return shapeDraw;
+    }
+
+    public abstract void setShapeDraw();
+
     public void moveTo(int x, int y) {
         setX(x);
         setY(y);
+        setShapeDraw();
     }
 
+    @Override
+    public boolean isInside(int x, int y) {
+        return shapeDraw.contains(x, y);
+    }
 }
