@@ -45,6 +45,13 @@ class ShapeEditorTest {
         editor.disassembleGroupShape(new MouseEvent(pan,0,0,0,100,100,0,false,0));
         assertEquals(4,editor.getShapesList().getShapes().size());
     }
+    @Test
+    void disassembleGroupShapeNotFound() {
+        assertEquals(3,editor.getShapesList().getShapes().size());
+        JPanel pan = new JPanel();
+        editor.disassembleGroupShape(new MouseEvent(pan,0,0,0,200,200,0,false,0));
+        assertEquals(3,editor.getShapesList().getShapes().size());
+    }
 
     @Test
     void groupShape() {
@@ -54,6 +61,14 @@ class ShapeEditorTest {
         editor.groupShape(new MouseEvent(pan,0,0,0,0,100,0,false,0));
         assertEquals(2,editor.getShapesList().getShapes().size());
     }
+    @Test
+    void groupShapeNotFound() {
+        assertEquals(3,editor.getShapesList().getShapes().size());
+        editor.startGrouping();
+        JPanel pan = new JPanel();
+        editor.groupShape(new MouseEvent(pan,0,0,0,200,100,0,false,0));
+        assertEquals(3,editor.getShapesList().getShapes().size());
+    }
 
     @Test
     void startDraggingShape() {
@@ -61,6 +76,13 @@ class ShapeEditorTest {
         JPanel pan = new JPanel();
         editor.startDraggingShape(new MouseEvent(pan,0,0,0,0,100,0,false,0));
         assertEquals(2,editor.getShapesList().getShapes().indexOf(circle1));
+    }
+    @Test
+    void startDraggingShapeNotFound() {
+        assertEquals(0,editor.getShapesList().getShapes().indexOf(circle1));
+        JPanel pan = new JPanel();
+        editor.startDraggingShape(new MouseEvent(pan,0,0,0,200,100,0,false,0));
+        assertEquals(0,editor.getShapesList().getShapes().indexOf(circle1));
     }
 
     @Test
@@ -74,6 +96,18 @@ class ShapeEditorTest {
     }
 
     @Test
+    void endGrouping2Shape() {
+        assertEquals(3,editor.getShapesList().getShapes().size());
+        GroupShape end = new GroupShape();
+        end.addShape(new Triangle(50,50));
+        end.addShape(new Square(50,50));
+        editor.setGroupShape(end);
+        editor.endGrouping();
+        assertEquals(4,editor.getShapesList().getShapes().size());
+        assertEquals(GroupShape.class,editor.getShapesList().getShapes().get(3).getClass());
+    }
+
+    @Test
     void dragShape() {
         editor.setDragged(circle1);
         int x = circle1.getX();
@@ -82,7 +116,16 @@ class ShapeEditorTest {
         editor.dragShape(new MouseEvent(pan,0,0,0,50,50,0,false,0));
         assertNotEquals(x,circle1.getX());
         assertNotEquals(y,circle1.getY());
-
+    }
+    @Test
+    void dragShapeNull() {
+        editor.setDragged(null);
+        int x = circle1.getX();
+        int y = circle1.getY();
+        JPanel pan = new JPanel();
+        editor.dragShape(new MouseEvent(pan,0,0,0,50,50,0,false,0));
+        assertEquals(x,circle1.getX());
+        assertEquals(y,circle1.getY());
     }
 
     @Test
