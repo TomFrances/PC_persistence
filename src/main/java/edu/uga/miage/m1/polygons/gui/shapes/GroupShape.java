@@ -73,14 +73,8 @@ public class GroupShape extends Shape {
     public void addAllShapes(List<Shape> shapes) {
         this.shapes.addAll(shapes);
     }
-    public void remove(Shape shape){
-         shapes.remove(shape);
-    }
     public Shape remove(int index){
         return shapes.remove(index);
-    }
-    public void setColor(Color color) {
-        this.color = color;
     }
     @XmlTransient
     public Color getColor() {
