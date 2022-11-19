@@ -4,41 +4,72 @@
   "y" : 0,
   "shapes" : [ {
     "@type" : "triangle",
-    "x" : 172,
-    "y" : 281
+    "x" : 113,
+    "y" : 332
   }, {
     "@type" : "circle",
-    "x" : 428,
-    "y" : 193
+    "x" : 286,
+    "y" : 328
+  }, {
+    "@type" : "circle",
+    "x" : 164,
+    "y" : 45
   }, {
     "@type" : "groupShape",
-    "x" : 109,
-    "y" : 66,
+    "x" : 188,
+    "y" : 171,
     "shapes" : [ {
       "@type" : "groupShape",
-      "x" : 66,
-      "y" : 146,
+      "x" : 184,
+      "y" : 171,
       "shapes" : [ {
-        "@type" : "square",
-        "x" : 60,
-        "y" : 153
+        "@type" : "groupShape",
+        "x" : 93,
+        "y" : 105,
+        "shapes" : [ {
+          "@type" : "square",
+          "x" : 90,
+          "y" : 106
+        }, {
+          "@type" : "groupShape",
+          "x" : -21,
+          "y" : -4,
+          "shapes" : [ {
+            "@type" : "triangle",
+            "x" : 185,
+            "y" : 159
+          }, {
+            "@type" : "square",
+            "x" : 270,
+            "y" : 105
+          } ]
+        } ]
       }, {
-        "@type" : "triangle",
-        "x" : 103,
-        "y" : 58
+        "@type" : "groupShape",
+        "x" : 70,
+        "y" : 212,
+        "shapes" : [ {
+          "@type" : "square",
+          "x" : 76,
+          "y" : 203
+        }, {
+          "@type" : "square",
+          "x" : 238,
+          "y" : 243
+        } ]
       } ]
     }, {
       "@type" : "groupShape",
-      "x" : -39,
-      "y" : -5,
+      "x" : 331,
+      "y" : 180,
       "shapes" : [ {
-        "@type" : "circle",
-        "x" : 96,
-        "y" : 265
+        "@type" : "triangle",
+        "x" : 327,
+        "y" : 172
       }, {
-        "@type" : "square",
-        "x" : 185,
-        "y" : 152
+        "@type" : "triangle",
+        "x" : 178,
+        "y" : 338
       } ]
     } ]
   } ]

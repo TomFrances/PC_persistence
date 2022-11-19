@@ -2,12 +2,9 @@ package edu.uga.miage.m1.polygons.gui.file_management;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import edu.uga.miage.m1.polygons.gui.shapes.GroupShape;
 import lombok.extern.java.Log;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -32,13 +29,12 @@ public class Export {
     }
 
     public static File exportXML(GroupShape shapesList,File export){
-        try {
-            JAXBContext context = JAXBContext.newInstance(GroupShape.class);
-            Marshaller mar= context.createMarshaller();
-            mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            mar.marshal(shapesList, export);
-            return new File(export.getPath());
-        } catch (JAXBException e) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(export)))
+        {
+            XmlMapper xmlMapper = new XmlMapper();
+            xmlMapper.writeValue(export,shapesList);
+            return export;
+        } catch (IOException e) {
             log.log(Level.WARNING,e.getMessage());
         }
         return null;

@@ -18,17 +18,18 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.awt.geom.Ellipse2D;
 
-@XmlRootElement(name = "circle")
 public class Circle extends Shape {
 
     public Circle() {
         super(0,0);
     }
-
-    public Circle(int x, int y) {
+    @JsonCreator
+    public Circle(@JsonProperty("x")int x,@JsonProperty("y") int y) {
         super(x, y);
     }
     public Circle(Circle original) {

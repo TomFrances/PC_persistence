@@ -18,7 +18,8 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -27,12 +28,12 @@ import java.awt.geom.Rectangle2D;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-@XmlRootElement(name = "square")
 public class Square extends Shape {
     public Square() {
         super(0,0);
     }
-    public Square(int x, int y) {
+    @JsonCreator
+    public Square(@JsonProperty("x")int x,@JsonProperty("y") int y) {
         super(x, y);
     }
 

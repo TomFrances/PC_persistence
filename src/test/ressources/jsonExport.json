@@ -2,7 +2,6 @@
   "@type" : "groupShape",
   "x" : 0,
   "y" : 0,
-  "shapeDraw" : null,
   "shapes" : [ {
     "@type" : "circle",
     "x" : 32,
@@ -15,7 +14,6 @@
     "@type" : "groupShape",
     "x" : 0,
     "y" : 0,
-    "shapeDraw" : null,
     "shapes" : [ {
       "@type" : "square",
       "x" : 32,

@@ -18,7 +18,8 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 
@@ -28,12 +29,12 @@ import java.awt.geom.Path2D;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-@XmlRootElement(name = "triangle")
 public class Triangle extends Shape {
     public Triangle() {
         super(0,0);
     }
-    public Triangle(int x, int y) {
+    @JsonCreator
+    public Triangle(@JsonProperty("x")int x, @JsonProperty("y")int y) {
         super(x, y);
     }
 

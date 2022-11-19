@@ -11,18 +11,7 @@ import java.util.List;
 
 
 @JsonIgnoreProperties(value = { "color" })
-@XmlRootElement(name = "groupShape")
-@XmlType(propOrder = { "shapes" })
 public class GroupShape extends Shape {
-
-    @XmlElements(
-            {
-                    @XmlElement(name = "square", type = Square.class),
-                    @XmlElement(name = "circle", type = Circle.class),
-                    @XmlElement(name = "triangle", type = Triangle.class),
-                    @XmlElement(name = "groupShape", type = GroupShape.class)
-            }
-    )
     @JsonProperty("shapes")
     private final List<Shape> shapes = new ArrayList<>();
     private Color color = null;

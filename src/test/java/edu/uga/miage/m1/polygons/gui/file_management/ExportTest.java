@@ -28,7 +28,6 @@ class ExportTest {
 
     @Test
     void exportJSONTest() {
-        new File("src/test/ressources/jsonExport.json");
         File file = Export.exportJSON(this.group, new File("src/test/ressources/jsonExport.json"));
         assertNotNull(file);
         assertTrue(file.exists());
