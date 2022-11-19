@@ -32,7 +32,7 @@ class TriangleTest {
         return Stream.of(
                 arguments(35, 35),
                 arguments(41, 48),
-                arguments(35, 60)
+                arguments(35, 50)
         );
     }
 

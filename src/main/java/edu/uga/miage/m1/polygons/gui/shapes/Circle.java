@@ -19,6 +19,8 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.awt.geom.Ellipse2D;
+
 @XmlRootElement(name = "circle")
 public class Circle extends Shape {
 
@@ -29,13 +31,13 @@ public class Circle extends Shape {
     public Circle(int x, int y) {
         super(x, y);
     }
-
     public Circle(Circle original) {
         super(original);
     }
 
-    public boolean isInside(int x, int y) {
-        return Math.sqrt(Math.pow((double) x - this.getX(), 2) + Math.pow((double) y - this.getY(), 2)) <= 25;
+    @Override
+    public void setShapeDraw() {
+        shapeDraw = new Ellipse2D.Double(getX() - 25f, getY() - 25f, 50, 50);
     }
 
 }

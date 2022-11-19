@@ -1,6 +1,5 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -32,7 +31,7 @@ class SquareTest {
         return Stream.of(
                 arguments(35, 35),
                 arguments(39, 21),
-                arguments(60, 60),
+                arguments(59, 59),
                 arguments(10, 10)
         );
     }

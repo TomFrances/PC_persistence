@@ -28,9 +28,9 @@ class CircleTest {
 
     static Stream<Arguments> intListOk() {
         return Stream.of(
-                arguments(23, 68),
+                arguments(24, 68),
                 arguments(34, 73),
-                arguments(59, 73)
+                arguments(58, 73)
         );
     }
 

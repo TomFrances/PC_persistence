@@ -59,6 +59,11 @@ public class GroupShape extends Shape {
         this.color = new Color(red, green, blue);
     }
 
+    @Override
+    public void setShapeDraw() {
+        /*unused for a GroupShape*/
+    }
+
     public List<Shape> getShapes() {
         return shapes;
     }
@@ -84,6 +89,8 @@ public class GroupShape extends Shape {
         setX(x);
         setY(y);
     }
+
+    @Override
     public boolean isInside(int x, int y) {
         return shapes.stream().anyMatch(shape -> shape.isInside(x, y));
     }
