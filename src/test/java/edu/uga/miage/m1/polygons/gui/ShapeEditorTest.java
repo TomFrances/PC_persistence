@@ -3,11 +3,16 @@ package edu.uga.miage.m1.polygons.gui;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class ShapeEditorTest {
 
@@ -45,19 +50,20 @@ class ShapeEditorTest {
         editor.disassembleGroupShape(new MouseEvent(pan,0,0,0,100,100,0,false,0));
         assertEquals(4,editor.getShapesList().getShapes().size());
     }
-    @Test
-    void disassembleGroupShapeNotGroup() {
+
+    @ParameterizedTest
+    @MethodSource("intListOk")
+    void disassembleGroupShapeNotGroup(int x, int y) {
         assertEquals(3,editor.getShapesList().getShapes().size());
         JPanel pan = new JPanel();
-        editor.disassembleGroupShape(new MouseEvent(pan,0,0,0,0,100,0,false,0));
+        editor.disassembleGroupShape(new MouseEvent(pan,0,0,0,x,y,0,false,0));
         assertEquals(3,editor.getShapesList().getShapes().size());
     }
-    @Test
-    void disassembleGroupShapeNotFound() {
-        assertEquals(3,editor.getShapesList().getShapes().size());
-        JPanel pan = new JPanel();
-        editor.disassembleGroupShape(new MouseEvent(pan,0,0,0,200,200,0,false,0));
-        assertEquals(3,editor.getShapesList().getShapes().size());
+    static Stream<Arguments> intListOk() {
+        return Stream.of(
+                arguments(0, 100),
+                arguments(200, 200)
+        );
     }
 
     @Test
