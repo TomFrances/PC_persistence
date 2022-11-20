@@ -4,12 +4,31 @@
 autonumber
 control Listener
 actor JDrawingFrame
-participant "shapeEditor : ShapeEditor" as ShapeEditor
-participant "shapeList : GroupShape" as ShapeList
-participant "undoStack : Deque<GroupShape>" as UndoStack
-participant "redoStack : Deque<GroupShape>" as RedoStack
-participant "drawer : Drawer" as Drawer
-
+participant ShapeEditor [
+=shapeEditor
+----
+""ShapeEditor""
+]
+participant ShapeList [
+=shapeList
+----
+""GroupShape""
+]
+participant UndoStack [
+=undoStack
+----
+""Deque<GroupShape>""
+]
+participant RedoStack [
+=redoStack
+----
+""Deque<GroupShape>""
+]
+participant Drawer [
+=drawer
+----
+""Drawer""
+]
 Listener -> JDrawingFrame : mousePressed()
 JDrawingFrame -> ShapeEditor : startDraggingShape(evt)
 ShapeEditor -> ShapeEditor : clearRedo()
@@ -31,6 +50,11 @@ alt#Gold #mediumAquaMarine i>=0
     ShapeList --> ShapeEditor : shape
 
     ShapeEditor -> ShapeEditor : setDragged(shape)
+    participant GroupShape [
+    =GroupShape
+    ----
+    ""GroupShape""
+    ]
     alt#Gold #Mediumspringgreen shape instanceof GroupShape
         ShapeEditor -> GroupShape : setCoordinate(evt.x, evt.y)
         GroupShape -> GroupShape : setX(evt.x)
@@ -45,7 +69,11 @@ Listener -> JDrawingFrame : mouseDragged()
 
    JDrawingFrame -> ShapeEditor : dragShape(evt)
 alt#Gold #mediumAquaMarine shapeEditor.dragged != null
-
+    participant Shape [
+    =Shape
+    ----
+    ""Shape""
+    ]
     alt#Gold #Lawngreen shapeEditor.dragged instanceof GroupShape
        ShapeEditor -> GroupShape : moveTo(evt.x, evt.y)
        loop for each shape

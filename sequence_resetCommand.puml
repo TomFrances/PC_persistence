@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!theme reddress-lightorange
+autonumber
+
+control Listener
+actor JDrawingFrame
+participant ShapeList [
+=shapeList
+----
+""GroupShape""
+]
+participant RedoCommand [
+=redoCommand
+----
+""RedoCommand""
+]
+participant ShapeEditor [
+=shapeEditor
+----
+""ShapeEditor""
+]
+
+Listener -> JDrawingFrame : actionListener()
+create RedoCommand
+JDrawingFrame -> RedoCommand : new RedoCommand(shapeEditor)
+JDrawingFrame -> RedoCommand : execute()
+
+RedoCommand -> ShapeEditor : reset()
+ShapeEditor -> ShapeEditor :setShapeList(new GroupShape())
+participant RedoStack [
+=redoStack
+----
+""Deque<GroupShape>""
+]
+ShapeEditor -> ShapeEditor : clearRedo()
+ShapeEditor -> RedoStack : clear()
+participant UndoStack [
+=undoStack
+----
+""Deque<GroupShape>""
+]
+ShapeEditor -> ShapeEditor : clearUndo()
+ShapeEditor -> UndoStack : clear()
+
+ShapeEditor -> ShapeEditor : setDragged(null
+ShapeEditor -> ShapeEditor : setGroupShape(null)
+
+participant Drawer [
+=drawer
+----
+""Drawer""
+]
+ShapeEditor -> Drawer : drawAllShapes(shapeList)
+
+@enduml
