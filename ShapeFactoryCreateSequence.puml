@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!theme reddress-lightorange
+autonumber
+control Listener
+actor JDrawingFrame
+participant "shapeEditor : ShapeEditor" as shapeEditor
+participant "shapeFactory : ShapeFactory" as shapeFactory
+participant "shape : Triangle" as triangle
+participant "shape : Circle" as circle
+participant "shape : Square" as square
+participant "shape : GroupShape" as groupshape
+participant "drawer : Drawer" as drawer
+participant "shapeList : GroupShape" as shapeList
+
+
+Listener -> JDrawingFrame : mousseClicked(evt)
+alt#Gold #mediumAquaMarine !groupMode && !disassemble && panel.contains(evt.getX(), evt.getY())
+    JDrawingFrame -> shapeEditor : createShape(evt, selected)
+    shapeEditor -> shapeEditor : clearRedo()
+    shapeEditor -> shapeFactory : createShape(selected.value, evt.x, evt.y)
+    alt#Gold #Mediumspringgreen selected.value = "triangle"
+        create triangle
+        shapeFactory -> triangle : new(x, y)
+        shapeFactory --> shapeEditor : shape
+    else selected.value = "circle"
+        create circle
+        shapeFactory -> circle : new(x, y)
+        shapeFactory --> shapeEditor : shape
+    else selected.value = "square"
+        create square
+        shapeFactory -> square : new(x, y)
+        shapeFactory --> shapeEditor : shape
+    else selected.value = "groupshape"
+        create groupshape
+        shapeFactory -> groupshape : new(x, y)
+        shapeFactory --> shapeEditor : shape
+    end
+    shapeEditor -> drawer : draw(shape, BLACK)
+    shapeEditor -> shapeList : add(shape)
+end
+
+
+@enduml
