@@ -1,20 +1,71 @@
 @startuml
 'https://plantuml.com/sequence-diagram
-
+!theme reddress-lightorange
 autonumber
-
+control Listener
 actor JDrawingFrame
-participant "groupShape : GroupShape" as groupshape
-participant "shape : Shape" as shape
+participant "shapeEditor : ShapeEditor" as ShapeEditor
+participant "shapeList : GroupShape" as ShapeList
+participant "undoStack : Deque<GroupShape>" as UndoStack
+participant "redoStack : Deque<GroupShape>" as RedoStack
+participant "drawer : Drawer" as Drawer
 
-JDrawingFrame -> JDrawingFrame : mousePressed()
-JDrawingFrame -> JDrawingFrame : mouseDragged()
-JDrawingFrame -> groupshape : moveTo(x,y)
-loop shapeList.size() times
-groupshape -> shape : moveTo(x,y)
+Listener -> JDrawingFrame : mousePressed()
+JDrawingFrame -> ShapeEditor : startDraggingShape(evt)
+ShapeEditor -> ShapeEditor : clearRedo()
+ShapeEditor -> RedoStack : clear()
+
+ShapeEditor -> ShapeEditor : findShapeIndex(evt)
+note right
+    i = premiere shape se trouvant
+    sous les positions x,y de evt
+    -1 si pas de shape sous cette position
+end note
+ShapeEditor --> ShapeEditor : i
+
+alt#Gold #mediumAquaMarine i>=0
+
+    ShapeEditor -> ShapeEditor : saveStateForUndo()
+    ShapeEditor -> UndoStack : push(copyShapeList())
+    ShapeEditor -> ShapeList : remove(i)
+    ShapeList --> ShapeEditor : shape
+
+    ShapeEditor -> ShapeEditor : setDragged(shape)
+    alt#Gold #Mediumspringgreen shape instanceof GroupShape
+        ShapeEditor -> GroupShape : setCoordinate(evt.x, evt.y)
+        GroupShape -> GroupShape : setX(evt.x)
+        GroupShape -> GroupShape : setY(evt.y)
+    end
+    ShapeEditor -> ShapeList : addShape(shape)
+    ShapeList -> ShapeList : shapes.add(shape)
 end
 
-JDrawingFrame -> JDrawingFrame : drawAllShape()
+
+Listener -> JDrawingFrame : mouseDragged()
+
+   JDrawingFrame -> ShapeEditor : dragShape(evt)
+alt#Gold #mediumAquaMarine shapeEditor.dragged != null
+
+    alt#Gold #Lawngreen shapeEditor.dragged instanceof GroupShape
+       ShapeEditor -> GroupShape : moveTo(evt.x, evt.y)
+       loop for each shape
+        GroupShape -> Shape : moveTo(evt.x, evt.y)
+        Shape -> Shape : setX(evt.x)
+        Shape -> Shape : setY(evt.y)
+       end
+       ShapeEditor -> Drawer :  drawAllShapes(shapeList)
+    else #Mediumspringgreen
+       ShapeEditor -> Shape : moveTo(evt.x, evt.y)
+       Shape -> Shape : setX(evt.x)
+       Shape -> Shape : setY(evt.y)
+       ShapeEditor -> Drawer :  drawAllShapes(shapeList)
+    end
+
+end
+
+Listener -> JDrawingFrame : mouseReleased()
+JDrawingFrame -> ShapeEditor : setDragged(null)
+
 
 
 @enduml
