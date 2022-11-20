@@ -26,4 +26,4 @@ Ainsi, notre coverage couvre l'intégralité de l'application hors partie graphi
 
 Nous avons supprimé l'utilisation du patron Visiteur, car avec nos modifications des gestions d'import/export, il n'avait plus aucune utilité.
 
-Les DC et DS se trouve à la racine du projet.
+Les DC et DS se trouvent à la racine du projet.
