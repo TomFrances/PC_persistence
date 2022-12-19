@@ -19,8 +19,13 @@ public class ShapeEditor {
     public final Deque<GroupShape> undoStack = new ArrayDeque<>();
     public final Deque<GroupShape> redoStack = new ArrayDeque<>();
     private final Drawer drawer = new Drawer();
+    private Graphics2D g2;
     public void setDragged(Shape dragged) {
         this.dragged = dragged;
+    }
+
+    public void setGraphics2D(Graphics2D g2){
+        this.g2 = g2;
     }
 
     public void setGroupShape(GroupShape groupShape) {
@@ -29,7 +34,7 @@ public class ShapeEditor {
 
     public void setShapesList(GroupShape shapesList) {
         this.shapesList = shapesList;
-        drawer.drawAllShapes(shapesList);
+        drawer.drawAllShapes(shapesList,g2);
     }
 
     public GroupShape getShapesList(){
@@ -40,7 +45,7 @@ public class ShapeEditor {
         clearRedo();
         saveStateForUndo();
         Shape shape = shapeFactory.createShape(type.value, evt.getX(), evt.getY());
-        drawer.drawShape(shape, Color.BLACK);
+        drawer.drawShape(g2,shape, Color.BLACK);
         shapesList.addShape(shape);
     }
 
@@ -53,7 +58,7 @@ public class ShapeEditor {
                 List<Shape> s = sl.getShapes();
                 shapesList.remove(i);
                 shapesList.addAllShapes(s);
-                drawer.drawAllShapes(shapesList);
+                drawer.drawAllShapes(shapesList,g2);
             }
         }
     }
@@ -92,14 +97,14 @@ public class ShapeEditor {
         } else if (groupShape.getShapes().size() == 1) {
             shapesList.addShape(groupShape.getShapes().get(0));
         }
-        drawer.drawAllShapes(shapesList);
+        drawer.drawAllShapes(shapesList,g2);
         setGroupShape(null);
     }
 
     public void dragShape(MouseEvent evt) {
         if (Objects.nonNull(dragged)) {
             dragged.moveTo(evt.getX(), evt.getY());
-            drawer.drawAllShapes(shapesList);
+            drawer.drawAllShapes(shapesList,g2);
         }
     }
 
@@ -141,6 +146,6 @@ public class ShapeEditor {
         clearUndo();
         setDragged(null);
         setGroupShape(null);
-        drawer.drawAllShapes(shapesList);
+        drawer.drawAllShapes(shapesList,g2);
     }
 }

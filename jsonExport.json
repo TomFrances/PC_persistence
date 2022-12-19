@@ -1,1 +1,32 @@
-{"shapes": [{"type":"triangle","x":55,"y":89},{"type":"triangle","x":34,"y":229}]}
+{
+  "@type" : "groupShape",
+  "x" : 0,
+  "y" : 0,
+  "shapes" : [ {
+    "@type" : "groupShape",
+    "x" : 380,
+    "y" : 223,
+    "shapes" : [ {
+      "@type" : "groupShape",
+      "x" : 475,
+      "y" : 296,
+      "shapes" : [ {
+        "@type" : "circle",
+        "x" : 426,
+        "y" : 110
+      }, {
+        "@type" : "square",
+        "x" : 380,
+        "y" : 215
+      }, {
+        "@type" : "triangle",
+        "x" : 480,
+        "y" : 299
+      } ]
+    }, {
+      "@type" : "square",
+      "x" : 517,
+      "y" : 215
+    } ]
+  } ]
+}

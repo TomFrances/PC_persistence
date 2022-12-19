@@ -135,6 +135,7 @@ public class JDrawingFrame extends JFrame
     }
 
     private void groupActionListener(JCheckBox disbandGroup, ItemEvent e) {
+        shapeEditor.setGraphics2D((Graphics2D) panel.getGraphics());
         groupMode = e.getStateChange() == ItemEvent.SELECTED;
         disbandGroup.setSelected(false);
         disassemble = false;
@@ -146,11 +147,14 @@ public class JDrawingFrame extends JFrame
     }
 
     private JMenu createImportMenu() {
+
         JMenu importMenu = new JMenu("Import");
         JMenuItem itemXmlImport = new JMenuItem();
         itemXmlImport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                shapeEditor.setGraphics2D((Graphics2D) panel.getGraphics());
                 shapeEditor.setShapesList(Import.importXML(FileUtils.chooseFile()));
             }
         });
@@ -160,6 +164,8 @@ public class JDrawingFrame extends JFrame
         itemJsonImport.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                shapeEditor.setGraphics2D((Graphics2D) panel.getGraphics());
                 shapeEditor.setShapesList(Import.importJSON(FileUtils.chooseFile()));
             }
         });
@@ -193,6 +199,7 @@ public class JDrawingFrame extends JFrame
     }
 
     public void mouseClicked(MouseEvent evt) {
+        shapeEditor.setGraphics2D((Graphics2D) panel.getGraphics());
         if (!groupMode && !disassemble && panel.contains(evt.getX(), evt.getY())) {
             shapeEditor.createShape(evt, selected);
         } else if (groupMode && panel.contains(evt.getX(), evt.getY())) {
@@ -222,6 +229,7 @@ public class JDrawingFrame extends JFrame
     }
 
     public void mouseDragged(MouseEvent evt) {
+        shapeEditor.setGraphics2D((Graphics2D) panel.getGraphics());
         shapeEditor.dragShape(evt);
     }
 
